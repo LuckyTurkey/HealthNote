@@ -1,0 +1,101 @@
+/* 기존 스타일 */
+.wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.search-type-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-type-text {
+    display: block;
+    width: 418px;
+    height: 49px;
+
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 47px;
+    text-align: center;
+
+    color: rgba(255, 255, 255, 0.90);
+    background: #C0C0C0;
+    margin: 0 5px;
+    cursor: pointer;
+
+    border-radius: 5px;
+}
+
+.search-type-text.active, .search-type-text:hover {
+    background-color: #00BFFF;
+    color: rgba(255, 255, 255, 0.90);
+}
+
+.input {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 13px;
+    width: 800px;
+    background: rgba(175, 219, 245, 0.30);
+    border: 1px solid rgba(0, 115, 207, 0.90);
+    margin: 25px auto;
+}
+
+.input-text {
+    width: 700px;
+    padding: 10px 40px 10px 10px;
+    font-size: 19px;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.search-icon {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.category-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.category-text {
+    width: 120px;
+    height: 40px;
+    flex-shrink: 0;
+
+    text-align: center;
+    align-content: center;
+
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #0073CF;
+    border-radius: 30px;
+    color: #0073CF;
+}
+
+.category-text:hover {
+    background-color: #0073CF;
+    color: white;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>헬수첩 - 병원 의사 검색</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/search/searchStyle.css}" />
+</head>
+<body>
+<div class="wrapper">
+    <div class="search-type-wrapper">
+        <a href="#" onclick="selectSearchType('hospitals')" id="search-hospitals" class="search-type-text active">병원</a>
+        <a href="#" onclick="selectSearchType('doctors')" id="search-doctors" class="search-type-text">의사</a>
+    </div>
+
+    <div class="category-wrapper">
+        <a href="#" onclick="selectCategory('내과')" class="active"><div class="category-text">내과</div></a>
+        <a href="#" onclick="selectCategory('정형외과')"><div class="category-text">정형외과</div></a>
+        <a href="#" onclick="selectCategory('이비인후과')"><div class="category-text">이비인후과</div></a>
+        <a href="#" onclick="selectCategory('외과')"><div class="category-text">외과</div></a>
+        <a href="#" onclick="selectCategory('소아과')"><div class="category-text">소아과</div></a>
+        <a href="#" onclick="selectCategory('산부인과')"><div class="category-text">산부인과</div></a>
+        <a href="#" onclick="selectCategory('안과')"><div class="category-text">안과</div></a>
+    </div>
+
+    <div class="input">
+        <form method="GET" class="search-form" th:action="@{/search/hospitals}">
+            <input class="input-text" placeholder="이름을 입력하세요" type="text" name="name" />
+            <input type="hidden" id="department" name="department" />
+            <input type="hidden" id="searchType" name="searchType" value="hospitals" />
+            <input type="image" class="search-icon" src="/images/searchicon.svg" alt="Search" onclick="document.querySelector('.search-form').submit(); return false;" />
+        </form>
+    </div>
+
+    <ul>
+        <li th:each="result : ${results}">
+            <span th:text="${result.name}">이름</span> -
+            <span th:text="${result.department}">진료 과목</span> -
+            <span th:text="${result.address}">주소</span>
+        </li>
+    </ul>
+</div>
+
+<script>
+    function selectCategory(department) {
+        document.getElementById('department').value = department;
+        document.querySelector('.search-form').submit();
+    }
+
+    function selectSearchType(type) {
+        document.getElementById('searchType').value = type;
+        if (type === 'hospitals') {
+            document.querySelector('.search-form').action = '/search/hospitals';
+            document.getElementById('search-hospitals').classList.add('active');
+            document.getElementById('search-doctors').classList.remove('active');
+        } else {
+            document.querySelector('.search-form').action = '/search/doctors';
+            document.getElementById('search-hospitals').classList.remove('active');
+            document.getElementById('search-doctors').classList.add('active');
+        }
+    }
+</script>
+</body>
+</html>
