@@ -11,7 +11,7 @@
   </select>
   
   <!-- 사용자 회원가입 -->
-  <insert id="registerMember">
+  <insert id="registerMember" parameterType="com.sosigae.LuckeyTurkey.domain.User">
     INSERT INTO USER (USER_ID, PASSWORD, NAME, EMAIL, PHONE, IS_ADMIN, PERSONAL_CODE)
     VALUES(#{user_id}, #{password}, #{name}, #{email}, #{phone}, #{is_admin}, #{personal_code})
   </insert>
