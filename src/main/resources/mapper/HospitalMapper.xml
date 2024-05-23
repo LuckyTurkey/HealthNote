@@ -16,10 +16,6 @@
   </select>
 
 <!--  병원 검색 -->
-<!--  <select id="searchHospitals" resultType="Hospital">-->
-<!--    SELECT * FROM Hospital WHERE name LIKE CONCAT('%', #{name}, '%')-->
-<!--  </select>-->
-
   <select id="searchHospitals" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
     SELECT * FROM Hospital
     WHERE (#{name} IS NULL OR name LIKE CONCAT('%', #{name}, '%'))
