@@ -9,6 +9,7 @@ public class User implements Serializable {
 	private String password;
 	private String name;
 	private String email;
+	private String phone;
 	private String is_admin;
 	private int personal_code;
 	
@@ -53,6 +54,12 @@ public class User implements Serializable {
 	}
 	public void setPersonal_code(int personal_code) {
 		this.personal_code = personal_code;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 	
