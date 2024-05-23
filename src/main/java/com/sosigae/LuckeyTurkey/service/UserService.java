@@ -16,10 +16,10 @@ public class UserService {
         userDao.registerMember(user);
     }
 
-    public User loginMember(String id, String password) {
-        int userCount = userDao.isValidUser(id, password);
+    public User loginMember(String user_id, String password) {
+        int userCount = userDao.isValidUser(user_id, password);
         if (userCount > 0) {
-            return userDao.loginMember(id, password);
+            return userDao.loginMember(user_id, password);
         } else {
             throw new IllegalArgumentException("유효하지 않은 사용자입니다.");
         }

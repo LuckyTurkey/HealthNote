@@ -34,11 +34,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestParam("username") String id,
+    public String loginUser(@RequestParam("user_id") String user_id,
                             @RequestParam("password") String password,
                             Model model) {
         try {
-            User account = userService.loginMember(id, password);
+            User account = userService.loginMember(user_id, password);
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             return "index"; // 성공 시 메인 페이지로 이동
         } catch (IllegalArgumentException e) {

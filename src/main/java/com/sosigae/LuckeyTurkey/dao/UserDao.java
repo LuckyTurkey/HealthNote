@@ -11,7 +11,7 @@ import com.sosigae.LuckeyTurkey.domain.User;
 @Mapper
 public interface UserDao {
 
-    User loginMember(String id, String password);
+    User loginMember(String user_id, String password);
 
   
     void registerMember(User user);
@@ -20,5 +20,5 @@ public interface UserDao {
 
     void updateMember(User user);
 
-    int isValidUser(String id, String password);
+    int isValidUser(String user_id, String password);
 }

@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sosigae.LuckeyTurkey.dao">
+<mapper namespace="com.sosigae.LuckyTurkey.dao.mybatis.mapper.UserMapper">
 
   <cache />
   
@@ -14,8 +14,8 @@
   
    <!-- 사용자 회원가입 -->
    <insert id="registerMember">
-    INSERT INTO USER (ID, USER_ID, PASSWORD, NAME, EMAIL, PHONE, IS_ADMIN, PERSONAL_CODE)
-    VALUES(#{id}, #{user_id}, #{password}, #{name}, #{email}, #{phone},
+    INSERT INTO USER (USER_ID, PASSWORD, NAME, EMAIL, PHONE, IS_ADMIN, PERSONAL_CODE)
+    VALUES(#{user_id}, #{password}, #{name}, #{email}, #{phone},
       #{is_admin}, #{personal_code})
   </insert>
 
