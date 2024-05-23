@@ -13,6 +13,7 @@ public interface UserDao {
 
     User loginMember(String id, String password);
 
+  
     void registerMember(User user);
 
     void deleteMember(User user);
