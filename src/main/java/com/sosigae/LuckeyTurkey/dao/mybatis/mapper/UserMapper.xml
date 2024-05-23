@@ -38,11 +38,12 @@
   </delete>
   
    <!-- 사용자 유효성 검사 -->
-    <select id="isValidUser" parameterType="map" resultType="boolean">
-        SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END
-        FROM USER
-        WHERE ID = #{id} AND PASSWORD = #{password}
-    </select>
+  <select id="isValidUser" parameterType="map" resultType="int">
+    SELECT COUNT(*)
+    FROM USER
+    WHERE ID = #{id} AND PASSWORD = #{password}
+</select>
+
     
   
   </mapper>

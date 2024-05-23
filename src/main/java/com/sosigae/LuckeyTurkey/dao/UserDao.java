@@ -19,5 +19,5 @@ public interface UserDao {
 
     void updateMember(User user);
 
-    boolean isValidUser(String id, String password);
+    int isValidUser(String id, String password);
 }

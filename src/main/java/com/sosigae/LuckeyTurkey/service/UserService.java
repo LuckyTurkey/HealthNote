@@ -17,8 +17,8 @@ public class UserService {
     }
 
     public User loginMember(String id, String password) {
-        boolean isValid = userDao.isValidUser(id, password);
-        if (isValid) {
+        int userCount = userDao.isValidUser(id, password);
+        if (userCount > 0) {
             return userDao.loginMember(id, password);
         } else {
             throw new IllegalArgumentException("유효하지 않은 사용자입니다.");
