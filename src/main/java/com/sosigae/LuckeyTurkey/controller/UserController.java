@@ -1,20 +1,11 @@
 package com.sosigae.LuckeyTurkey.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.sosigae.LuckeyTurkey.domain.User;
 import com.sosigae.LuckeyTurkey.service.UserService;
@@ -34,11 +25,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestParam("user_id") String user_id,
-                            @RequestParam("password") String password,
-                            Model model) {
+    public String loginUser(@ModelAttribute User user, Model model) {
         try {
-            User account = userService.loginMember(user_id, password);
+            User account = userService.loginMember(user.getUser_id(), user.getPassword());
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             return "index"; // 성공 시 메인 페이지로 이동
         } catch (IllegalArgumentException e) {
