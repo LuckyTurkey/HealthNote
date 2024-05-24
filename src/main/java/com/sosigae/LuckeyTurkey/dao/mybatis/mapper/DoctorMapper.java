@@ -9,9 +9,6 @@ import java.util.List;
 @Mapper
 public interface DoctorMapper {
 
-    // 특정 의사 정보 확인
-    Doctor getDocInfo(@Param("doctor_id") int doctor_id);
-
     // 의사 검색
     List<Doctor> searchDoctors(@Param("name") String name, @Param("department") String department);
 
@@ -38,4 +35,7 @@ public interface DoctorMapper {
 
     // 전체 의사 목록
     List<Doctor> getAllDoctors();
+
+    // 특정 의사 정보 확인
+    Doctor getDocInfo(@Param("doctor_id") int doctor_id);
 }

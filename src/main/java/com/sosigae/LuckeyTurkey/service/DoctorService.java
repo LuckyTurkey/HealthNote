@@ -5,6 +5,7 @@ import com.sosigae.LuckeyTurkey.domain.Doctor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,4 +37,5 @@ public class DoctorService {
     public List<Doctor> getAllDoctors() {
         return doctorMapper.getAllDoctors();
     }
+
 }

@@ -1,34 +1,161 @@
+body, h1, h2, h3, p, ul, a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+
 .wrapper {
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 1200px;
+    margin: 20px auto;
     padding: 20px;
 }
 
-.doctor-detail {
-    display: flex;
-    align-items: center;
-    background: rgba(175, 219, 245, 0.30);
-    padding: 20px;
-    border-radius: 10px;
+.hospital-name{
+    color: #000;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+
+    margin-bottom: 20px;
+}
+
+.photo {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .photo img {
+    width: 400px;
+    height: auto;
+}
+
+.tab-content {
+    background: rgba(175, 219, 245, 0.70);
+    padding: 40px;
+    border-radius: 13px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+}
+
+.tab {
     width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-right: 20px;
+    padding: 10px;
+    background: #F2F3F6;
+    border-radius: 30px;
+    color: #0073CF;
+
+    font-size: 20px;
+    text-align: center;
+
+    cursor: pointer;
 }
 
-.info {
-    flex: 1;
+.tab.active {
+    background-color: #0073CF;
+    color: #FFF;
 }
 
-h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
+.tab-content {
+    display: none;
 }
 
-p {
-    font-size: 18px;
-    margin: 5px 0;
+.tab-content.active {
+    display: block;
 }
+
+.text-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-text{
+    color: #000;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.info-detail{
+    max-width: 1075px;
+    padding: 15px;
+    border-radius: 13px;
+    border: 1px solid rgba(0, 115, 207, 0.90);
+    background: #FFF;
+
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    margin-top: 5px;
+}
+
+.time-entry {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.time-entry span {
+    flex: 0 0 80px;
+}
+
+.doctor-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.doctor-card {
+    display: flex;
+    align-items: center;
+    background: #FFF;
+    padding: 10px;
+    border-radius: 13px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(0, 115, 207, 0.90);
+}
+
+.doctor-img {
+    flex: 0 0 50px;
+    margin-right: 10px;
+}
+
+.doctor-img img {
+    width: 123px;
+    height: 90px;
+}
+
+.doctor-info span{
+    color: #000;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.doctor-name {
+    color: #000;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.doctor-dept{
+    margin-top: 10px;
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+

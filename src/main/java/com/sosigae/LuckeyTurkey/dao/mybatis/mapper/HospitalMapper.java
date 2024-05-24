@@ -14,7 +14,8 @@ public interface HospitalMapper {
 
     void addHospitalInfo(Hospital hospital);
 
-    Hospital getHospitalInfo(@Param("hospital_id") String hospital_id);
+    // 병원 상세 조회
+    Hospital getHospitalInfo(@Param("hospital_id") String hospitalId);
 
     List<Hospital> searchHospitalsByNameAndDepartment(@Param("name") String name, @Param("department") String department);
 
@@ -26,7 +27,8 @@ public interface HospitalMapper {
 
     void addDocInfo(Doctor doctor);
 
-    List<Doctor> getDocInfoList(@Param("hospital_id") String hospital_id);
+    // 병원에 근무 하는 의사 목록
+    List<Doctor> getDocInfoList(@Param("hospital_id") String hospitalId);
 
     Doctor getDocInfo(@Param("doctor_id") int doctor_id);
 

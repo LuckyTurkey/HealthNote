@@ -4,6 +4,23 @@
 <mapper namespace="com.sosigae.LuckeyTurkey.dao.mybatis.mapper.HospitalMapper">
 
   <cache />
+
+  <resultMap id="HospitalResultMap" type="com.sosigae.LuckeyTurkey.domain.Hospital">
+    <id property="hospitalId" column="hospital_id"/>
+    <result property="id" column="id"/>
+    <result property="password" column="password"/>
+    <result property="name" column="name"/>
+    <result property="address" column="address"/>
+    <result property="openTime" column="open_time"/>
+    <result property="closeTime" column="close_time"/>
+    <result property="satOpenTime" column="sat_open_time"/>
+    <result property="satCloseTime" column="sat_close_time"/>
+    <result property="email" column="email"/>
+    <result property="phone" column="phone"/>
+    <result property="department" column="department"/>
+  </resultMap>
+
+
   <!-- 병원 정보 추가 -->
   <insert id="addHospitalInfo">
     INSERT INTO Hospital (hospital_id, name, address, open_time, close_time, sat_open_time, sat_close_time)
@@ -11,24 +28,26 @@
   </insert>
 
   <!-- 병원 정보 확인 -->
-  <select id="getHospitalInfo" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
+  <select id="getHospitalInfo" resultMap="HospitalResultMap">
     SELECT * FROM Hospital WHERE hospital_id = #{hospital_id}
   </select>
 
+
+
   <!--  병원 검색 -->
-  <select id="searchHospitalsByNameAndDepartment" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
+  <select id="searchHospitalsByNameAndDepartment" resultMap="HospitalResultMap">
     SELECT * FROM Hospital
     WHERE name LIKE '%' || #{name, jdbcType=VARCHAR} || '%'
       AND department = #{department, jdbcType=VARCHAR}
   </select>
 
   <!--  병원 검색 -->
-  <select id="searchHospitalsByName" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
+  <select id="searchHospitalsByName" resultMap="HospitalResultMap">
     SELECT * FROM Hospital
     WHERE name LIKE '%' || #{name, jdbcType=VARCHAR} || '%'
   </select>
   <!--  병원 검색 -->
-  <select id="searchHospitalsByDepartment" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
+  <select id="searchHospitalsByDepartment" resultMap="HospitalResultMap">
     SELECT * FROM Hospital
     WHERE department = #{department, jdbcType=VARCHAR}
   </select>
@@ -109,7 +128,7 @@
   </select>
 
 <!--  모든 병원 정보 -->
-  <select id="getAllHospitals" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
+  <select id="getAllHospitals" resultMap="HospitalResultMap">
     SELECT * FROM Hospital
   </select>
 </mapper>

@@ -83,8 +83,8 @@ a {
 }
 
 .input-name{
-
 }
+
 .search-icon {
     width: 24px;
     height: 24px;
@@ -102,6 +102,7 @@ a {
     margin-right: 5px;
 }
 
+
 .category-wrapper {
     display: flex;
     justify-content: center;
@@ -109,10 +110,6 @@ a {
     max-width: 1000px;
     margin: 0 auto;
 }
-
-
-
-
 
 .result-wrapper{
     display: flex;
@@ -165,6 +162,7 @@ a {
 .result-info2 {
     display: flex;
     flex-direction: column;
+    width: 40%;
     gap: 10px;
 }
 
@@ -174,7 +172,8 @@ a {
 
 .location-wrapper2{
     display: flex;
-    margin-left: 300px;
+    width: 100%;
+    margin-left: 200px;
 }
 
 .result-name {
@@ -218,16 +217,11 @@ a {
 }
 
 .result-icon {
-    width: 50px;
-    height: 50px;
+    width: 133px;
+    height: 94px;
 }
 
 .doctor-img{
     display: flex;
-    width: 50px;
-    height: 50px;
-    justify-content: center;
-    align-items: center;
     flex-shrink: 0;
-
 }

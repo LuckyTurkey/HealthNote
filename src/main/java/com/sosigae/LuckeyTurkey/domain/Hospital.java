@@ -10,8 +10,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Hospital implements Serializable {
-    private int hospitalId;
-    private String id;
+    private String hospitalId;
+    private int id;
     private String password;
     private String name;
     private String address;
@@ -19,6 +19,8 @@ public class Hospital implements Serializable {
     private String closeTime;
     private String satOpenTime;
     private String satCloseTime;
+    private String email;
+    private String phone;
 
     // 진료 과 추가
     private String department;

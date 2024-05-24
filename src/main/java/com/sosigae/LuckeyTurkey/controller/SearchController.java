@@ -26,6 +26,7 @@ public class SearchController {
                              @RequestParam(required = false) String department,
                              @RequestParam(defaultValue = "hospitals") String searchType,
                              Model model) {
+        // 전체
         if ((name == null || name.isEmpty()) && (department == null || department.isEmpty())) {
             if ("hospitals".equals(searchType)) {
                 List<Hospital> hospitals = hospitalService.getAllHospitals();
@@ -34,7 +35,9 @@ public class SearchController {
                 List<Doctor> doctors = doctorService.getAllDoctors();
                 model.addAttribute("results", doctors);
             }
-        } else {
+        }
+        // 필터링
+        else {
             if ("hospitals".equals(searchType)) {
                 List<Hospital> hospitals = hospitalService.searchHospitals(name, department);
                 model.addAttribute("results", hospitals);

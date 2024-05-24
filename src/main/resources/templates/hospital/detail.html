@@ -2,11 +2,96 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/search/searchStyle.css}" />
     <title>헬수첩 - 병원 상세 조회</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/hospital/detailStyle.css}" />
 </head>
 <body>
+<div class="wrapper">
+    <div class="photo">
+        <img th:src="@{/images/example.svg}" alt="병원 사진" />
+    </div>
 
+    <div class="hospital-name" th:text="${hospital.name}"></div>
+
+    <div class="tabs">
+        <a href="#" class="tab active" onclick="showTab('info'); return false;">병원 정보</a>
+        <a href="#" class="tab" onclick="showTab('doctors'); return false;">의사</a>
+        <a href="#" class="tab" onclick="showTab('reviews'); return false;">리뷰</a>
+    </div>
+
+    <div id="info" class="tab-content active">
+        <div class="hospital-detail">
+            <div class="info">
+                <div class="text-wrapper">
+                    <div class="info-text">
+                        과
+                        <div class="info-detail" th:text="${hospital.department}"></div>
+                    </div>
+
+                    <div class="info-text">
+                        위치
+                        <div class="info-detail" th:text="${hospital.address}"></div>
+                    </div>
+
+                    <div class="info-text">
+                        전화번호
+                        <div class="info-detail" th:text="${hospital.phone}"></div>
+                    </div>
+
+                    <div class="info-text">
+                        진료 시간
+                        <div class="time-wrapper">
+                            <div class="time-entry">
+                                <span>평일</span>
+                                <div class="info-detail" th:text="${hospital.openTime}"></div> ~
+                                <div class="info-detail" th:text="${hospital.closeTime}"></div>
+                            </div>
+
+                            <div class="time-entry">
+                                <span>토요일</span>
+                                <div class="info-detail" th:text="${hospital.satOpenTime}"></div> ~
+                                <div class="info-detail" th:text="${hospital.satCloseTime}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="doctors" class="tab-content">
+        <ul class="doctor-list">
+            <li th:each="doctor : ${doctors}">
+                <div class="doctor-card">
+                    <div class="doctor-img">
+                        <img src="/images/example.svg" alt="사진" class="의사 사진">
+                    </div>
+
+                    <div class="doctor-info">
+                        <span class="doctor-name" th:text="${doctor.name}"></span><span> 의사</span>
+                        <div class="doctor-dept" th:text="${doctor.department}">진료 과목</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="reviews" class="tab-content">
+        <!-- 리뷰 내용 -->
+    </div>
+</div>
+
+<script>
+    function showTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(function(tab) {
+            tab.classList.remove('active');
+        });
+        document.querySelectorAll('.tab').forEach(function(tab) {
+            tab.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        event.target.classList.add('active');
+    }
+</script>
 </body>
 </html>

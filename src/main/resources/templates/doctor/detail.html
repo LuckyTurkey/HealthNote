@@ -7,17 +7,46 @@
 </head>
 <body>
 <div class="wrapper">
+    <div class="photo">
+        <img th:src="@{/images/example.svg}" alt="의사 사진" />
+    </div>
+
     <div class="doctor-detail">
-        <div class="photo">
-            <img th:src="@{/images/doctor_placeholder.png}" alt="Doctor Photo" />
-        </div>
         <div class="info">
             <h2 th:text="${doctor.name}">의사 이름</h2>
-            <p>근무 병원명: <span th:text="${doctor.hospitalName}">동동동 정형외과</span></p>
-            <p>과: <span th:text="${doctor.department}">정형외과</span></p>
-            <p>전 근무지: <span th:text="${doctor.formerHospital}">덕덕덕 정형외과</span></p>
-            <p>이메일: <span th:text="${doctor.email}">somsom@gmail.com</span></p>
-            <p>전화번호: <span th:text="${doctor.phone}">010-1234-5678</span></p>
+            <div class="text-wrapper">
+                <div class="info-text">
+                    근무 병원명
+                    <div class="info-detail" th:text="${doctor.hospitalName}"></div>
+                </div>
+
+                <div class="info-text">
+                    병원 주소
+                    <div class="info-detail" th:text="${doctor.hospitalAddress}"></div>
+                </div>
+
+                <div class="info-text">
+                    과
+                    <div class="info-detail" th:text="${doctor.department}"></div>
+                </div>
+
+                <div class="info-text">
+                    전 근무지
+                    <div class="info-detail" th:text="${doctor.formerHospital}"></div>
+                </div>
+
+                <div class="info-text">
+                    이메일
+                    <div class="info-detail" th:text="${doctor.email}"></div>
+                </div>
+
+                <div class="info-text">
+                    전화번호
+                    <div class="info-detail" th:text="${doctor.phone}"></div>
+                </div>
+
+            </div>
+
         </div>
     </div>
 </div>

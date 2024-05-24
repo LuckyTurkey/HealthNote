@@ -16,16 +16,6 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-    // 의사 검색
-//    @GetMapping("/search/doctors")
-//    public String searchDoctors(@RequestParam(required = false) String name,
-//                                @RequestParam(required = false) String department,
-//                                Model model) {
-//        List<Doctor> doctors = doctorService.searchDoctors(name, department);
-//        model.addAttribute("results", doctors);
-//        return "search/search";
-//    }
-
     // 의사 상세 조회
     @GetMapping("/doctor/{doctorId}")
     public String getDoctorDetail(@PathVariable int doctorId, Model model) {
