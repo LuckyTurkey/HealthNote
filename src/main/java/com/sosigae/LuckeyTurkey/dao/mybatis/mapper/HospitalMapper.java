@@ -8,52 +8,45 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+
 @Mapper
 public interface HospitalMapper {
 
-    // 병원 정보 추가
     void addHospitalInfo(Hospital hospital);
 
-    // 병원 정보 확인
-    Hospital getHospitalInfo(int hospital_id);
+    // 병원 상세 조회
+    Hospital getHospitalInfo(@Param("hospital_id") String hospitalId);
 
-    // 병원 검색
-//    List<Hospital> searchHospitals(String name);
-    List<Hospital> searchHospitals(@Param("name") String name, @Param("department") String department);
-    // 병원 정보 수정
+    List<Hospital> searchHospitalsByNameAndDepartment(@Param("name") String name, @Param("department") String department);
+
+    List<Hospital> searchHospitalsByName(@Param("name") String name);
+
+    List<Hospital> searchHospitalsByDepartment( @Param("department") String department);
+
     void updateHospitalInfo(Hospital hospital);
 
-    // 해당 병원에서 근무하는 의사 정보 추가
     void addDocInfo(Doctor doctor);
 
-    // 해당 병원에서 근무하는 모든 의사들 정보 확인
-    List<Doctor> getDocInfoList(int hostpital_id);
+    // 병원에 근무 하는 의사 목록
+    List<Doctor> getDocInfoList(@Param("hospital_id") String hospitalId);
 
-    // 해당 병원에서 근무하는 특정 의사 정보 확인
-    Doctor getDocInfo(int doctor_id);
+    Doctor getDocInfo(@Param("doctor_id") int doctor_id);
 
-    // 해당 병원에서 근무하는 특정 의사 정보 수정
     void updateDocInfo(Doctor doctor);
 
-    // 해당 병원에서 근무하는 특정 의사 정보 삭제
-    void deleteDocInfo(Doctor doctor);
+    void deleteDocInfo(@Param("doctor_id") int doctor_id);
 
-    // 해당 병원에서 예약 스케줄 추가
     void addReservation(Reservation reservation);
 
-    // 해당 병원에서 예약 스케줄 확인
-    List<Reservation> getReservation(int hospital_id);
+    List<Reservation> getReservation(@Param("hospital_id") String hospital_id);
 
-    // 해당 병원에서 예약 스케줄 수정
     void updateReservation(Reservation reservation);
 
-    // 해당 병원에서 예약 스케줄 삭제
-    void deleteReservation(Reservation reservation);
+    void deleteReservation(@Param("hospital_id") String hospital_id, @Param("doctor_id") int doctor_id, @Param("user_id") String user_id);
 
-    // 해당 병원에서 진행된 모든 진료 기록 리스트로 확인
-    List<MedicalRecord> getMedRecordList(int hospital_id);
+    List<MedicalRecord> getMedRecordList(@Param("hospital_id") String hospital_id);
 
-    // 해당 병원에서 진행된 특정 진료 기록 확인
-    MedicalRecord getMedRecord(int medical_record_id);
+    MedicalRecord getMedRecord(@Param("medical_record_id") int medical_record_id);
 
+    List<Hospital> getAllHospitals();
 }

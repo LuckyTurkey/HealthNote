@@ -1,4 +1,3 @@
-/* 기존 스타일 */
 .wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -39,6 +38,29 @@ a {
     color: rgba(255, 255, 255, 0.90);
 }
 
+.category-text {
+    display: block;
+    width: 120px;
+    height: 40px;
+
+    text-align: center;
+    align-content: center;
+
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 600;
+
+    cursor: pointer;
+    border: 1px solid #0073CF;
+    border-radius: 30px;
+    color: #0073CF;
+}
+
+.category-text.active, .category-text:hover {
+    background-color: #0073CF;
+    color: #FFFFFF;
+}
+
 .input {
     display: flex;
     align-content: center;
@@ -60,6 +82,9 @@ a {
     outline: none;
 }
 
+.input-name{
+}
+
 .search-icon {
     width: 24px;
     height: 24px;
@@ -70,6 +95,14 @@ a {
     cursor: pointer;
 }
 
+.location-icon{
+    width: 20px;
+    height: 30px;
+    flex-shrink: 0;
+    margin-right: 5px;
+}
+
+
 .category-wrapper {
     display: flex;
     justify-content: center;
@@ -78,24 +111,117 @@ a {
     margin: 0 auto;
 }
 
-.category-text {
-    width: 120px;
-    height: 40px;
-    flex-shrink: 0;
-
-    text-align: center;
-    align-content: center;
-
-    font-size: 21px;
-    font-style: normal;
-    font-weight: 600;
-    cursor: pointer;
-    border: 1px solid #0073CF;
-    border-radius: 30px;
-    color: #0073CF;
+.result-wrapper{
+    display: flex;
+    justify-content: center;
 }
 
-.category-text:hover {
-    background-color: #0073CF;
-    color: white;
+.results-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.result-item {
+    width: 800px;
+    margin-bottom: 15px;
+    background: #AFDBF5;
+    border-radius: 13px;
+    border: 1px solid rgba(0, 115, 207, 0.90);
+    padding: 5px;
+}
+
+.result-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    justify-content: space-between;
+}
+
+.result-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    width: 100%;
+}
+
+.result-content2 {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    width: 100%;
+
+    gap:25px;
+}
+
+.result-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.result-info2 {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    gap: 10px;
+}
+
+.location-wrapper{
+    display: flex;
+}
+
+.location-wrapper2{
+    display: flex;
+    width: 100%;
+    margin-left: 200px;
+}
+
+.result-name {
+    color: #000;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+    margin: 0 0 10px 23px;
+}
+
+.result-name2 {
+    color: #000;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+}
+
+.result-hospital {
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+}
+.result-address {
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+}
+
+.result-extra {
+    display: flex;
+    align-items: center;
+}
+
+.result-icon {
+    width: 133px;
+    height: 94px;
+}
+
+.doctor-img{
+    display: flex;
+    flex-shrink: 0;
 }

@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sosigae.LuckeyTurkey.mapper.HospitalMapper">
+<mapper namespace="com.sosigae.LuckeyTurkey.dao.mybatis.mapper.HospitalMapper">
 
   <cache />
+
+  <resultMap id="HospitalResultMap" type="com.sosigae.LuckeyTurkey.domain.Hospital">
+    <id property="hospitalId" column="hospital_id"/>
+    <result property="id" column="id"/>
+    <result property="password" column="password"/>
+    <result property="name" column="name"/>
+    <result property="address" column="address"/>
+    <result property="openTime" column="open_time"/>
+    <result property="closeTime" column="close_time"/>
+    <result property="satOpenTime" column="sat_open_time"/>
+    <result property="satCloseTime" column="sat_close_time"/>
+    <result property="email" column="email"/>
+    <result property="phone" column="phone"/>
+    <result property="department" column="department"/>
+  </resultMap>
+
+
   <!-- 병원 정보 추가 -->
   <insert id="addHospitalInfo">
     INSERT INTO Hospital (hospital_id, name, address, open_time, close_time, sat_open_time, sat_close_time)
@@ -11,16 +28,30 @@
   </insert>
 
   <!-- 병원 정보 확인 -->
-  <select id="getHospitalInfo" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
+  <select id="getHospitalInfo" resultMap="HospitalResultMap">
     SELECT * FROM Hospital WHERE hospital_id = #{hospital_id}
   </select>
 
-<!--  병원 검색 -->
-  <select id="searchHospitals" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
+
+
+  <!--  병원 검색 -->
+  <select id="searchHospitalsByNameAndDepartment" resultMap="HospitalResultMap">
     SELECT * FROM Hospital
-    WHERE (#{name} IS NULL OR name LIKE CONCAT('%', #{name}, '%'))
-      AND (#{department} IS NULL OR department = #{department})
+    WHERE name LIKE '%' || #{name, jdbcType=VARCHAR} || '%'
+      AND department = #{department, jdbcType=VARCHAR}
   </select>
+
+  <!--  병원 검색 -->
+  <select id="searchHospitalsByName" resultMap="HospitalResultMap">
+    SELECT * FROM Hospital
+    WHERE name LIKE '%' || #{name, jdbcType=VARCHAR} || '%'
+  </select>
+  <!--  병원 검색 -->
+  <select id="searchHospitalsByDepartment" resultMap="HospitalResultMap">
+    SELECT * FROM Hospital
+    WHERE department = #{department, jdbcType=VARCHAR}
+  </select>
+
 
   <!-- 병원 정보 수정 -->
   <update id="updateHospitalInfo">
@@ -96,4 +127,8 @@
     SELECT * FROM MedicalRecord WHERE medical_record_id = #{medical_record_id}
   </select>
 
+<!--  모든 병원 정보 -->
+  <select id="getAllHospitals" resultMap="HospitalResultMap">
+    SELECT * FROM Hospital
+  </select>
 </mapper>
