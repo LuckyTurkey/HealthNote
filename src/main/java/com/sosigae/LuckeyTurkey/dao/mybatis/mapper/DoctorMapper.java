@@ -35,4 +35,7 @@ public interface DoctorMapper {
 
     // 특정 환자 진료 기록 수정
     void updateMedRecord(MedicalRecord medicalRecord);
+
+    // 전체 의사 목록
+    List<Doctor> getAllDoctors();
 }

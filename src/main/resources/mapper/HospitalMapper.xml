@@ -108,4 +108,8 @@
     SELECT * FROM MedicalRecord WHERE medical_record_id = #{medical_record_id}
   </select>
 
+<!--  모든 병원 정보 -->
+  <select id="getAllHospitals" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
+    SELECT * FROM Hospital
+  </select>
 </mapper>

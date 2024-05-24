@@ -33,4 +33,8 @@ public class HospitalService {
         return hospitalMapper.getHospitalInfo(hospitalId);
     }
 
+    // 모든 병원 목록
+    public List<Hospital> getAllHospitals() {
+        return hospitalMapper.getAllHospitals();
+    }
 }

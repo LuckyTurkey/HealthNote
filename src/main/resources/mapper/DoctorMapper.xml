@@ -73,4 +73,11 @@
     <select id="getDocInfo" resultType="com.sosigae.LuckeyTurkey.domain.Doctor">
         SELECT * FROM Doctor WHERE doctor_id = #{doctor_id}
     </select>
+
+<!--    전체 의사 목록 -->
+    <select id="getAllDoctors" resultType="com.sosigae.LuckeyTurkey.domain.Doctor">
+        SELECT d.*, h.name AS hospitalName, h.address AS hospitalAddress
+        FROM Doctor d
+                 JOIN Hospital h ON d.hospital_id = h.hospital_id
+    </select>
     </mapper>

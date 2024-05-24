@@ -20,26 +20,32 @@ public class SearchController {
     @Autowired
     private DoctorService doctorService;
 
-
-    // 검색
+    // 로딩 및 검색
     @GetMapping("/search")
-    public String search(@RequestParam(required = false) String name,
-                         @RequestParam(required = false) String department,
-                         @RequestParam(defaultValue = "hospitals") String searchType,
-                         Model model) {
-        model.addAttribute("name", name);
-        model.addAttribute("department", department);
-
-        if ("hospitals".equals(searchType)) {
-            List<Hospital> hospitals = hospitalService.searchHospitals(name, department);
-            model.addAttribute("results", hospitals);
-        } else if ("doctors".equals(searchType)) {
-            List<Doctor> doctors = doctorService.searchDoctors(name, department);
-            model.addAttribute("results", doctors);
+    public String searchView(@RequestParam(required = false) String name,
+                             @RequestParam(required = false) String department,
+                             @RequestParam(defaultValue = "hospitals") String searchType,
+                             Model model) {
+        if ((name == null || name.isEmpty()) && (department == null || department.isEmpty())) {
+            if ("hospitals".equals(searchType)) {
+                List<Hospital> hospitals = hospitalService.getAllHospitals();
+                model.addAttribute("results", hospitals);
+            } else if ("doctors".equals(searchType)) {
+                List<Doctor> doctors = doctorService.getAllDoctors();
+                model.addAttribute("results", doctors);
+            }
+        } else {
+            if ("hospitals".equals(searchType)) {
+                List<Hospital> hospitals = hospitalService.searchHospitals(name, department);
+                model.addAttribute("results", hospitals);
+            } else if ("doctors".equals(searchType)) {
+                List<Doctor> doctors = doctorService.searchDoctors(name, department);
+                model.addAttribute("results", doctors);
+            }
         }
         model.addAttribute("searchType", searchType);
+        model.addAttribute("name", name);
+        model.addAttribute("department", department);
         return "search/search";
     }
-
-
 }

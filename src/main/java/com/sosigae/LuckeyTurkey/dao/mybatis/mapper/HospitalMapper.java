@@ -45,4 +45,6 @@ public interface HospitalMapper {
     List<MedicalRecord> getMedRecordList(@Param("hospital_id") String hospital_id);
 
     MedicalRecord getMedRecord(@Param("medical_record_id") int medical_record_id);
+
+    List<Hospital> getAllHospitals();
 }

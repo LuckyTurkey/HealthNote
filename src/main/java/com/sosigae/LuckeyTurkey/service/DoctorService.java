@@ -13,6 +13,7 @@ public class DoctorService {
     @Autowired
     private DoctorMapper doctorMapper;
 
+    // 의사 검색
     public List<Doctor> searchDoctors(String name, String department) {
         if (!name.isEmpty() && !department.isEmpty()) {
             return doctorMapper.searchDoctorsByNameAndDepartment(name, department);
@@ -26,7 +27,13 @@ public class DoctorService {
         return new ArrayList<>();
     }
 
+    // 의사 정보
     public Doctor getDocInfo(int doctorId) {
         return doctorMapper.getDocInfo(doctorId);
+    }
+
+    // 전체 의사 목록
+    public List<Doctor> getAllDoctors() {
+        return doctorMapper.getAllDoctors();
     }
 }
