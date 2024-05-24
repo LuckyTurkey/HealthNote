@@ -5,6 +5,7 @@ import com.sosigae.LuckeyTurkey.domain.Hospital;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,13 +15,22 @@ public class HospitalService {
     private HospitalMapper hospitalMapper;
 
     // 병원 검색
-//    public List<Hospital> searchHospitals(String name) {
-//        return hospitalMapper.searchHospitals(name);
-//    }
-
     public List<Hospital> searchHospitals(String name, String department) {
-        return hospitalMapper.searchHospitals(name, department);
+        if (name != null && !name.isEmpty() && department != null && !department.isEmpty()) {
+            return hospitalMapper.searchHospitalsByNameAndDepartment(name, department);
+        }
+        if (name != null && !name.isEmpty()) {
+            return hospitalMapper.searchHospitalsByName(name);
+        }
+        if (department != null && !department.isEmpty()) {
+            return hospitalMapper.searchHospitalsByDepartment(department);
+        }
+        return new ArrayList<>();
     }
 
+    // 병원 정보
+    public Hospital getHospitalInfo(String hospitalId) {
+        return hospitalMapper.getHospitalInfo(hospitalId);
+    }
 
 }

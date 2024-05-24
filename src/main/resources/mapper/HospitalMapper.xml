@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sosigae.LuckeyTurkey.mapper.HospitalMapper">
+<mapper namespace="com.sosigae.LuckeyTurkey.dao.mybatis.mapper.HospitalMapper">
 
   <cache />
   <!-- 병원 정보 추가 -->
@@ -15,12 +15,24 @@
     SELECT * FROM Hospital WHERE hospital_id = #{hospital_id}
   </select>
 
-<!--  병원 검색 -->
-  <select id="searchHospitals" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
+  <!--  병원 검색 -->
+  <select id="searchHospitalsByNameAndDepartment" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
     SELECT * FROM Hospital
-    WHERE (#{name} IS NULL OR name LIKE CONCAT('%', #{name}, '%'))
-      AND (#{department} IS NULL OR department = #{department})
+    WHERE name LIKE '%' || #{name, jdbcType=VARCHAR} || '%'
+      AND department = #{department, jdbcType=VARCHAR}
   </select>
+
+  <!--  병원 검색 -->
+  <select id="searchHospitalsByName" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
+    SELECT * FROM Hospital
+    WHERE name LIKE '%' || #{name, jdbcType=VARCHAR} || '%'
+  </select>
+  <!--  병원 검색 -->
+  <select id="searchHospitalsByDepartment" resultType="com.sosigae.LuckeyTurkey.domain.Hospital">
+    SELECT * FROM Hospital
+    WHERE department = #{department, jdbcType=VARCHAR}
+  </select>
+
 
   <!-- 병원 정보 수정 -->
   <update id="updateHospitalInfo">

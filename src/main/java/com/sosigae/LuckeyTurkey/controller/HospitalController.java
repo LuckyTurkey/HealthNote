@@ -15,25 +15,12 @@ public class HospitalController {
     @Autowired
     private HospitalService hospitalService;
 
-    // 검색 화면
-    @GetMapping("/search")
-    public String searchForm() {
-        return "search/search";
-    }
 
-//    @GetMapping("/search/hospitals")
-//    public String searchHospitals(@RequestParam("name") String name, Model model) {
-//        List<Hospital> hospitals = hospitalService.searchHospitals(name);
-//        model.addAttribute("hospitals", hospitals);
-//        return "search/search";
-//    }
-
-    @GetMapping("/search/hospitals")
-    public String searchHospitals(@RequestParam(value = "name", required = false) String name,
-                                  @RequestParam(value = "department", required = false) String department,
-                                  Model model) {
-        List<Hospital> hospitals = hospitalService.searchHospitals(name, department);
-        model.addAttribute("hospitals", hospitals);
-        return "search/search";
+    // 병원 세부 정보
+    @GetMapping("/hospital/{hospitalId}")
+    public String getHospitalDetail(@RequestParam String hospitalId, Model model) {
+        Hospital hospital = hospitalService.getHospitalInfo(hospitalId);
+        model.addAttribute("hospital", hospital);
+        return "hospital/detail";
     }
 }

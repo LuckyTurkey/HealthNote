@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sosigae.LuckeyTurkey.mapper.DoctorMapper">
+<mapper namespace="com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper">
 
         <cache />
 
@@ -40,4 +40,37 @@
           AND (#{department} IS NULL OR department = #{department})
     </select>
 
+    <select id="searchDoctorsByNameAndDepartment" resultType="com.sosigae.LuckeyTurkey.domain.Doctor">
+        SELECT d.doctor_id AS doctorId, d.hospital_id AS hospitalId, d.id, d.password, d.name, d.department,
+               d.is_admin AS isAdmin, d.former_hospital AS formerHospital, d.email, d.phone,
+               h.name AS hospitalName, h.address AS hospitalAddress
+        FROM Doctor d
+                 JOIN Hospital h ON d.hospital_id = h.hospital_id
+        WHERE d.name LIKE '%' || #{name, jdbcType=VARCHAR} || '%'
+          AND d.department = #{department, jdbcType=VARCHAR}
+    </select>
+
+    <select id="searchDoctorsByName" resultType="com.sosigae.LuckeyTurkey.domain.Doctor">
+        SELECT d.doctor_id AS doctorId, d.hospital_id AS hospitalId, d.id, d.password, d.name, d.department,
+               d.is_admin AS isAdmin, d.former_hospital AS formerHospital, d.email, d.phone,
+               h.name AS hospitalName, h.address AS hospitalAddress
+        FROM Doctor d
+                 JOIN Hospital h ON d.hospital_id = h.hospital_id
+        WHERE d.name LIKE '%' || #{name, jdbcType=VARCHAR} || '%'
+    </select>
+
+    <select id="searchDoctorsByDepartment" resultType="com.sosigae.LuckeyTurkey.domain.Doctor">
+        SELECT d.doctor_id AS doctorId, d.hospital_id AS hospitalId, d.id, d.password, d.name, d.department,
+               d.is_admin AS isAdmin, d.former_hospital AS formerHospital, d.email, d.phone,
+               h.name AS hospitalName, h.address AS hospitalAddress
+        FROM Doctor d
+                 JOIN Hospital h ON d.hospital_id = h.hospital_id
+        WHERE d.department = #{department, jdbcType=VARCHAR}
+    </select>
+
+
+    <!-- 특정 의사 정보 확인 -->
+    <select id="getDocInfo" resultType="com.sosigae.LuckeyTurkey.domain.Doctor">
+        SELECT * FROM Doctor WHERE doctor_id = #{doctor_id}
+    </select>
     </mapper>
