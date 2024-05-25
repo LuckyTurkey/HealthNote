@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vaccine Records</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vaccine/vaccine.css}">
+
+    <script>
+        function incrementDoses(record) {
+            if (record.doses_received + record.remaining_count < record.totalDoses) {
+                record.doses_received++;
+                updateRecord(record);
+            } else {
+                alert("총 접종 횟수를 초과했습니다.");
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="topRectangle">dd</div>
+<div class="blueRectangle">접종내역 보기</div>
+<div class="greyRectangle">진료기록 보기</div>
+<table>
+    <tr th:each="record : ${vaccinationRecords}">
+        <td th:text="${record.inoculation_name}"></td>
+<!--        <td th:text="${record.doses_received > 0 ? 'o' : 'x'}"></td>-->
+        <td>
+            <span th:each="i : ${#numbers.sequence(1, record.total_doses)}">
+                <span class="circle" th:if="${i le record.doses_received}">o</span>
+                <span class="cross" th:if="${i gt record.doses_received}">x</span>
+            </span>
+        </td>
+
+        <td>
+            <button class="circle" onclick="incrementDoses(${vaccinationRecords[i]})">o</button>
+            <button class="cross" onclick="decrementDoses(${recordIndex.index})">x</button>
+        </td>
+    </tr>
+</table>
+<!--<div class="blueButton">-->
+<!--    <a href="/vaccination/create/${userId}" class="buttonFont">접종내역작성</a>-->
+<!--</div>-->
+<div class="blueButton">
+    <a th:href="@{'/vaccination/create/' + ${userId}}" class="buttonFont">접종내역작성</a>
+</div>
+</body>
+</html>
+

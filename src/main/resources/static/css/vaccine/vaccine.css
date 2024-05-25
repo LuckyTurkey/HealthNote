@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+
+.topRectangle {
+    width: 956px;
+    height: 95px;
+    background: #AFDBF5;
+    text-align: center;
+}
+
+.fontCreate{
+
+}
+
+
+
+.blueRectangle {
+    margin-top: 110px;
+    float: left;
+    width: 418px;
+    height: 49px;
+    background: #00BFFF;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.greyRectangle {
+    margin-top: 110px;
+    float: left;
+    margin-left: 20px;
+    width: 418px;
+    height: 49px;
+    background: #C0C0C0;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+table {
+    width: 50%; /* 표 전체 너비 */
+    border-collapse: collapse;
+    border-radius: 10px; /* 표의 테두리 반경 */
+    transform: rotate(0.03deg); /* 회전 효과 */
+    margin-top: 50px;
+    border: none; /* 바깥쪽 선 제거 */
+}
+
+th, td{
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 39px;
+
+    color: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(0, 115, 207, 0.9);
+    text-align: center;
+}
+
+tr{
+    text-align: center;
+}
+tr:last-child td {
+    border-bottom: none; /* 표의 마지막 행의 아래쪽 선 제거 */
+}
+
+td:not(:last-child) {
+    border-right: 2px solid rgba(0, 115, 207, 0.9); /* 수직 선 색상 및 두께를 변경합니다. */
+}
+
+.blueButton {
+    background-color: #00BFFF; /* 파란색 */
+    width: 200px; /* 버튼의 너비 */
+    height: 40px; /* 버튼의 높이 */
+    margin-top: 20px; /* 위쪽 여백 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    line-height: 40px; /* 텍스트 수직 정렬 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 */
+}
+
+.buttonFont{
+    color: white;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.circle {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 73px;
+    color: #0073CF;
+}
+
+.cross{
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 73px;
+    color: #CF0000;
+}
