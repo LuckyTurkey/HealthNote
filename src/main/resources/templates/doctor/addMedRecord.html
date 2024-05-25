@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>환자 기록 작성</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      justify-content: center;
+    }
+    .container {
+      width: 70%;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    h1 {
+      text-align: center;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      padding: 10px;
+      font-size: 1.5rem;
+      border: 1px solid #d3d3d3;
+      border-radius: 4px;
+    }
+    .form-group textarea {
+      resize: vertical;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .buttons button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    .buttons button:nth-child(1) {
+      background-color: #d3d3d3;
+      color: #000;
+    }
+    .buttons button:nth-child(2) {
+      background-color: #00aaff;
+      color: #fff;
+    }
+    .error-message {
+      color: red;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>환자 진료 기록 작성</h1>
+  <form th:action="@{/submitMedicalRecord}" th:object="${medicalRecord}" method="post">
+    <div class="form-group">
+      <label for="medDate">일자</label>
+      <input type="date" id="medDate" th:field="*{medDate}" />
+      <div class="error-message" th:if="${#fields.hasErrors('medDate')}">
+        <span th:errors="*{medDate}"></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="patient">환자명</label>
+      <input type="text" id="patient" th:field="*{patient}" />
+      <div class="error-message" th:if="${#fields.hasErrors('patient')}">
+        <span th:errors="*{patient}"></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="personal_code">주민등록번호</label>
+      <input type="text" id="personal_code" th:field="*{personal_code}" />
+      <div class="error-message" th:if="${#fields.hasErrors('personal_code')}">
+        <span th:errors="*{personal_code}"></span>
+      </div>
+      <div class="error-message" th:if="${error}">
+        <span th:text="${error}"></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phone">연락처</label>
+      <input type="tel" id="phone" th:field="*{phone}" />
+    </div>
+    <div class="form-group">
+      <label for="medContext">진료 내역</label>
+      <textarea id="medContext" th:field="*{medContext}" rows="4"></textarea>
+      <div class="error-message" th:if="${#fields.hasErrors('medContext')}">
+        <span th:errors="*{medContext}"></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="doctorId">의사 id (로그인 구현 전까지 임시적으로 직접 입력)</label>
+      <input type="number" id="doctorId" th:field="*{doctorId}" />
+    </div>
+    <div class="buttons">
+      <button type="reset">초기화</button>
+      <button type="submit">제출</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>

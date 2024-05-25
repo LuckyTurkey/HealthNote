@@ -1,5 +1,6 @@
 package com.sosigae.LuckeyTurkey.domain;
 
+
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
@@ -10,7 +11,7 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 	private String is_admin;
-	private int personal_code;
+	private String personal_code;
 	
 	 public String getUser_id() {
 	        return user_id;
@@ -30,7 +31,7 @@ public class User implements Serializable {
 	public String getIs_admin() {
 		return is_admin;
 	}
-	public int getPersonal_code() {
+	public String getPersonal_code() {
 		return personal_code;
 	}
 	 public void setUser_id(String user_id) {
@@ -51,7 +52,7 @@ public class User implements Serializable {
 	public void setIs_admin(String is_admin) {
 		this.is_admin = is_admin;
 	}
-	public void setPersonal_code(int personal_code) {
+	public void setPersonal_code(String personal_code) {
 		this.personal_code = personal_code;
 	}
 	
