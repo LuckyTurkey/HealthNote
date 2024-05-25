@@ -17,13 +17,13 @@
 
         <!-- 의사가 특정 환자 진료 기록 추가 -->
         <insert id="addMedRecord">
-            INSERT INTO MedicalRecord (doctor_id, user_id, content)
-            VALUES (#{doctor_id}, #{user_id}, #{content})
+            INSERT INTO MedicalRecord (doctor_id, user_id, medContext, medDate, personal_code, phone, patient)
+            VALUES (#{doctorId}, #{userId}, #{medContext}, #{medDate}, #{personal_code}, #{phone}, #{patient})
         </insert>
 
         <!-- 의사가 본인이 진료한 모든 환자 진료 기록 확인 -->
         <select id="getMedRecordList" resultType="com.sosigae.LuckeyTurkey.domain.MedicalRecord">
-            SELECT * FROM MedicalRecord WHERE user_id = #{doctor_id}
+            SELECT * FROM MedicalRecord WHERE doctor_id = #{doctor_id}
         </select>
 
         <!-- 의사가 특정 환자 진료 기록 수정 -->
@@ -83,6 +83,8 @@
                  LEFT JOIN Hospital f ON d.former_hospital = f.hospital_id
         WHERE d.doctor_id = #{doctor_id}
     </select>
+
+
 
     <resultMap id="DoctorResultMap" type="com.sosigae.LuckeyTurkey.domain.Doctor">
         <id property="doctorId" column="doctor_id"/>

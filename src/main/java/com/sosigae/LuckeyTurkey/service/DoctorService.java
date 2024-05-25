@@ -2,10 +2,10 @@ package com.sosigae.LuckeyTurkey.service;
 
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper;
 import com.sosigae.LuckeyTurkey.domain.Doctor;
+import com.sosigae.LuckeyTurkey.domain.MedicalRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,5 +37,11 @@ public class DoctorService {
     public List<Doctor> getAllDoctors() {
         return doctorMapper.getAllDoctors();
     }
+
+    // 특정 의사 전체 진료 기록 조회
+    public List<MedicalRecord> getMedRecordList(int doctorId) {return doctorMapper.getMedRecordList(doctorId);}
+
+    // 의사 환자 진료기록 추가
+    public void addMedRecord(MedicalRecord medicalRecord) {doctorMapper.addMedRecord(medicalRecord);}
 
 }

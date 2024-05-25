@@ -3,7 +3,7 @@ package com.sosigae.LuckeyTurkey.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sosigae.LuckeyTurkey.dao.UserDao;
+import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.UserDao;
 import com.sosigae.LuckeyTurkey.domain.User;
 
 @Service
@@ -31,5 +31,10 @@ public class UserService {
 
     public void updateMember(User user) {
         userDao.updateMember(user);
+    }
+
+    // 주민등록번호로 user 찾기
+    public User findUserByCode(String personal_code) {
+        return userDao.findUserByCode(personal_code);
     }
 }
