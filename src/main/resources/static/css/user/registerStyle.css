@@ -15,18 +15,28 @@ body {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #AFDBF5;
+    background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 100%; 
     margin: auto; 
+    
+  
+}
+
+.register-container-inner {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(175, 219, 245, 0.30);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .register-container h1 {
     text-align: center;
-    color: #FFFFFF;
+    color: #333;
     margin-bottom: 20px;
 }
 
@@ -57,7 +67,7 @@ body {
 
 button[type="submit"] {
     width: calc(100% - 20px);
-    padding: 15px;
+    padding: 10px;
     border: none;
     border-radius: 3px;
     background-color: #0073CF;
@@ -69,3 +79,4 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #0056b3;
 }
+
