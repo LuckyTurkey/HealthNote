@@ -1,9 +1,7 @@
 package com.sosigae.LuckeyTurkey.dao.mybatis.mapper;
 
 import com.sosigae.LuckeyTurkey.domain.VaccinationRecord;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -16,4 +14,12 @@ public interface VaccinationMapper {
     @Insert("INSERT INTO VaccinationRecord (user_id, inoculation_name, latest_name, start_date, total_doses, doses_received, remaining_count) " +
             "VALUES (#{userId}, #{inoculation_name}, #{latest_name}, #{start_date}, #{total_doses}, #{doses_received}, #{remaining_count})")
     void addVaccination(VaccinationRecord vaccination);
+
+    @Select("SELECT * FROM VaccinationRecord WHERE vaccination_record_id = #{vaccination_record_id}")
+    VaccinationRecord getVaccinationById(int vaccineId);
+
+    @Update("UPDATE VaccinationRecord " +
+            "SET doses_received = #{doses_received}, remaining_count = #{remaining_count} " +
+            "WHERE vaccination_record_id = #{vaccination_record_id}")
+    void updateVaccinationRecord(VaccinationRecord vaccination);
 }
