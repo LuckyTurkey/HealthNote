@@ -14,5 +14,9 @@ public interface UserMapper {
     void updateMember(User user);
 
     int isValidUser(String user_id, String password);
+    
+    User findUserByCode(@Param("personal_code") String personal_code);
+    
+
 
 }
