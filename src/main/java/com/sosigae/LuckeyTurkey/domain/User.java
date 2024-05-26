@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class User implements Serializable {
+	private String id;
 	private String user_id; //String으로 바꿈
 	private String password;
 	private String name;
@@ -12,7 +13,14 @@ public class User implements Serializable {
 	private String is_admin;
 	private int personal_code;
 	
-	 public String getUser_id() {
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getUser_id() {
 	        return user_id;
 	    }
 	public String getPassword() {

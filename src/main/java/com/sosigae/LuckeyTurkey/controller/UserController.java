@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sosigae.LuckeyTurkey.domain.User;
 import com.sosigae.LuckeyTurkey.service.UserService;
-
+ 
 @Controller
 @RequestMapping("/user")
 public class UserController {
