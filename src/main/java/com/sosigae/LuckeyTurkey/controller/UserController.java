@@ -22,7 +22,7 @@ public class UserController {
     public String registerUser(@ModelAttribute User user, Model model) {
         userService.registerMember(user);
         model.addAttribute("message", "회원가입이 완료되었습니다.");
-        return "login"; // 성공 시 로그인 페이지로 이동
+        return "/user/login"; // 성공 시 로그인 페이지로 이동
     }
 
     @PostMapping("/login")
@@ -30,15 +30,15 @@ public class UserController {
         try {
             User account = userService.loginMember(user.getUser_id(), user.getPassword());
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
-            return "index"; // 성공 시 메인 페이지로 이동
+            return "/search/search"; // 성공 시 메인 페이지로 이동 (잠시 search 페이지로 수정 !!!)
         } catch (IllegalArgumentException e) {
             model.addAttribute("loginResult", "유효하지 않은 사용자입니다.");
-            return "login"; // 실패 시 다시 로그인 페이지로 이동
+            return "/user/login"; // 실패 시 다시 로그인 페이지로 이동
         }
     }
     
     @GetMapping("/login")
     public String showLoginForm() {
-        return "login"; // 로그인 페이지로 이동
+        return "/user/login"; // 로그인 페이지로 이동
     }
 }

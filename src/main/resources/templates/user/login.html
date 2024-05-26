@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>�α��� - ȸ�� �˻�</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/user/userStyle.css}" />
+    <meta charset="UTF-8">
+    <title>로그인 - 회원 검색</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user/loginStyle.css}" />
 </head>
 <body>
-    <div class="login-container">
-        <h2>�α���</h2>
-        <form action="#" method="post">
-            <div class="form-group">
-                <label for="username">���̵�:</label>
-                <input type="text" id="username" name="username" />
-            </div>
-            <div class="form-group">
-                <label for="password">��й�ȣ:</label>
-                <input type="password" id="password" name="password" />
-            </div>
-            <button type="submit">�α���</button>
-        </form>
-    </div>
+<div class="login-container">
+    <h2>로그인</h2>
+    <form th:action="@{/user/login}" th:object="${user}"  method="post">
+        <div class="form-group">
+            <label for="username">아이디:</label>
+            <input type="text" id="username" name="user_id"  />
+        </div>
+        <div class="form-group">
+            <label for="password">비밀번호:</label>
+            <input type="password" id="password" name="password" />
+        </div>
+        <button type="submit">로그인</button>
+    </form>
+</div>
 </body>
 </html>
