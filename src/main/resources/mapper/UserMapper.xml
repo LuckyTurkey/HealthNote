@@ -12,8 +12,8 @@
 
   <!-- 사용자 회원가입 -->
   <insert id="registerMember" parameterType="com.sosigae.LuckeyTurkey.domain.User">
-    INSERT INTO USERS (USER_ID, PASSWORD, NAME, EMAIL, PHONE, IS_ADMIN, PERSONAL_CODE)
-    VALUES(#{user_id, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{email, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, #{is_admin, jdbcType=VARCHAR}, #{personal_code, jdbcType=VARCHAR})
+    INSERT INTO USERS (USER_ID, ID, PASSWORD, NAME, EMAIL, PHONE, IS_ADMIN, PERSONAL_CODE)
+    VALUES(#{user_id, jdbcType=VARCHAR}, #{id, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{email, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, #{is_admin, jdbcType=VARCHAR}, #{personal_code, jdbcType=VARCHAR})
   </insert>
 
  
