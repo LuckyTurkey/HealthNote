@@ -18,11 +18,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("user", new User());
+        return "/user/register";
+    }
+    
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user, Model model) {
         userService.registerMember(user);
         model.addAttribute("message", "회원가입이 완료되었습니다.");
-        return "/user/login"; // 성공 시 로그인 페이지로 이동
+        return "redirect:/user/login"; // 성공 시 로그인 페이지로 이동
     }
 
     @PostMapping("/login")
