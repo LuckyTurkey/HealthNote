@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vaccine Records</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vaccine/vaccine.css}">
+</head>
+<body>
+<div class="topRectangle"></div>
+<div class="blueRectangle">접종내역 보기</div>
+<div class="greyRectangle">진료기록 보기</div>
+<table>
+    <tr th:each="record : ${vaccinationRecords}">
+        <td th:text="${record.inoculation_name}"></td>
+        <td>
+            <span th:each="i : ${#numbers.sequence(1, record.total_doses)}">
+                <span class="circle" th:if="${i le record.doses_received}">o</span>
+                <span class="cross" th:if="${i gt record.doses_received}">x</span>
+            </span>
+        </td>
+
+        <td>
+            <a th:href="@{'/vaccination/' + ${userId} + '/' + ${record.vaccination_record_id} + '/incrementDoses'}">
+               <span class="circle">o</span>
+            </a>
+            <a th:href="@{'/vaccination/' + ${userId} + '/' + ${record.vaccination_record_id} + '/decrementDoses'}">
+                <span class="cross">x</span>
+            </a>
+        </td>
+    </tr>
+</table>
+
+<div class="blueButton">
+    <a th:href="@{'/vaccination/create/' + ${userId}}" class="buttonFont">접종내역작성</a>
+</div>
+</body>
+</html>
+

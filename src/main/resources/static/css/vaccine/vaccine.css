@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+
+.topRectangle {
+    width: 956px;
+    height: 95px;
+    background: #AFDBF5;
+    text-align: center;
+}
+
+.fontCreate {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 39px;
+    margin-right: 30px;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+
+.blueRectangle {
+    margin-top: 110px;
+    float: left;
+    width: 418px;
+    height: 49px;
+    background: #00BFFF;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.greyRectangle {
+    margin-top: 110px;
+    float: left;
+    margin-left: 20px;
+    width: 418px;
+    height: 49px;
+    background: #C0C0C0;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+table {
+    width: 50%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    transform: rotate(0.03deg);
+    margin-top: 50px;
+    /*border: none; */
+}
+
+th, td{
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 39px;
+
+    color: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(0, 115, 207, 0.9);
+    text-align: center;
+}
+
+tr{
+    text-align: center;
+}
+tr:last-child td {
+    border-bottom: none;
+}
+
+td:not(:last-child) {
+    border-right: 2px solid rgba(0, 115, 207, 0.9);
+}
+
+.blueButton {
+    background-color: #00BFFF;
+    width: 200px;
+    height: 40px;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+}
+
+.buttonFont{
+    color: white;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.circle {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 73px;
+    color: #0073CF;
+    text-decoration: none;
+}
+
+.cross{
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 73px;
+    color: #CF0000;
+}
+
+.createInput{
+    width: 200px;
+    height: 40px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+.form-group{
+    margin: 30px;
+}
+
+a {
+    text-decoration: none;
+}

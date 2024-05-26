@@ -4,17 +4,7 @@
 
   <cache />
   
-  <resultMap id="UserResultMap" type="com.sosigae.LuckeyTurkey.domain.User">
-    <id property="hospitalId" column="hospital_id"/>
-    <result property="user_id" column="user_id"/>
-    <result property="password" column="password"/>
-    <result property="name" column="name"/>
-    <result property="email" column="email"/>
-    <result property="phone" column="phone"/>
-    <result property="is_admin" column="is_admin"/>
-    <result property="personal_code" column="personal_code"/>
-  </resultMap>
-  
+ 
   <!-- 사용자 로그인 -->
   <select id="loginMember" parameterType="map" resultType="com.sosigae.LuckeyTurkey.domain.User">
     SELECT * FROM USERS
@@ -46,7 +36,7 @@
   </delete>
   
   <!-- 사용자 유효성 검사 -->
-  <select id="isValidUser" parameterType="map" resultType="int" resultMap="UserResultMap">
+  <select id="isValidUser" parameterType="map" resultType="int">
     SELECT COUNT(*)
     FROM USERS
     WHERE USER_ID = #{user_id} AND PASSWORD = #{password}
