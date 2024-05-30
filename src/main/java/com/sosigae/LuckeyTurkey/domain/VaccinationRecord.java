@@ -8,8 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import javax.persistence.*;
 
 
+@Table(name = "VACCINATIONRECORD")
 @Getter
 @Setter
 @Entity
@@ -21,7 +23,7 @@ public class VaccinationRecord {
     private int vaccination_record_id;
     private int userId;
     private String inoculation_name;
-    private String latest_name;
+    private String latest_date;
     //private LocalDate latest_date;
     private String start_date;
     private int total_doses;
