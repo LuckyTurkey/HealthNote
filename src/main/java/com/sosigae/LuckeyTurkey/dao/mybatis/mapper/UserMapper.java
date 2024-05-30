@@ -18,6 +18,8 @@ public interface UserMapper {
     int isValidUser(@Param("user_id")String user_id, @Param("password") String password);
     
     User findUserByCode(@Param("personal_code") String personal_code);
+
+	User findByUserId(String user_id);
     
 
 

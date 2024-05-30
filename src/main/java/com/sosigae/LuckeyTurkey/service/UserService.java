@@ -25,6 +25,15 @@ public class UserService {
         }
     }
 
+    public int getUserIsAdmin(String user_id) {
+		User user = userMapper.findByUserId(user_id);
+		if (user != null) {
+            return user.getIs_admin();
+        } else {
+            throw new IllegalArgumentException("사용자를 찾을 수 없습니다.");
+        }
+	}
+    
     public void deleteMember(User user) {
     	userMapper.deleteMember(user);
     }
@@ -37,4 +46,5 @@ public class UserService {
     public User findUserByCode(String personal_code) {
         return userMapper.findUserByCode(personal_code);
     }
+
 }

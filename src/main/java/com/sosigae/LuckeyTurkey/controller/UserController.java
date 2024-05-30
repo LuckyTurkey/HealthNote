@@ -41,10 +41,22 @@ public class UserController {
     public String loginUser(@ModelAttribute User user, Model model) {
         try {
             User account = userService.loginMember(user.getUser_id(), user.getPassword());
+            int is_admin = userService.getUserIsAdmin(user.getUser_id());
+            
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
-//            return "/main/hospitalMain"; // 병원 메인
-//                     return "/main/doctorMain"; // 의사 메인
-                     return "/main/patientMain"; // 환자 메인
+            
+            if (is_admin == 1) {
+                return "main/hospitalMain"; // 병원 메인
+            }
+            else if (is_admin == 2) {            	
+                return "main/doctorMain"; // 의사 메인
+            }
+            else if (is_admin == 3) {
+            	return "main/patientMain"; // 환자 메인
+            }
+            else {
+            	return "user/login";
+            }
         } catch (IllegalArgumentException e) {
             model.addAttribute("loginResult", "유효하지 않은 사용자입니다.");
             return "user/login"; // 실패 시 다시 로그인 페이지로 이동

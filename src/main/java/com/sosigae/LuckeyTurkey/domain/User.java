@@ -11,9 +11,8 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 	private String phone;
-	private String is_admin;
+	private int is_admin;
 	private String personal_code;
-	
 	
 	public String getId() {
 		return id;
@@ -33,9 +32,6 @@ public class User implements Serializable {
 	public String getEmail() {
 		return email;
 	}
-	public String getIs_admin() {
-		return is_admin;
-	}
 	public String getPersonal_code() {
 		return personal_code;
 	}
@@ -51,9 +47,6 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public void setIs_admin(String is_admin) {
-		this.is_admin = is_admin;
-	}
 	public void setPersonal_code(String personal_code) {
 		this.personal_code = personal_code;
 	}
@@ -63,6 +56,13 @@ public class User implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	public int getIs_admin() {
+		return is_admin;
+	}
+	public void setIs_admin(int is_admin) {
+		this.is_admin = is_admin;
+	}
+	
 	
 	
 	
