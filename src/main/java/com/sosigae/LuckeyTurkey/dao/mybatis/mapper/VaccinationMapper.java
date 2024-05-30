@@ -19,7 +19,7 @@ public interface VaccinationMapper {
     VaccinationRecord getVaccinationById(int vaccineId);
 
     @Update("UPDATE VaccinationRecord " +
-            "SET doses_received = #{doses_received}, remaining_count = #{remaining_count} " +
+            "SET doses_received = #{doses_received}, remaining_count = #{remaining_count}, latest_date=#{latest_date} " +
             "WHERE vaccination_record_id = #{vaccination_record_id}")
     void updateVaccinationRecord(VaccinationRecord vaccination);
 }

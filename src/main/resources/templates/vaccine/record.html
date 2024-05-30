@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>헬수첩 - 백신 접종 기록 조회 (고객)</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vaccine/recordStyle.css}">
+</head>
+<body>
+<div class="wrapper">
+    <div class="title">백신 접종 기록 조회</div>
+        <table>
+            <thead>
+            <tr>
+                <th>접종 내역</th>
+                <th>최근 접종일</th>
+                <th>접종 시작일</th>
+                <th>남은 접종 횟수 / 총 접종 횟수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="record : ${vaccinationRecords}">
+                <td th:text="${record.inoculation_name}">접종 내역</td>
+                <td th:text="${record.latest_date}">최근 접종일</td>
+                <td th:text="${record.start_date}">접종 시작일</td>
+                <td th:text="${record.remaining_count} + ' / ' + ${record.total_doses}">남은 접종 횟수 / 총 접종 횟수</td>
+            </tr>
+            </tbody>
+        </table>
+</div>
+</body>
+</html>
