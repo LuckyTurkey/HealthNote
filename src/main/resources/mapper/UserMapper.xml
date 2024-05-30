@@ -63,4 +63,10 @@
     WHERE ID = #{user_id, jdbcType=VARCHAR} AND PASSWORD = #{password, jdbcType=VARCHAR}
   </select>
 
+  <!-- 주민등록번호로 사용자 찾기 -->
+  <select id="findUserByCode" resultType="com.sosigae.LuckeyTurkey.domain.User">
+    SELECT * FROM USERS
+    WHERE PERSONAL_CODE = #{personal_code}
+  </select>
+
 </mapper>
