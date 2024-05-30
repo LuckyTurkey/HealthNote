@@ -30,7 +30,7 @@ public class DoctorController {
     public String getDoctorDetail(@PathVariable int doctorId, Model model) {
         Doctor doctor = doctorService.getDocInfo(doctorId);
         model.addAttribute("doctor", doctor);
-        return "doctor/detail";
+        return "/doctor/detail";
     }
 
     // 진료 기록 전체 리스트 조회
@@ -38,7 +38,7 @@ public class DoctorController {
     public String getMedRecordList(@PathVariable int doctorId, Model model) {
         List<MedicalRecord> medRecList = doctorService.getMedRecordList(doctorId);
         model.addAttribute("medRecList", medRecList);
-        return "doctor/medRecordList";
+        return "/doctor/medRecordList";
     }
 
     // 진료 기록 작성 페이지 출력
@@ -46,7 +46,7 @@ public class DoctorController {
     public String showMedRecForm(Model model) {
         System.out.println( "화면 출력 성공") ;
         model.addAttribute("medicalRecord", new MedicalRecord());
-        return "doctor/addMedRecord";
+        return "/doctor/addMedRecord";
     }
 
     @InitBinder
@@ -62,7 +62,7 @@ public class DoctorController {
         System.out.println( "시작");
         if (result.hasErrors()) {
             System.out.println( "오류 있음");
-            return "doctor/addMedRecord";
+            return "/doctor/addMedRecord";
         }
         System.out.println( "오류는 없음");
 
