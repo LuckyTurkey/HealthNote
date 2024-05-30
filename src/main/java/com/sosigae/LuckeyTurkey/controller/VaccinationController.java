@@ -28,6 +28,15 @@ public class VaccinationController {
         return "vaccine/vaccine";
     }
 
+    // 사용자 백신 접종 기록
+    @GetMapping("/user/{userId}")
+    public String getVaccinationForUser(@PathVariable int userId, Model model){
+        List<VaccinationRecord> vaccinationRecords = vaccinationService.getVaccinationForUser(userId);
+        model.addAttribute("vaccinationRecords", vaccinationRecords);
+        model.addAttribute("userId", userId);
+        return "vaccine/record";
+    }
+
     @GetMapping("/create/{userId}")
     public String showVaccinationForm(@PathVariable int userId, Model model) {
         model.addAttribute("userId", userId);
@@ -42,12 +51,13 @@ public class VaccinationController {
         vaccination.setTotal_doses(vaccinationDTO.getTotal_doses());
         vaccination.setDoses_received(0);
         vaccination.setRemaining_count(vaccinationDTO.getTotal_doses());
-        vaccination.setLatest_name("");
+        vaccination.setLatest_date("");
         vaccination.setStart_date(LocalDate.now().toString());
 
         vaccinationService.addVaccination(vaccination);
         return "redirect:/vaccination/" + vaccinationDTO.getUserId();
     }
+
     @GetMapping("/{userId}/{vaccineId}/incrementDoses")
     public String incrementDoses(@PathVariable int userId, @PathVariable int vaccineId) {
         vaccinationService.incrementDoses(vaccineId);
