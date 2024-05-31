@@ -16,10 +16,10 @@ public class UserService {
     	userMapper.registerMember(user);
     }
 
-    public User loginMember(String id, String password) {
-        int userCount = userMapper.isValidUser(id, password);
+    public User loginMember(String id, String password, int is_admin) {
+        int userCount = userMapper.isValidUser(id, password, is_admin);
         if (userCount > 0) {
-            return userMapper.loginMember(id, password);
+            return userMapper.loginMember(id, password, is_admin);
         } else {
             throw new IllegalArgumentException("유효하지 않은 사용자입니다.");
         }

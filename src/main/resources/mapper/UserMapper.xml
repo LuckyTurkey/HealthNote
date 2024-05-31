@@ -12,8 +12,8 @@
 
   <!-- 사용자 회원가입 -->
   <insert id="registerMember" parameterType="com.sosigae.LuckeyTurkey.domain.User">
-    INSERT INTO USERS (USER_ID, ID, PASSWORD, NAME, EMAIL, PHONE, IS_ADMIN, PERSONAL_CODE)
-    VALUES(#{user_id, jdbcType=VARCHAR}, #{id, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{email, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, #{is_admin, jdbcType=VARCHAR}, #{personal_code, jdbcType=VARCHAR})
+    INSERT INTO USERS (ID, USER_ID, PASSWORD, NAME, EMAIL, PHONE, IS_ADMIN, PERSONAL_CODE)
+    VALUES(#{id, jdbcType=VARCHAR}, USER_ID_SEQUENCE.NEXTVAL, #{password, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{email, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, #{is_admin, jdbcType=VARCHAR}, #{personal_code, jdbcType=VARCHAR})
   </insert>
 
  
@@ -26,7 +26,7 @@
   <!-- 사용자 로그인 -->
   <select id="loginMember" parameterType="map" resultType="com.sosigae.LuckeyTurkey.domain.User">
     SELECT * FROM USERS
-    WHERE ID = #{user_id, jdbcType=VARCHAR} AND PASSWORD = #{password, jdbcType=VARCHAR}
+    WHERE ID = #{id, jdbcType=VARCHAR} AND PASSWORD = #{password, jdbcType=VARCHAR} AND IS_ADMIN = #{is_admin, jdbcType=VARCHAR}
   </select>
   
 
@@ -60,7 +60,7 @@
   <select id="isValidUser" parameterType="map" resultType="int">
     SELECT COUNT(*)
     FROM USERS
-    WHERE ID = #{user_id, jdbcType=VARCHAR} AND PASSWORD = #{password, jdbcType=VARCHAR}
+    WHERE ID = #{id, jdbcType=VARCHAR} AND PASSWORD = #{password, jdbcType=VARCHAR}
   </select>
 
   <!-- 주민등록번호로 사용자 찾기 -->
@@ -68,5 +68,11 @@
     SELECT * FROM USERS
     WHERE PERSONAL_CODE = #{personal_code}
   </select>
+  
+  <!-- 사용자 id로 사용자 조회 -->
+  <select id="findByUserId" parameterType="String" resultType="com.sosigae.LuckeyTurkey.domain.User">
+    SELECT * FROM USERS
+    WHERE ID = #{id, jdbcType=VARCHAR}
+</select>
 
 </mapper>

@@ -42,7 +42,7 @@ public class UserController {
     @PostMapping("/login")
     public String loginUser(@ModelAttribute User user, Model model, HttpSession session) {
         try {
-            User account = userService.loginMember(user.getId(), user.getPassword());
+            User account = userService.loginMember(user.getId(), user.getPassword(), user.getIs_admin());
             int is_admin = userService.getUserIsAdmin(user.getId());
             
             session.setAttribute("id", account.getId());

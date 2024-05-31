@@ -7,7 +7,7 @@ import com.sosigae.LuckeyTurkey.domain.User;
 
 @Mapper
 public interface UserMapper {
-	User loginMember(@Param("id") String id, @Param("password") String password);
+	User loginMember(@Param("id") String id, @Param("password") String password, @Param("is_admin") int is_admin);
 
     void registerMember(User user);
 
@@ -15,12 +15,12 @@ public interface UserMapper {
 
     void updateMember(User user);
 
-    int isValidUser(@Param("id")String id, @Param("password") String password);
+    int isValidUser(@Param("id")String id, @Param("password") String password, @Param("is_admin") int is_admin);
     
     User findUserByCode(@Param("personal_code") String personal_code);
 
-	User findByUserId(String id);
+	User findByUserId(@Param("id")String id);
     
-
+ 
 
 }
