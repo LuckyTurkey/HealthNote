@@ -16,17 +16,17 @@ public class UserService {
     	userMapper.registerMember(user);
     }
 
-    public User loginMember(String user_id, String password) {
-        int userCount = userMapper.isValidUser(user_id, password);
+    public User loginMember(String id, String password) {
+        int userCount = userMapper.isValidUser(id, password);
         if (userCount > 0) {
-            return userMapper.loginMember(user_id, password);
+            return userMapper.loginMember(id, password);
         } else {
             throw new IllegalArgumentException("유효하지 않은 사용자입니다.");
         }
     }
 
-    public int getUserIsAdmin(String user_id) {
-		User user = userMapper.findByUserId(user_id);
+    public int getUserIsAdmin(String id) {
+		User user = userMapper.findByUserId(id);
 		if (user != null) {
             return user.getIs_admin();
         } else {

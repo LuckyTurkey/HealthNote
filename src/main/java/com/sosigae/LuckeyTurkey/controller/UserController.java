@@ -1,5 +1,7 @@
 package com.sosigae.LuckeyTurkey.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,10 +40,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute User user, Model model) {
+    public String loginUser(@ModelAttribute User user, Model model, HttpSession session) {
         try {
-            User account = userService.loginMember(user.getUser_id(), user.getPassword());
-            int is_admin = userService.getUserIsAdmin(user.getUser_id());
+            User account = userService.loginMember(user.getId(), user.getPassword());
+            int is_admin = userService.getUserIsAdmin(user.getId());
+            
+            session.setAttribute("id", account.getId());
             
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             
