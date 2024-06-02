@@ -1,5 +1,7 @@
 package com.sosigae.LuckeyTurkey.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,4 +68,19 @@ public class UserController {
             return "user/login"; // 실패 시 다시 로그인 페이지로 이동
         }
     }
+    
+    @GetMapping("/logout")
+    public String logoutUser(HttpServletRequest request, HttpServletResponse response, RedirectAttributes attributes) {
+        // 현재 세션
+        HttpSession session = request.getSession(false);
+        
+        // 세션이 존재하면 세션을 무효화 함
+        if (session != null) {
+            session.invalidate();
+        }
+
+        return "redirect:/user/login";
+    }
+    
+    
 }
