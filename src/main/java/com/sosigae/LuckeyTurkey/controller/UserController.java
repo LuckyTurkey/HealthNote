@@ -70,7 +70,7 @@ public class UserController {
     }
     
     @GetMapping("/logout")
-    public String logoutUser(HttpServletRequest request, HttpServletResponse response, RedirectAttributes attributes) {
+    public String logoutUser(HttpServletRequest request, HttpServletResponse response) {
         // 현재 세션
         HttpSession session = request.getSession(false);
         
