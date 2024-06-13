@@ -4,12 +4,31 @@
     <meta charset="UTF-8">
     <title>Vaccine Records</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/vaccine/vaccine.css}">
+
+    <script>
+        function incrementDoses(userId, recordId, totalDoses, dosesReceived) {
+            if (dosesReceived >= totalDoses) {
+                alert('접종 횟수를 초과했습니다.');
+                return false;
+            }
+            window.location.href = '/vaccination/' + userId + '/' + recordId + '/incrementDoses';
+        }
+        function decrementDoses(userId, recordId, dosesReceived) {
+            if (dosesReceived <= 0) {
+                //alert('0보다 작음');
+                return false;
+            }
+            window.location.href = '/vaccination/' + userId + '/' + recordId + '/decrementDoses';
+        }
+    </script>
 </head>
 <body>
 <div class="topRectangle"></div>
+<div class="container">
 <div class="blueRectangle">접종내역 보기</div>
 <div class="greyRectangle">진료기록 보기</div>
-<table>
+</div>
+<table th:unless="${vaccinationRecords.isEmpty()}">
     <tr th:each="record : ${vaccinationRecords}">
         <td th:text="${record.inoculation_name}"></td>
         <td>
@@ -20,16 +39,20 @@
         </td>
 
         <td>
-            <a th:href="@{'/vaccination/' + ${userId} + '/' + ${record.vaccination_record_id} + '/incrementDoses'}">
-               <span class="circle">o</span>
+            <a th:href="'javascript:void(0);'"
+               th:onclick="'incrementDoses(\'' + ${userId} + '\', \'' + ${record.vaccination_record_id} + '\', ' + ${record.total_doses} + ', ' + ${record.doses_received} + ');'">
+                <span class="circle">o</span>
             </a>
-            <a th:href="@{'/vaccination/' + ${userId} + '/' + ${record.vaccination_record_id} + '/decrementDoses'}">
+            <a th:href="'javascript:void(0);'"
+               th:onclick="'decrementDoses(\'' + ${userId} + '\', \'' + ${record.vaccination_record_id} + '\', ' + ${record.doses_received} + ');'">
                 <span class="cross">x</span>
             </a>
         </td>
     </tr>
 </table>
-
+<div class="blackFont" th:if="${vaccinationRecords.isEmpty()}">
+    접종 내역이 없습니다
+</div>
 <div class="blueButton">
     <a th:href="@{'/vaccination/create/' + ${userId}}" class="buttonFont">접종내역작성</a>
 </div>
