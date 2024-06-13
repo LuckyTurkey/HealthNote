@@ -72,7 +72,7 @@ public class DoctorController {
         // 사용자가 존재하는 경우
         if (user != null) {
             // 해당 사용자의 ID 찾아서 set
-            medicalRecord.setUserId(user.getUser_id());
+            //medicalRecord.setUserId(user.getUser_id());
             System.out.println( "환자 이름 확인 : " + medicalRecord.getPatient());
 
             // 진료 기록 추가
