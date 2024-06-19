@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -51,4 +52,20 @@ public class SearchController {
         model.addAttribute("department", department);
         return "search/search";
     }
+
+
+//    @GetMapping("/reservation")
+//    public List<?> search(
+//            @RequestParam String type,
+//            @RequestParam String keyword) {
+//        if ("hospital".equalsIgnoreCase(type)) {
+//            return hospitalService.searchHospitalsByName(keyword);
+//        } else if ("doctor".equalsIgnoreCase(type)) {
+//            return doctorService.searchDoctorsByName(keyword);
+//        } else {
+//            return new ArrayList<>();
+//        }
+//    }
+
+
 }

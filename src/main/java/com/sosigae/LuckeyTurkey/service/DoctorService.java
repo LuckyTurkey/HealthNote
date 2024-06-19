@@ -3,6 +3,7 @@ package com.sosigae.LuckeyTurkey.service;
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper;
 import com.sosigae.LuckeyTurkey.domain.Doctor;
 import com.sosigae.LuckeyTurkey.domain.MedicalRecord;
+//import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
