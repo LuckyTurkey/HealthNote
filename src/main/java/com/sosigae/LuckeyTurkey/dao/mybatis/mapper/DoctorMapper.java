@@ -38,4 +38,6 @@ public interface DoctorMapper {
 
     // 특정 의사 정보 확인
     Doctor getDocInfo(@Param("doctor_id") int doctor_id);
+
+    List<Doctor> findDoctorsByDoctorName(@Param("doctorName") String doctorName);
 }

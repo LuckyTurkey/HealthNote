@@ -1,5 +1,6 @@
 package com.sosigae.LuckeyTurkey.service;
 
+import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper;
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.HospitalMapper;
 import com.sosigae.LuckeyTurkey.domain.Doctor;
 import com.sosigae.LuckeyTurkey.domain.Hospital;
@@ -14,6 +15,8 @@ public class HospitalService {
 
     @Autowired
     private HospitalMapper hospitalMapper;
+    @Autowired
+    private DoctorMapper doctorMapper;
 
     // 병원 검색
     public List<Hospital> searchHospitals(String name, String department) {
@@ -42,5 +45,13 @@ public class HospitalService {
     // 병원에 근무 하는 의사 목록
     public List<Doctor> getDocInfoList(String hospitalId) {
         return hospitalMapper.getDocInfoList(hospitalId);
+    }
+
+    public List<Hospital> searchHospitalsByName(String name) {
+        return hospitalMapper.searchHospitalsByName(name);
+    }
+
+    public List<Doctor> findDoctorsByDoctorName(String doctorName) {
+        return doctorMapper.findDoctorsByDoctorName(doctorName);
     }
 }
