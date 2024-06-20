@@ -48,6 +48,7 @@ public class UserController {
             int is_admin = userService.getUserIsAdmin(user.getId());
             
             session.setAttribute("id", account.getId());
+            session.setAttribute("user_id", account.getUser_id());
             
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             
