@@ -2,7 +2,6 @@ package com.sosigae.LuckeyTurkey.domain;
 
 
 import lombok.*;
-
 import java.io.Serializable;
 
 @Data
@@ -12,7 +11,7 @@ public class Doctor implements Serializable {
     private int doctorId;
     private String id;
     private String password;
-    private String hospitalId;
+    private int hospitalId;
     private String name;
     private String department;
     private boolean isAdmin;
