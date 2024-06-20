@@ -21,6 +21,6 @@ public interface UserMapper {
 
 	User findByUserId(@Param("id")String id);
     
- 
+    User findByUser_Id(int userId);
 
 }

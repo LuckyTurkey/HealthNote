@@ -36,7 +36,7 @@ public class HospitalService {
     }
 
     // 병원 정보
-    public Hospital getHospitalInfo(String hospitalId) {
+    public Hospital getHospitalInfo(int hospitalId) {
         return hospitalMapper.getHospitalInfo(hospitalId);
     }
 
@@ -46,7 +46,7 @@ public class HospitalService {
     }
 
     // 병원에 근무 하는 의사 목록
-    public List<Doctor> getDocInfoList(String hospitalId) {
+    public List<Doctor> getDocInfoList(int hospitalId) {
         return hospitalMapper.getDocInfoList(hospitalId);
     }
 

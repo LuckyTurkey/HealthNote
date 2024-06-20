@@ -1,5 +1,7 @@
 package com.sosigae.LuckeyTurkey.service;
 
+import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper;
+import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.HospitalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,13 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private HospitalMapper hospitalMapper;
+
+    private DoctorMapper doctorMapper;
+
     public void registerMember(User user) {
-    	userMapper.registerMember(user);
+        userMapper.registerMember(user);
     }
 
     public User loginMember(String id, String password, int is_admin) {
