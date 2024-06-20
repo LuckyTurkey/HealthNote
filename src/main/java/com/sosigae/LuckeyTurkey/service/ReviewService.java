@@ -14,7 +14,7 @@ public class ReviewService {
     private ReviewRepository reviewRepository;
 
     // 병원 조회 -> 전체 리뷰 목록
-    public List<Review> getReviewByHospitalId(String hospitalId){
+    public List<Review> getReviewByHospitalId(int hospitalId){
         return reviewRepository.findAllByHospitalId(hospitalId);
     }
 

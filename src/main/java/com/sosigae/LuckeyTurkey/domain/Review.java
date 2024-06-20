@@ -29,4 +29,7 @@ public class Review {
     private String content;
     @Column(name = "PHOTO")
     private String photo;
+
+    @Transient
+    private String userName;
 }
