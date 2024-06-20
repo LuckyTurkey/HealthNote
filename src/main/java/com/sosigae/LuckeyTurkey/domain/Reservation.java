@@ -24,7 +24,7 @@ public class Reservation implements Serializable {
     private int doctorId;
 
     @Column(name = "hospital_id", nullable = false)
-    private String hospitalId;
+    private int hospitalId;
 
     @Column(name = "user_id", nullable = false)
     private int userId;

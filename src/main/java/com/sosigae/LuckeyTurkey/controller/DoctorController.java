@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +45,8 @@ public class DoctorController {
     // 진료 기록 작성 페이지 출력
     @GetMapping("/newMedRec")
     public String showMedRecForm(Model model) {
+//        int doctorId = (int) session.getAttribute("doctorId");
+//        System.out.println( doctorId) ;
         System.out.println( "화면 출력 성공") ;
         model.addAttribute("medicalRecord", new MedicalRecord());
         return "/doctor/addMedRecord";
@@ -58,7 +61,9 @@ public class DoctorController {
 
     // 진료 기록 작성
     @PostMapping("/submitMedicalRecord")
-    public String submitMedicalRecord(@Valid @ModelAttribute("medicalRecord") MedicalRecord medicalRecord, BindingResult result, Model model) {
+    public String submitMedicalRecord(@Valid @ModelAttribute("medicalRecord") MedicalRecord medicalRecord,
+                                      BindingResult result, Model model,
+                                      HttpSession session) {
         System.out.println( "시작");
         if (result.hasErrors()) {
             System.out.println( "오류 있음");
@@ -69,11 +74,27 @@ public class DoctorController {
         // 주민등록번호로 사용자 찾기
         User user = userService.findUserByCode(medicalRecord.getPersonal_code());
 
+        // hospitalId set
+        Doctor doctor = doctorService.getDoctorById((String) session.getAttribute("id"));
+        medicalRecord.setHospitalId(doctor.getHospitalId());
+
         // 사용자가 존재하는 경우
         if (user != null) {
-            // 해당 사용자의 ID 찾아서 set
-            //medicalRecord.setUserId(user.getUser_id());
-            System.out.println( "환자 이름 확인 : " + medicalRecord.getPatient());
+            medicalRecord.setUserId(user.getUser_id());
+            System.out.println("set userId : " + medicalRecord.getUserId()) ;
+
+            System.out.println("---- 뭐가 문제인지 확인 ----") ;
+            int doctorIdStr = medicalRecord.getDoctorId();
+            System.out.println("medRecId : " + medicalRecord.getMedRecId()) ;
+            System.out.println("userId : " + medicalRecord.getUserId()) ;
+            System.out.println("doctorId : " + doctorIdStr) ;
+            System.out.println("patient : " + medicalRecord.getPatient()) ;
+            System.out.println("medContext : " + medicalRecord.getMedContext()) ;
+            System.out.println("medDate : " + medicalRecord.getMedDate()) ;
+            System.out.println("personal_code : " + medicalRecord.getPersonal_code()) ;
+            System.out.println("phone : " + medicalRecord.getPhone()) ;
+            System.out.println("hospitalId : " + medicalRecord.getHospitalId()) ;
+            System.out.println("-----------------------") ;
 
             // 진료 기록 추가
             doctorService.addMedRecord(medicalRecord);
