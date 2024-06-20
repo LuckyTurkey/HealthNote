@@ -113,10 +113,14 @@
         <span th:errors="*{medContext}"></span>
       </div>
     </div>
-    <div class="form-group">
-      <label for="doctorId">의사 id (로그인 구현 전까지 임시적으로 직접 입력)</label>
-      <input type="number" id="doctorId" th:field="*{doctorId}" />
-    </div>
+    <!-- 세션에 저장된 doctorId 사용 -->
+    <input type="hidden" th:field="*{doctorId}" th:value="${session.doctorId}" />
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      var doctorId = /*[[${session.doctorId}]]*/ '';
+      document.getElementById('doctorId').value = parseInt(doctorId);
+      /*]]>*/
+    </script>
     <div class="buttons">
       <button type="reset">초기화</button>
       <button type="submit">제출</button>

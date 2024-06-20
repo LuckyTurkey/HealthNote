@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sosigae.LuckeyTurkey.domain.Doctor;
+import com.sosigae.LuckeyTurkey.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private DoctorService doctorService;
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
@@ -45,6 +50,7 @@ public class UserController {
     public String loginUser(@ModelAttribute User user, Model model, HttpSession session) {
         try {
             User account = userService.loginMember(user.getId(), user.getPassword(), user.getIs_admin());
+
             int is_admin = userService.getUserIsAdmin(user.getId());
             
             session.setAttribute("id", account.getId());
@@ -54,7 +60,10 @@ public class UserController {
             if (is_admin == 1) {
                 return "main/hospitalMain"; // 병원 메인
             }
-            else if (is_admin == 2) {            	
+            else if (is_admin == 2) {
+                Doctor doctor = doctorService.getDoctorById(account.getId());
+                session.setAttribute("doctorId", doctor.getDoctorId());
+
                 return "main/doctorMain"; // 의사 메인
             }
             else if (is_admin == 3) {
