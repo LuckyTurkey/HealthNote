@@ -17,8 +17,8 @@
 
         <!-- 의사가 특정 환자 진료 기록 추가 -->
         <insert id="addMedRecord">
-            INSERT INTO MedicalRecord (doctor_id, user_id, medContext, medDate, personal_code, phone, patient)
-            VALUES (#{doctorId}, #{userId}, #{medContext}, #{medDate}, #{personal_code}, #{phone}, #{patient})
+            INSERT INTO MedicalRecord (doctor_id, user_id, medContext, medDate, personal_code, phone, patient, hospital_id)
+            VALUES (#{doctorId}, #{userId}, #{medContext}, #{medDate}, #{personal_code}, #{phone}, #{patient}, #{hospitalId})
         </insert>
 
         <!-- 의사가 본인이 진료한 모든 환자 진료 기록 확인 -->
