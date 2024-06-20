@@ -10,8 +10,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Hospital implements Serializable {
-    private String hospitalId;
-    private int id;
+    private int hospitalId;
+    private String id;
     private String password;
     private String name;
     private String address;

@@ -59,12 +59,12 @@
         WHERE d.name LIKE '%' || #{name, jdbcType=VARCHAR} || '%'
     </select>
 
-    <!-- 의사 이름으로 검색 -->
+    <!--의사 이름으로 의사 조회-->
     <select id="findDoctorsByDoctorName" resultType="com.sosigae.LuckeyTurkey.domain.Doctor">
         SELECT d.*, h.name AS hospitalName, h.address AS hospitalAddress
         FROM Doctor d
                  JOIN Hospital h ON d.hospital_id = h.hospital_id
-        WHERE d.name = #{doctorName}
+        WHERE d.name LIKE '%' || #{doctorName, jdbcType=VARCHAR} || '%'
     </select>
 
     <select id="findDoctorsByName" resultType="com.sosigae.LuckeyTurkey.domain.Doctor">
