@@ -19,7 +19,7 @@ public class HospitalController {
 
     // 병원 상세 조회
     @GetMapping("/hospital/{hospitalId}")
-    public String getHospitalDetail(@PathVariable String hospitalId, Model model) {
+    public String getHospitalDetail(@PathVariable int hospitalId, Model model) {
         Hospital hospital = hospitalService.getHospitalInfo(hospitalId);
         List<Doctor> doctors = hospitalService.getDocInfoList(hospitalId);
         model.addAttribute("hospital", hospital);

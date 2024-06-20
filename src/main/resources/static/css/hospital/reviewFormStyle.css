@@ -1,0 +1,78 @@
+.wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.wrapper h1 {
+    text-align: center;
+}
+
+.wrapper .hospital-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.wrapper .hospital-info img {
+    width: 300px;
+    height: 200px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+.wrapper .hospital-info input[type="file"] {
+    display: block;
+    margin: 10px auto 0;
+}
+
+.wrapper .rating {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.wrapper select {
+    font-size: 20px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.wrapper select:focus {
+    border-color: #007bff;
+}
+
+.wrapper .review-text {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.wrapper textarea {
+    width: calc(100% - 20px);
+    padding: 20px;
+    margin: 0 auto;
+    display: block;
+    border: 1px solid rgba(0, 115, 207, 0.90);
+    border-radius: 5px;
+}
+
+.wrapper button {
+    background-color: #0073CF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+.wrapper button:hover {
+    background-color: #0056b3;
+}

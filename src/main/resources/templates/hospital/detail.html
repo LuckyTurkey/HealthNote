@@ -11,8 +11,12 @@
         <img th:src="@{/images/example.svg}" alt="병원 사진" />
     </div>
 
-    <div class="hospital-name" th:text="${hospital.name}"></div>
-
+    <div class="hospital-name">
+        <span th:text="${hospital.name}"></span>
+        <a th:href="@{/review/form(hospitalId=${hospital.hospitalId})}">
+            <img th:src="@{/images/review.svg}" alt="리뷰 아이콘" class="review-icon" />
+        </a>
+    </div>
     <div class="tabs">
         <a href="#" class="tab active" onclick="showTab('info'); return false;">병원 정보</a>
         <a href="#" class="tab" onclick="showTab('doctors'); return false;">의사</a>

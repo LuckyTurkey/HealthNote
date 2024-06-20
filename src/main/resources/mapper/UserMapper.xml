@@ -16,7 +16,7 @@
     VALUES(#{id, jdbcType=VARCHAR}, USER_ID_SEQUENCE.NEXTVAL, #{password, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{email, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, #{is_admin, jdbcType=VARCHAR}, #{personal_code, jdbcType=VARCHAR})
   </insert>
 
- 
+
 <!--  &lt;!&ndash; 사용자 로그인 &ndash;&gt;-->
 <!--  <select id="loginMember" parameterType="map" resultType="com.sosigae.LuckeyTurkey.domain.User">-->
 <!--    SELECT * FROM USERS-->
