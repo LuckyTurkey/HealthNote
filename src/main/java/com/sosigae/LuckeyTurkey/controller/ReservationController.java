@@ -3,11 +3,13 @@ package com.sosigae.LuckeyTurkey.controller;
 import com.sosigae.LuckeyTurkey.domain.Doctor;
 import com.sosigae.LuckeyTurkey.domain.Hospital;
 import com.sosigae.LuckeyTurkey.domain.Reservation;
+import com.sosigae.LuckeyTurkey.domain.User;
 import com.sosigae.LuckeyTurkey.service.DoctorService;
 import com.sosigae.LuckeyTurkey.service.HospitalService;
 import com.sosigae.LuckeyTurkey.service.ReservationService;
 import com.sosigae.LuckeyTurkey.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Controller
 @RequestMapping("/reservation")
@@ -62,12 +65,16 @@ public class ReservationController {
                                  @RequestParam("hospitalId") int hospitalId, HttpSession session, Model model) {
         try {
             String id =  (String)session.getAttribute("id");
-
             if (id == null) {
                 model.addAttribute("error", "사용자 정보를 찾을 수 없습니다.");
                 return "redirect:/user/login"; // 사용자 정보가 없을 경우 처리
             }
-            int userId = userService.findByUserId(id).getUserId();
+
+
+            User user = userService.findByUserId(id);
+            System.out.println("유저" + user.getName());
+            System.out.println(user.getUserId());
+            int userId = user.getUserId();
 
             // 예약 정보 설정
             LocalDateTime now = LocalDateTime.now();
@@ -90,6 +97,11 @@ public class ReservationController {
         }
     }
 
+    @GetMapping("/available-times")
+    @ResponseBody
+    public List<String> getAvailableTimes(@RequestParam("hospitalId") int hospitalId, @RequestParam("reservationDate") String reservationDate) {
+        return reservationService.getReservedTimes(hospitalId, reservationDate);
+    }
 
     @GetMapping("/success")
     public String successReservation(Model model) {
