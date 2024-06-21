@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -30,11 +31,19 @@ public class Reservation implements Serializable {
     private int userId;
 
     @Column(name = "reservation_date", nullable = false)
-    private LocalDate reservationDate;
+    private Date reservationDate;
 
     @Column(name = "reservation_time", nullable = false)
-    private LocalTime reservationTime;
+    private String reservationTime;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    // 병원 예약 생성
+    @Transient
+    private String name;
+
+    @Transient
+    private String phone;
+
 }

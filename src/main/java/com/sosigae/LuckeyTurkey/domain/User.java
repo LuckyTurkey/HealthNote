@@ -3,19 +3,18 @@ package com.sosigae.LuckeyTurkey.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @SuppressWarnings("serial")
+@Entity
+@Table(name = "USERS")
 public class User implements Serializable {
 	private String id;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "user_id")
-	private int user_id; //int로 바꿈
+	private int userId; //int로 바꿈
 	private String password;
 	private String name;
 	private String email;
@@ -25,11 +24,11 @@ public class User implements Serializable {
 	
 	
 	
-	public int getUser_id() {
-		return user_id;
+	public int getUserId() {
+		return userId;
 	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserId(int user_id) {
+		this.userId = user_id;
 	}
 	public String getId() {
 		return id;

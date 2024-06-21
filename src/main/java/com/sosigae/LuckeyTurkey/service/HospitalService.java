@@ -4,6 +4,7 @@ import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper;
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.HospitalMapper;
 import com.sosigae.LuckeyTurkey.domain.Doctor;
 import com.sosigae.LuckeyTurkey.domain.Hospital;
+import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
 import com.sosigae.LuckeyTurkey.repository.HospitalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ public class HospitalService {
     private DoctorMapper doctorMapper;
     @Autowired
     private HospitalRepository hospitalRepository;
+    @Autowired
+    private DoctorRepository doctorRepository;
 
     // 병원 검색
     public List<Hospital> searchHospitals(String name, String department) {
@@ -60,5 +63,13 @@ public class HospitalService {
 
     public Hospital getHospitalById(String id) {
         return hospitalRepository.findById(id);
+    }
+
+    public List<Doctor> searchDoctorByNameAndHospitalId(String name, int hospitalId) {
+        return doctorRepository.findByNameAndHospitalId(name, hospitalId);
+    }
+
+    public List<Doctor> searchDoctorByDepartmentAndHospitalId(String department, int hospitalId) {
+        return doctorRepository.findByDepartmentAndHospitalId(department, hospitalId);
     }
 }

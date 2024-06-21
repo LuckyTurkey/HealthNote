@@ -2,6 +2,7 @@ package com.sosigae.LuckeyTurkey.service;
 
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper;
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.HospitalMapper;
+import com.sosigae.LuckeyTurkey.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class UserService {
     private HospitalMapper hospitalMapper;
 
     private DoctorMapper doctorMapper;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public void registerMember(User user) {
         userMapper.registerMember(user);
@@ -52,6 +56,14 @@ public class UserService {
     // 주민등록번호로 user 찾기
     public User findUserByCode(String personal_code) {
         return userMapper.findUserByCode(personal_code);
+    }
+    // 전화번호와 이름으로 user 찾기
+    public User findUserByNameAndPhone(String name, String phone) {
+        return userRepository.findByNameAndPhone(name, phone);
+    }
+
+    public User findUserByUserId(int userId) {
+        return userRepository.findByUserId(userId);
     }
 
 }

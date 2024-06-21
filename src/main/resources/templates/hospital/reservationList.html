@@ -1,67 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>헬수첩 - 진료 예약 리스트</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main/mainStyle.css}">
-    <style>
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .title {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .actions {
-            text-align: center;
-        }
-        .actions img {
-            cursor: pointer;
-            margin: 0 5px;
-        }
-        .add-button {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .add-button button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            background-color: #007bff;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .add-button button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/hospital/reservationList.css}">
 </head>
 <body>
 <div class="container">
     <div class="title">
-        <h2>진료 예약 리스트</h2>
+        진료 예약 리스트
     </div>
 
     <table>
@@ -78,22 +25,26 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="reservation : ${reservations}">
-            <td th:text="${reservation.doctorId}">103923</td>
-            <td th:text="${reservation.doctorName}">한소희</td>
-            <td th:text="${reservation.patientName}">박세은</td>
-            <td th:text="${reservation.patientPhone}">010-7294-1010</td>
-            <td th:text="${reservation.department}">내과</td>
-            <td th:text="${reservation.reservationDate}">2024.04.24</td>
-            <td th:text="${reservation.reservationTime}">AM 11:00</td>
-            <td class="actions">
-                <a th:href="@{/editAppointment/{id}(id=${reservation.id})}">
-                    <img src="/images/edit.svg" alt="수정">
-                </a>
-                <a th:href="@{/deleteAppointment/{id}(id=${reservation.id})}" onclick="return confirm('정말 삭제하시겠습니까?');">
-                    <img src="/images/delete.svg" alt="삭제">
-                </a>
-            </td>
+
+        <tr th:each="reservation, stat : ${reservations}">
+
+                <td th:text="${doctors[stat.index].doctorId}">103923</td>
+                <td th:text="${doctors[stat.index].name}">한소희</td>
+                <td th:text="${users[stat.index].name}">박세은</td>
+                <td th:text="${users[stat.index].phone}">010-7294-1010</td>
+                <td th:text="${doctors[stat.index].department}">내과</td>
+                <td th:text="${#dates.format(reservation.reservationDate, 'yyyy-MM-dd')}"></td>
+                <td th:text="${reservation.reservationTime}">AM 11:00</td>
+                <td class="actions">
+<!--                    <a th:href="@{/editAppointment/{id}(id=${reservation.id})}">-->
+<!--                        <img src="/images/edit.svg" alt="수정">-->
+<!--                    </a>-->
+<!--                    <a th:href="@{/deleteAppointment/{id}(id=${reservation.id})}" onclick="return confirm('정말 삭제하시겠습니까?');">-->
+<!--                        <img src="/images/delete.svg" alt="삭제">-->
+<!--                    </a>-->
+                </td>
+
+
         </tr>
         </tbody>
     </table>
