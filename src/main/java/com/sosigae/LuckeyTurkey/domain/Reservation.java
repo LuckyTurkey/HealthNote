@@ -3,12 +3,14 @@ package com.sosigae.LuckeyTurkey.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -30,11 +32,19 @@ public class Reservation implements Serializable {
     private int userId;
 
     @Column(name = "reservation_date", nullable = false)
-    private LocalDate reservationDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date reservationDate;
 
     @Column(name = "reservation_time", nullable = false)
-    private LocalTime reservationTime;
+    private String reservationTime;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    // 병원 예약 생성
+    @Transient
+    private String name;
+
+    @Transient
+    private String phone;
 }

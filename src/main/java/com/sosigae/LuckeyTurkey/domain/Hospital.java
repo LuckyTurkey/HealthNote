@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,14 +17,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "HOSPITAL")
 public class Hospital implements Serializable {
-	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "HOSPITAL_ID")
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int hospitalId;
     private String id;
     private String password;

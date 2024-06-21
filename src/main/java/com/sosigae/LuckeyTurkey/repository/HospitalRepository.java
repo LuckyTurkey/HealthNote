@@ -4,6 +4,8 @@ import com.sosigae.LuckeyTurkey.domain.Hospital;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
-public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
+public interface HospitalRepository extends JpaRepository<Hospital, Integer>  {
+    Hospital findById(String id);
 }

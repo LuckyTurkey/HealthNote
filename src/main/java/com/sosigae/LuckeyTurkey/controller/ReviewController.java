@@ -81,7 +81,7 @@ public class ReviewController {
         if (user == null) {
             return "redirect:/user/login";
         }
-        int userId = user.getUser_id();
+        int userId = user.getUserId();
 
         Review review = new Review();
         review.setUserId(userId);

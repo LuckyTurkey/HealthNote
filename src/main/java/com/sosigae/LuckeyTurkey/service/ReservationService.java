@@ -5,6 +5,8 @@ import com.sosigae.LuckeyTurkey.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReservationService {
     @Autowired
@@ -12,5 +14,9 @@ public class ReservationService {
 
     public void addReservation(Reservation reservation) {
         reservationRepository.save(reservation);
+    }
+
+    public List<Reservation> getReservationByHospitalId(int hospitalId) {
+        return reservationRepository.findByHospitalId(hospitalId);
     }
 }

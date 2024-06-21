@@ -54,4 +54,9 @@ public class DoctorService {
         return doctorRepository.findById(id);
     }
 
+    // doctorId로 doctor 찾기
+    public Doctor findDoctorByDoctorId(int doctorId) {
+        return doctorRepository.findByDoctorId(doctorId);
+    }
+
 }
