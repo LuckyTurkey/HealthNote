@@ -178,6 +178,31 @@ ul {
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color: #fafafa;
+    display: flex;
+}
+
+.left{
+    width: 450px;
+}
+
+.hospital-name{
+    margin-top: 80px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: 30px;
+    font-weight: bolder;
+    margin-left: 30px;
+
+
+    display: flex;
+    justify-content: center;
+}
+
+.hospital-address{
+    font-family: 'Inter', sans-serif;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
 }
 
 .result-item h2 {
@@ -191,25 +216,25 @@ ul {
 
 .result-details {
     flex: 1;
-    margin-right: 20px; /* 병원 정보와 시간 슬롯 사이 간격 추가 */
+    margin-right: 20px;
 }
 
 .result-details h2 {
-    margin-bottom: 10px; /* 병원 이름과 주소 사이 간격 추가 */
+    margin-bottom: 10px;
 }
 
 .time-slots {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    width: 50%; /* 시간 버튼의 너비를 조절하여 오른쪽에 위치시킵니다 */
+    width: 50%;
     justify-content: flex-end;
 }
 
 .time-slots button {
     padding: 10px;
-    border: 1px solid #0073CF;
-    background-color: #FFF;
+    border: none;
+    background-color: #F2F3F6;
     color: #0073CF;
     font-family: 'Inter', sans-serif;
     font-style: normal;
@@ -218,7 +243,7 @@ ul {
     line-height: 30px;
     cursor: pointer;
     border-radius: 5px;
-    flex: 1 1 calc(25% - 10px); /* 한 줄에 네 개의 버튼을 표시 */
+    flex: 1 1 calc(25% - 10px);
 }
 
 .time-slots button:hover {
@@ -227,17 +252,34 @@ ul {
 }
 
 .reserve-button {
-    width: 100%;
+    width: 50%;
     padding: 15px;
     font-size: 18px;
-    background-color: #4caf50;
-    color: #fff;
+    background-color: #0073CF;
+    color: #F2F3F6;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    justify-content: center;
+    text-align: center;
     transition: background-color 0.3s;
+    margin-left: 300px;
+    margin-top: 100px;
+    margin-bottom: 30px;
 }
 
+
 .reserve-button:hover {
-    background-color: #45a049;
+    background-color: #0073CF;
+}
+
+.reserved {
+    background-color: red;
+    cursor: not-allowed;
+}
+.available {
+    background-color: green;
+}
+.default {
+    background-color: white;
 }

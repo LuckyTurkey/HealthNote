@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "USERS")
 public class User implements Serializable {
 	private String id;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "user_id")
@@ -21,9 +21,9 @@ public class User implements Serializable {
 	private String phone;
 	private int is_admin;
 	private String personal_code;
-	
-	
-	
+
+
+
 	public int getUserId() {
 		return userId;
 	}
@@ -72,9 +72,9 @@ public class User implements Serializable {
 	public void setIs_admin(int is_admin) {
 		this.is_admin = is_admin;
 	}
-	
-	
-	
-	
+
+
+
+
 
 }
