@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -45,11 +46,19 @@ public class VaccinationController {
     }
 
     // 사용자 백신 접종 기록
-    @GetMapping("/user/{userId}")
-    public String getVaccinationForUser(@PathVariable int userId, Model model){
-        List<VaccinationRecord> vaccinationRecords = vaccinationService.getVaccinationForUser(userId);
+    @GetMapping("/user/vaccineRecord")
+    public String getVaccinationForUser(Model model, HttpSession session) {
+        String sessionId = (String) session.getAttribute("id");
+        if (sessionId == null) {
+            return "redirect:/";
+        }
+        User user = userService.findUserById(sessionId);
+        if (user == null) {
+            return "redirect:/";
+        }
+        List<VaccinationRecord> vaccinationRecords = vaccinationService.getVaccinationForUser(user.getUserId());
         model.addAttribute("vaccinationRecords", vaccinationRecords);
-        model.addAttribute("userId", userId);
+        model.addAttribute("userId", user.getUserId());
         return "vaccine/record";
     }
 
