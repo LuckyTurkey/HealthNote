@@ -33,8 +33,13 @@ public class ReservationService {
         return reservationRepository.findById(reservationId).orElse(null);
     }
 
+    // 예약 수정
     public void updateReservation(Reservation reservation) {
         reservationRepository.save(reservation);
+    }
 
+    // 예약 삭제
+    public void deleteReservation(int reservationId) {
+        reservationRepository.deleteById(reservationId);
     }
 }

@@ -253,6 +253,13 @@ public class HospitalController {
         return "redirect:/hospital/" + hospitalId + "/reservationList";
     }
 
+    // 예약 삭제
+    @PostMapping("/hospital/{hospitalId}/deleteReservation/{reservationId}")
+    public String deleteReservation(@PathVariable int hospitalId, @PathVariable int reservationId) {
+        reservationService.deleteReservation(reservationId);
+        return "redirect:/hospital/" + hospitalId + "/reservationList";
+    }
+
 
 
 }
