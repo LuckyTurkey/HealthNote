@@ -2,16 +2,21 @@ package com.sosigae.LuckeyTurkey.service;
 
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper;
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.HospitalMapper;
+import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
+import com.sosigae.LuckeyTurkey.repository.HospitalRepository;
 import com.sosigae.LuckeyTurkey.repository.MedicalRecordRepository;
 import com.sosigae.LuckeyTurkey.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.UserMapper;
+import com.sosigae.LuckeyTurkey.domain.Doctor;
+import com.sosigae.LuckeyTurkey.domain.Hospital;
 import com.sosigae.LuckeyTurkey.domain.User;
 import com.sosigae.LuckeyTurkey.dto.MedicalRecordDTO;
 
@@ -23,11 +28,27 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private DoctorRepository doctorRepository; 
+    @Autowired
+    private HospitalRepository hospitalRepository;
 
     public void registerMember(User user) {
         userMapper.registerMember(user);
     }
 
+    public void registerUser(User user) {
+        userRepository.save(user);
+    }
+
+    public void registerDoctor(Doctor doctor) {
+        doctorRepository.save(doctor);
+    }
+
+    public void registerHospital(Hospital hospital) {
+        hospitalRepository.save(hospital);
+    }
+    
     public User loginMember(String id, String password, int is_admin) {
         int userCount = userMapper.isValidUser(id, password, is_admin);
         if (userCount > 0) {

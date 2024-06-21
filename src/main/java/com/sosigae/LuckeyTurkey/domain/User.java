@@ -28,8 +28,10 @@ public class User implements Serializable {
 	private int is_admin;
 	private String personal_code;
 
-
-
+	//회원가입
+	@Transient
+    private int hospitalId; 
+	
 	public int getUserId() {
 		return userId;
 	}
