@@ -72,12 +72,13 @@ public class DoctorController {
             return "/doctor/addMedRecord";
         }
         System.out.println( "오류는 없음");
+        System.out.println(session.getAttribute("doctorId"));
 
         // 주민등록번호로 사용자 찾기
         User user = userService.findUserByCode(medicalRecord.getPersonal_code());
 
         // hospitalId set
-        Doctor doctor = doctorService.getDoctorById((String) session.getAttribute("id"));
+        Doctor doctor = doctorService.getDoctorById((String) session.getAttribute("doctorId"));
         medicalRecord.setHospitalId(doctor.getHospitalId());
 
         // 사용자가 존재하는 경우

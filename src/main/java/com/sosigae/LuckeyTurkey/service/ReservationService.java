@@ -24,14 +24,17 @@ public class ReservationService {
     }
 
 
+
     // 병원, 날짜, 시간을 기준으로 예약된 시간 목록을 조회
     public List<String> getReservedTimes(int hospitalId, String date) {
         return reservationMapper.findReservedTimesByHospitalAndDate(hospitalId, date);
     }
 
+
     public Reservation getReservationById(int reservationId) {
         return reservationRepository.findById(reservationId).orElse(null);
     }
+
 
     // 예약 수정
     public void updateReservation(Reservation reservation) {
@@ -42,4 +45,5 @@ public class ReservationService {
     public void deleteReservation(int reservationId) {
         reservationRepository.deleteById(reservationId);
     }
+
 }
