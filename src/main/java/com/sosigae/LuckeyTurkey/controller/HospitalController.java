@@ -44,7 +44,6 @@ public class HospitalController {
     @Autowired
     private DoctorService doctorService;
 
-
     // 병원 상세 조회
     @GetMapping("/hospital/{hospitalId}")
     public String getHospitalDetail(@PathVariable int hospitalId, Model model, HttpSession session) {
@@ -52,11 +51,11 @@ public class HospitalController {
         List<Doctor> doctors = hospitalService.getDocInfoList(hospitalId);
         List<Review> reviews = reviewService.getReviewByHospitalId(hospitalId);
 
-        for (Review r : reviews){
-            // pk로 유저
+        for (Review r : reviews) {
+            // pk로 유저 찾기
             User user = userService.findUserByUserId(r.getUserId());
 
-            if(user != null){
+            if (user != null) {
                 r.setUserName(user.getName());
             }
             System.out.println("각 리뷰 아이디 : " + r.getUserId());
@@ -71,15 +70,18 @@ public class HospitalController {
         String sessionId = (String) session.getAttribute("id");
         System.out.println("세션 아이디: " + sessionId);
 
-        // id로 유저
+        // id로 유저 찾기
         User sessionUser = userService.findUserById(sessionId);
 
-        System.out.println("세션 유저 정보 : " + sessionUser.getName() + " "
-                + sessionUser.getId() + " " + sessionUser.getUserId());
+        if (sessionUser != null) {
+            System.out.println("세션 유저 정보 : " + sessionUser.getName() + " "
+                    + sessionUser.getId() + " " + sessionUser.getUserId());
+            model.addAttribute("userId", sessionUser.getUserId());
+        }
 
-        model.addAttribute("userId", sessionUser.getUserId());
         return "hospital/detail";
     }
+
 
     // 병원 검색
     @GetMapping("/reservation/search/hospital")

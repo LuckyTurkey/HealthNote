@@ -65,7 +65,7 @@ public class UserService {
 
     // id로 찾기
     public User findUserById(String id){
-        return userMapper.findUserById(id);
+        return userRepository.findUserById(id);
     }
 
     public User findByUserId(String id){
