@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>병원 예약</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reservation/reservationUpdate.css}">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>병원 예약</h1>
+    </header>
+    <section class="results-section">
+        <div th:if="${hospital != null}">
+            <div class="result-item">
+                <div class="left">
+                    <div class="hospital-name" th:text="${hospital.name}">병원 이름</div>
+                    <div class="hospital-address" th:text="${hospital.address}">병원 주소</div>
+                </div>
+                <div class="time-slots" id="timeSlots">
+                    <!-- 시간 버튼은 자바스크립트로 동적으로 추가 -->
+                </div>
+            </div>
+        </div>
+
+        <form id="reservationForm" action="/reservation/update" method="post">
+            <input type="hidden" id="reservationId" name="reservationId" th:value="${reservationId}">
+            <input type="hidden" id="reservationTime" name="reservationTime">
+            <input type="hidden" id="hospitalId" name="hospitalId" th:value="${hospital.hospitalId}">
+            <input type="hidden" id="id" name="id" th:value="${session.id}">
+            <input type="hidden" id="reservationDate" name="reservationDate" th:value="${reservationDate}">
+            <div class="button-container">
+            <button class="reserve-button" type="button" onclick="submitReservation()">예약 하기</button>
+            <button class="delete-button" type="button" onclick="deleteReservation()">예약 취소</button>
+            </div>
+        </form>
+
+    </section>
+</div>
+<script>
+    function selectTime(time) {
+        // 선택된 시간을 reservationTime input에 설정
+        document.getElementById('reservationTime').value = time;
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const timeSlots = document.getElementById('timeSlots');
+        const startHour = 9;
+        const endHour = 18;
+        let selectedButton = null;
+        const hospitalId = document.getElementById('hospitalId').value;
+        // const reservationDate = document.getElementById('reservationDate').value;
+        const reservationDate = new Date(document.getElementById('reservationDate').value).toISOString().split('T')[0];
+        fetch(`/reservation/available-times?hospitalId=${hospitalId}&reservationDate=${reservationDate}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('네트워크 응답이 정상적이지 않습니다');
+                }
+                return response.json();
+            })
+            .then(reservedTimes => {
+                if (!Array.isArray(reservedTimes)) {
+                    throw new Error('예약된 시간의 배열을 기대했습니다');
+                }
+
+                const reservedSet = new Set(reservedTimes);
+
+                for (let hour = startHour; hour <= endHour; hour++) {
+                    for (let minute = 0; minute < 60; minute += 30) {
+                        const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                        const button = document.createElement('button');
+                        button.setAttribute('type', 'button');
+                        button.textContent = time;
+                        button.classList.add('default');
+                        button.addEventListener('click', function () {
+                            // 전에 클릭된 버튼의 스타일 초기화
+                            if (selectedButton) {
+                                selectedButton.style.backgroundColor = '#F2F3F6'; // 이전 선택 버튼의 배경색을 흰색으로 설정
+                                selectedButton.style.color = '#0073CF';
+                            }
+                            // 지금 클릭된 버튼의 스타일 변경
+                            button.style.backgroundColor = '#0073CF';
+                            button.style.color = '#F2F3F6';
+                            selectedButton = button; // 선택된 버튼 업데이트
+
+                            if (reservedSet.has(button.textContent)) {
+                                alert('이미 예약된 시간입니다. 다른 시간을 선택해주세요.');
+                            }
+
+                            // 선택된 시간을 reservationTime 필드에 설정
+                            document.getElementById('reservationTime').value = time;
+                        });
+
+                        // 예약된 시간이면 글씨 색 회색으로
+                        if (reservedSet.has(time)) {
+                            button.classList.add('reserved');
+                            button.disabled = true; // 예약된 시간은 버튼 비활성화
+                            button.style.color='#8C8C8C';
+                        } else {
+                            button.classList.add('default');
+                            button.addEventListener('click', function () {
+                                // 이전에 선택된 버튼의 스타일 초기화
+                                if (selectedButton) {
+                                    selectedButton.style.backgroundColor = '#F2F3F6';
+                                }
+                                // 현재 클릭된 버튼의 스타일 변경
+                                button.style.backgroundColor = '#0073CF';
+                                selectedButton = button; // 선택된 버튼 업데이트
+
+                                document.getElementById('reservationTime').value = time;
+                            });
+                        }
+                        timeSlots.appendChild(button);
+                    }
+                }
+            })
+    });
+
+
+    function submitReservation() {
+        const reservationTime = document.getElementById('reservationTime').value;
+        const hospitalId = document.getElementById('hospitalId').value;
+        const reservationDate = document.getElementById('reservationDate').value;
+
+        document.getElementById('reservationTime').value = reservationTime;
+
+        // 예약 폼 제출
+        if (reservationTime.trim() !== '') {
+            document.getElementById('reservationForm').submit();
+        } else {
+            alert('예약 시간을 선택해주세요.');
+        }
+    }
+
+    function deleteReservation() {
+        const reservationId = document.getElementById('reservationId').value;
+
+        fetch(`/reservation/delete/${reservationId}`, {
+            method: 'DELETE',
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('예약이 취소되었습니다.');
+                    window.location.href = '/reservation/my';
+                } else {
+                    alert('예약 취소 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('예약 삭제 중 오류:', error);
+                alert('예약 취소 중 오류가 발생했습니다.');
+            });
+    }
+</script>
+</body>
+</html>
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>병원 예약</title>-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/reservation/reservation.css}">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <header>-->
+<!--        <h1>병원 예약</h1>-->
+<!--    </header>-->
+<!--    <section class="results-section">-->
+<!--        <div th:if="${reservation != null}">-->
+<!--            <div class="result-item">-->
+<!--                <div class="left">-->
+<!--                    <div class="hospital-name" th:text="${hospitalName}">병원 이름</div>-->
+<!--                    <div class="hospital-address" th:text="${hospitalAddress}">병원 주소</div>-->
+<!--                </div>-->
+<!--                <div class="time-slots" id="timeSlots">-->
+<!--                    &lt;!&ndash; 시간 버튼은 자바스크립트로 동적으로 추가 &ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <form id="reservationForm" action="/reservation/update" method="post">-->
+<!--            <input type="hidden" id="reservationId" name="reservationId" th:value="${reservationId}">-->
+<!--            <input type="hidden" id="reservationTime" name="reservationTime">-->
+<!--            <input type="hidden" id="hospitalId" name="hospitalId" th:value="${hospitalId}">-->
+<!--            <input type="hidden" id="reservationDate" name="reservationDate" th:value="${reservationDate}">-->
+<!--            <button class="reserve-button" type="button" onclick="submitReservation()">예약 수정하기</button>-->
+<!--        </form>-->
+<!--    </section>-->
+<!--</div>-->
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", function() {-->
+<!--        const timeSlots = document.getElementById('timeSlots');-->
+<!--        const startHour = 9; // 시작 시간-->
+<!--        const endHour = 18;  // 종료 시간-->
+<!--        let selectedButton = null; // 선택된 버튼 저장-->
+<!--        const hospitalId = document.getElementById('hospitalId').value;-->
+<!--        const reservationDate = document.getElementById('reservationDate').value;-->
+
+<!--        // 선택된 시간 가져오기-->
+<!--        const selectedTime = document.getElementById('reservationTime').value;-->
+
+<!--        fetch(`/reservation/available-times?hospitalId=${hospitalId}&reservationDate=${reservationDate}`)-->
+<!--            .then(response => response.json())-->
+<!--            .then(reservedTimes => {-->
+<!--                const reservedSet = new Set(reservedTimes);-->
+
+<!--                // 시간 버튼 만들기-->
+<!--                for (let hour = startHour; hour <= endHour; hour++) {-->
+<!--                    for (let minute = 0; minute < 60; minute += 30) {-->
+<!--                        const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;-->
+<!--                        const button = document.createElement('button');-->
+<!--                        button.setAttribute('type', 'button');-->
+<!--                        button.textContent = time;-->
+
+<!--                        // 예약된 시간인지 확인하고 스타일 설정-->
+<!--                        if (reservedSet.has(time)) {-->
+<!--                            button.classList.add('reserved');-->
+<!--                            button.disabled = true; // 예약된 시간은 버튼 비활성화-->
+<!--                        } else {-->
+<!--                            button.classList.add('default');-->
+<!--                            // 선택한 시간인 경우 배경색 빨간색으로 설정-->
+<!--                            if (time === selectedTime) {-->
+<!--                                button.style.backgroundColor = 'red';-->
+<!--                            } else {-->
+<!--                                button.style.backgroundColor = 'green';-->
+<!--                            }-->
+<!--                            // 시간 버튼 클릭 이벤트 처리-->
+<!--                            button.addEventListener('click', function () {-->
+<!--                                // 이전에 선택된 버튼의 스타일 초기화-->
+<!--                                if (selectedButton) {-->
+<!--                                    selectedButton.style.backgroundColor = 'green';-->
+<!--                                }-->
+<!--                                // 현재 클릭된 버튼의 스타일 변경-->
+<!--                                button.style.backgroundColor = 'red';-->
+<!--                                selectedButton = button; // 선택된 버튼 업데이트-->
+
+<!--                                // 선택된 시간을 reservationTime 필드에 설정-->
+<!--                                document.getElementById('reservationTime').value = time;-->
+<!--                            });-->
+<!--                        }-->
+<!--                        timeSlots.appendChild(button);-->
+<!--                    }-->
+<!--                }-->
+<!--            });-->
+<!--    });-->
+
+<!--    function submitReservation() {-->
+<!--        const reservationId = document.getElementById('reservationId').value;-->
+<!--        const reservationTime = document.getElementById('reservationTime').value;-->
+
+<!--        // 예약 폼 제출-->
+<!--        if (reservationTime.trim() !== '') { // 값이 있는 경우만 submit-->
+<!--            document.getElementById('reservationForm').submit();-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>예약 상세 정보</title>-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/reservation/reservation.css}">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <header>-->
+<!--        <h1>예약 상세 정보</h1>-->
+<!--    </header>-->
+<!--    <section class="results-section">-->
+
+<!--        <div class="hospital-name" th:text="${reservation.hospitalName}">병원 이름</div>-->
+<!--        <div class="hospital-address" th:text="${reservation.hospitalAddress}">병원 주소</div>-->
+<!--        <div class="reservation-time" th:text="${reservation.reservationTime}">예약 시간</div>-->
+<!--        <div th:if="${reservation != null}">-->
+<!--            <div class="result-item">-->
+<!--                <div class="left">-->
+<!--                    <div class="hospital-name" th:text="${reservation.hospitalName}">병원 이름</div>-->
+<!--                    <div class="hospital-address" th:text="${reservation.hospitalAddress}">병원 주소</div>-->
+<!--                    <div class="reservation-time" th:text="${reservation.reservationTime}">예약 시간</div>-->
+<!--                </div>-->
+<!--                <div class="time-slots" id="timeSlots">-->
+<!--                    <button value="9:00">9:00</button>-->
+<!--                    <button value="9:30">9:30</button>-->
+<!--                    <button value="10:00">10:00</button>-->
+<!--                    <button value="10:30">10:30</button>-->
+<!--                    <button value="11:00">11:00</button>-->
+<!--                    <button value="11:30">11:30</button>-->
+<!--                    <button value="12:00">12:00</button>-->
+<!--                    <button value="12:30">12:30</button>-->
+<!--                    <button value="13:00">13:00</button>-->
+<!--                    <button value="13:30">13:30</button>-->
+<!--                    <button value="14:00">14:00</button>-->
+<!--                    <button value="14:30">14:30</button>-->
+<!--                    <button value="15:00">15:30</button>-->
+<!--                    <button value="16:00">16:00</button>-->
+<!--                    <button value="16:30">16:30</button>-->
+<!--                    <button value="17:00">17:00</button>-->
+<!--                    <button value="17:30">17:30</button>-->
+<!--                    <button value="18:00">18:00</button>-->
+<!--                    <button value="18:30">18:30</button>-->
+<!--                    <button value="19:00">19:00</button>-->
+<!--                    &lt;!&ndash; 시간 버튼은 자바스크립트로 동적으로 추가 &ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <form id="reservationForm" action="/reservation/update" method="post">-->
+<!--            <input type="hidden" id="reservationId" name="reservationId" th:value="${reservation.reservationId}">-->
+<!--            <input type="hidden" id="reservationTime" name="reservationTime">-->
+<!--            <input type="hidden" id="hospitalId" name="hospitalId" th:value="${reservation.hospitalId}">-->
+<!--            <input type="hidden" id="id" name="id" th:value="${session.id}">-->
+<!--            <input type="hidden" id="reservationDate" name="reservationDate" th:value="${reservation.reservationDate}">-->
+<!--            <button class="reserve-button" type="button" onclick="submitReservation()">시간 수정</button>-->
+<!--        </form>-->
+<!--        <button class="delete-button" type="button" onclick="deleteReservation()">예약 삭제</button>-->
+<!--    </section>-->
+<!--</div>-->
+<!--<script>-->
+<!--    function selectTime(time) {-->
+<!--        // 선택된 시간을 reservationTime input에 설정-->
+<!--        document.getElementById('reservationTime').value = time;-->
+<!--    }-->
+
+<!--    document.addEventListener("DOMContentLoaded", function() {-->
+<!--        const timeSlots = document.getElementById('timeSlots');-->
+<!--        const startHour = 9; // 시작 시간-->
+<!--        const endHour = 18;  // 종료 시간-->
+<!--        let selectedButton = null; // 선택된 버튼 저장-->
+<!--        const hospitalId = document.getElementById('hospitalId').value;-->
+<!--        const reservationDate = document.getElementById('reservationDate').value;-->
+<!--        fetch(`/reservation/available-times?hospitalId=${hospitalId}&reservationDate=${reservationDate}`)-->
+<!--            .then(response => response.json())-->
+<!--            .then(reservedTimes => {-->
+<!--                const reservedSet = new Set(reservedTimes);-->
+<!--                console.log(reservedSet)-->
+
+<!--                // 시간 버튼 만들기-->
+<!--                for (let hour = startHour; hour <= endHour; hour++) {-->
+<!--                    for (let minute = 0; minute < 60; minute += 30) {-->
+<!--                        const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;-->
+<!--                        const button = document.createElement('button');-->
+<!--                        button.setAttribute('type', 'button');-->
+<!--                        button.textContent = time;-->
+
+<!--                        button.classList.add('default');-->
+<!--                        button.addEventListener('click', function () {-->
+<!--                            // 전에 클릭된 버튼의 스타일 초기화-->
+<!--                            if (selectedButton) {-->
+<!--                                selectedButton.style.backgroundColor = '#F2F3F6'; // 이전 선택 버튼의 배경색을 흰색으로 설정-->
+<!--                                selectedButton.style.color = '#0073CF';-->
+<!--                            }-->
+<!--                            // 지금 클릭된 버튼의 스타일 변경-->
+<!--                            button.style.backgroundColor = '#0073CF';-->
+<!--                            button.style.color = '#F2F3F6';-->
+<!--                            selectedButton = button; // 선택된 버튼 업데이트-->
+
+<!--                            if (reservedSet.has(button.textContent)) {-->
+<!--                                alert('이미 예약된 시간입니다. 다른 시간을 선택해주세요.');-->
+<!--                            }-->
+
+<!--                            // 선택된 시간을 reservationTime 필드에 설정-->
+<!--                            document.getElementById('reservationTime').value = time;-->
+<!--                        });-->
+
+<!--                        // 예약된 시간이면 글씨 색 회색으로-->
+<!--                        if (reservedSet.has(time)) {-->
+<!--                            button.classList.add('reserved');-->
+<!--                            button.disabled = true; // 예약된 시간은 버튼 비활성화-->
+<!--                            button.style.color='#8C8C8C';-->
+<!--                        } else {-->
+<!--                            button.classList.add('default');-->
+<!--                            button.addEventListener('click', function () {-->
+<!--                                // 이전에 선택된 버튼의 스타일 초기화-->
+<!--                                if (selectedButton) {-->
+<!--                                    selectedButton.style.backgroundColor = '#F2F3F6';-->
+<!--                                }-->
+<!--                                // 현재 클릭된 버튼의 스타일 변경-->
+<!--                                button.style.backgroundColor = '#0073CF';-->
+<!--                                selectedButton = button; // 선택된 버튼 업데이트-->
+
+<!--                                document.getElementById('reservationTime').value = time;-->
+<!--                            });-->
+<!--                        }-->
+<!--                        timeSlots.appendChild(button);-->
+<!--                    }-->
+<!--                }-->
+<!--            });-->
+<!--    });-->
+
+
+<!--    function submitReservation() {-->
+<!--        const reservationTime = document.getElementById('reservationTime').value;-->
+<!--        const hospitalId = document.getElementById('hospitalId').value;-->
+<!--        const reservationDate = document.getElementById('reservationDate').value;-->
+
+<!--        // 예약 폼 제출-->
+<!--        if (reservationTime.trim() !== '') { // 값이 있는 경우만 submit-->
+<!--            document.getElementById('reservationForm').submit();-->
+<!--        }-->
+<!--    }-->
+<!--    function deleteReservation() {-->
+<!--        const reservationId = document.getElementById('reservationId').value;-->
+<!--        fetch(`/reservation/delete/${reservationId}`, {-->
+<!--            method: 'DELETE',-->
+<!--        })-->
+<!--            .then(response => {-->
+<!--                if (response.ok) {-->
+<!--                    alert('예약이 삭제되었습니다.');-->
+<!--                    window.location.href = '/reservation/my';-->
+<!--                } else {-->
+<!--                    alert('예약 삭제에 실패했습니다.');-->
+<!--                }-->
+<!--            });-->
+<!--    }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
