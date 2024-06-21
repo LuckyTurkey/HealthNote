@@ -22,6 +22,8 @@ import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -32,10 +34,9 @@ public class HospitalController {
     @Autowired
     private ReservationService reservationService;
 
+    @Autowired
     private ReviewService reviewService;
 
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private UserService userService;
@@ -46,24 +47,40 @@ public class HospitalController {
 
     // 병원 상세 조회
     @GetMapping("/hospital/{hospitalId}")
-    public String getHospitalDetail(@PathVariable int hospitalId, Model model) {
+    public String getHospitalDetail(@PathVariable int hospitalId, Model model, HttpSession session) {
         Hospital hospital = hospitalService.getHospitalInfo(hospitalId);
         List<Doctor> doctors = hospitalService.getDocInfoList(hospitalId);
         List<Review> reviews = reviewService.getReviewByHospitalId(hospitalId);
 
         for (Review r : reviews){
-            User user = userMapper.findByUser_Id(r.getUserId());
+            // pk로 유저
+            User user = userService.findUserByUserId(r.getUserId());
 
             if(user != null){
                 r.setUserName(user.getName());
             }
+            System.out.println("각 리뷰 아이디 : " + r.getUserId());
+            System.out.println("각 리뷰 쓴 사람 이름 : "  + r.getUserName());
         }
         model.addAttribute("hospital", hospital);
         model.addAttribute("doctors", doctors);
         model.addAttribute("reviews", reviews);
+
+        // 세션 아이디
+        String sessionId = (String) session.getAttribute("id");
+        System.out.println("세션 아이디: " + sessionId);
+
+        // id로 유저
+        User sessionUser = userService.findUserById(sessionId);
+
+        System.out.println("세션 유저 정보 : " + sessionUser.getName() + " "
+                + sessionUser.getId() + " " + sessionUser.getUserId());
+
+        model.addAttribute("userId", sessionUser.getUserId());
         return "hospital/detail";
     }
 
+    // 병원 검색
     @GetMapping("/reservation/search/hospital")
     public List<Hospital> searchHospitals(@RequestParam String name) {
         return hospitalService.searchHospitalsByName(name);

@@ -19,8 +19,9 @@ public interface UserMapper {
     
     User findUserByCode(@Param("personal_code") String personal_code);
 
-	User findByUserId(@Param("id")String id);
-    
-    User findByUser_Id(int userId);
+    // user의 id로 찾기
+	User findUserById(@Param("id")String id);
 
+    // user의 id로 찾기
+    User findByUserId(String id);
 }
