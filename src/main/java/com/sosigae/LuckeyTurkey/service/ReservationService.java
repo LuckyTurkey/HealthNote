@@ -1,6 +1,7 @@
 package com.sosigae.LuckeyTurkey.service;
 
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.ReservationMapper;
+import com.sosigae.LuckeyTurkey.domain.Hospital;
 import com.sosigae.LuckeyTurkey.domain.Reservation;
 import com.sosigae.LuckeyTurkey.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ public class ReservationService {
     private ReservationRepository reservationRepository;
     @Autowired
     private ReservationMapper reservationMapper;
+    @Autowired
+    private HospitalService hospitalService;
 
     public void addReservation(Reservation reservation) {
         reservationRepository.save(reservation);
@@ -31,6 +34,20 @@ public class ReservationService {
 
     public Reservation getReservationById(int reservationId) {
         return reservationRepository.findById(reservationId).orElse(null);
+    }
+
+    //유저 아이디로 예약 찾기
+//    public List<Reservation> getReservationsByUserId(int userId) {
+//        return reservationRepository.findByUserId(userId);
+//    }
+    public List<Reservation> getReservationsByUserId(int userId) {
+        List<Reservation> reservations = reservationRepository.findByUserId(userId);
+        for (Reservation reservation : reservations) {
+            Hospital hospital = hospitalService.getHospitalId(reservation.getHospitalId());
+            reservation.setHospitalName(hospital.getName());
+            reservation.setHospitalAddress(hospital.getAddress());
+        }
+        return reservations;
     }
 
     // 예약 수정

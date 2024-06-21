@@ -47,4 +47,10 @@ public class Reservation implements Serializable {
 
     @Transient
     private String phone;
+
+    @Transient
+    private String hospitalName;
+
+    @Transient
+    private String hospitalAddress;
 }

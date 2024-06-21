@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>병원 예약</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reservation/reservation.css}">
+    <script>
+        function goToReservation(reservationId) {
+            window.location.href = '/reservation/my/' + reservationId;
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>병원 예약</h1>
+    </header>
+    <section class="results-section">
+        <div th:if="${reservations != null}">
+            <div th:each="reservation : ${reservations}">
+                <div class="result-item" th:onclick="'goToReservation(' + ${reservation.reservationId} + ')'">
+                    <div class="hospital-info">
+                        <div class="hospital-name1" th:text="${reservation.hospitalName}">병원 이름</div>
+                        <div class="hospital-address2" th:text="${reservation.hospitalAddress}">병원 주소</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
