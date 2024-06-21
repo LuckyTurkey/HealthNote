@@ -38,6 +38,12 @@
                 <p>병원 예약</p>
             </a>
         </div>
+        <div class="grid-item">
+            <a th:href="@{|/vaccination/user/${session.user_id}|}">
+                <img src="/images/record.svg" alt="백신 접종 기록">
+                <p>백신 접종 기록</p>
+            </a>
+        </div>
     </div>
     <div class="logout">
         <a th:href="@{/user/login}" class="logout-button">로그아웃</a>
