@@ -46,10 +46,10 @@
       </div>
     </div>
     <!-- 세션에 저장된 doctorId 사용 -->
-    <input type="hidden" th:field="*{doctorId}" th:value="${session.doctorId}" />
+    <input type="hidden" th:field="*{doctorId}" th:value="${session.doctor}" />
     <script th:inline="javascript">
       /*<![CDATA[*/
-      var doctorId = /*[[${session.doctorId}]]*/ '';
+      var doctorId = /*[[${session.doctor}]]*/ '';
       document.getElementById('doctorId').value = parseInt(doctorId);
       /*]]>*/
     </script>

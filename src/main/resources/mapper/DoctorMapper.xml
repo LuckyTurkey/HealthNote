@@ -81,23 +81,22 @@
         WHERE d.department = #{department, jdbcType=VARCHAR}
     </select>
 
-<!--    전체 의사 목록 -->
+    <!--    전체 의사 목록 -->
     <select id="getAllDoctors" resultMap="DoctorResultMap">
         SELECT d.*, h.name AS hospitalName, h.address AS hospitalAddress
         FROM Doctor d
                  JOIN Hospital h ON d.hospital_id = h.hospital_id
     </select>
 
-    <!-- 특정 의사 정보 확인 (병원 정보까지) -->
-    <select id="getDocInfo" resultMap="DoctorResultMap">
-        SELECT d.*, h.name AS hospitalName, h.address AS hospitalAddress, f.name AS formerHospital
+    <!-- 의사 상세 조회 -->
+    <select id="getDocInfo" parameterType="int" resultMap="DoctorResultMap">
+        SELECT d.doctor_id AS doctorId, d.hospital_id AS hospitalId, d.id, d.password, d.name, d.department,
+               d.is_admin AS isAdmin, d.former_hospital AS formerHospital, d.email, d.phone,
+               h.name AS hospitalName, h.address AS hospitalAddress
         FROM Doctor d
                  JOIN Hospital h ON d.hospital_id = h.hospital_id
-                 LEFT JOIN Hospital f ON d.former_hospital = f.hospital_id
-        WHERE d.doctor_id = #{doctor_id, jdbcType=NUMERIC}
+        WHERE d.doctor_id = #{doctor_id}
     </select>
-
-
 
     <resultMap id="DoctorResultMap" type="com.sosigae.LuckeyTurkey.domain.Doctor">
         <id property="doctorId" column="doctor_id" jdbcType="NUMERIC"/>

@@ -21,26 +21,20 @@
             </a>
         </div>
         <div class="grid-item">
-            <a href="/">
-                <img src="/images/doctor.svg" alt="병원 정보 관리">
-                <p>병원 정보 관리</p>
-            </a>
-        </div>
-        <div class="grid-item">
-            <a href="/">
-                <img src="/images/hosreview.svg" alt="병원 리뷰">
-                <p>병원 리뷰</p>
-            </a>
-        </div>
-        <div class="grid-item">
             <a th:href="@{|/hospital/${session.hospital}/reservationList|}">
                 <img src="/images/reser.svg" alt="스케줄 관리">
                 <p>스케줄 관리</p>
             </a>
         </div>
+        <div class="grid-item">
+            <a href="/search">
+                <img src="/images/dochos.svg" alt="병원 의사 조회">
+                <p>병원 조회 및 리뷰 확인</p>
+            </a>
+        </div>
     </div>
     <div class="logout">
-        <a th:href="@{/user/login}" class="logout-button">로그아웃</a>
+        <a th:href="@{/user/selectLogin}" class="logout-button">로그아웃</a>
     </div>
 </div>
 </body>

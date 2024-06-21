@@ -41,20 +41,14 @@
                             <div class="location-wrapper">
                                 <input type="image" class="location-icon" src="/images/location.svg" alt="위치" />
                                 <div class="result-address" th:text="${result.address}">주소</div>
+                                <div class="result-phone" th:text="${result.phone}">전화번호</div>
                             </div>
-                        </div>
-                        <div class="result-extra">
-                            <img src="/images/example.svg" alt="사진" class="result-icon">
                         </div>
                     </div>
                 </a>
 
                 <a th:if="${searchType == 'doctors'}" th:href="'/doctor/' + ${result.doctorId}" class="result-link">
                     <div class="result-content2">
-                        <div class="doctor-img">
-                            <img src="/images/example.svg" alt="사진" class="result-icon">
-                        </div>
-
                         <div class="result-info2">
                             <div class="result-name2" th:text="${result.name}">의사 이름</div>
                             <div class="result-hospital" th:text="${result.hospitalName}">병원 이름</div>
