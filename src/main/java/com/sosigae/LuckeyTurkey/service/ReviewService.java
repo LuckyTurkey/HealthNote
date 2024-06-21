@@ -18,14 +18,19 @@ public class ReviewService {
         return reviewRepository.findAllByHospitalId(hospitalId);
     }
 
+    // 리뷰 조회
+    public Review getReviewById(int reviewId) {
+        return reviewRepository.findById(reviewId).orElse(null);
+    }
+
     // 리뷰 저장
     public void saveReview(Review review){
         review.setReviewDate(LocalDate.now());
         reviewRepository.save(review);
     }
 
-
-    public Review getReviewById(int reviewId) {
-        return reviewRepository.getReferenceById(reviewId);
+    // 리뷰 삭제
+    public void deleteReview(int reviewId) {
+        reviewRepository.deleteById(reviewId);
     }
 }

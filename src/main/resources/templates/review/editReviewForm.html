@@ -10,32 +10,34 @@
     <form action="/review/update" method="post" enctype="multipart/form-data">
         <input type="hidden" name="reviewId" th:value="${review.reviewId}" />
         <div class="hospital-info">
-            <img th:src="@{/images/example.svg}" alt="Hospital Image" id="hospitalImage">
+            <img th:src="@{'/images/' + ${review.photo}}" alt="Hospital Image" id="hospitalImage">
             <input type="file" id="imageUpload" name="imageUpload" accept="image/*" onchange="loadFile(event)">
         </div>
         <input type="hidden" name="hospitalId" th:value="${hospitalId}" />
         <div class="rating">
             <label for="rating"></label>
             <select id="rating" name="rating" required>
-                <option value="5">★★★★★</option>
-                <option value="4">★★★★☆</option>
-                <option value="3">★★★☆☆</option>
-                <option value="2">★★☆☆☆</option>
-                <option value="1">★☆☆☆☆</option>
+                <option value="5" th:selected="${review.score == 5}">★★★★★</option>
+                <option value="4" th:selected="${review.score == 4}">★★★★☆</option>
+                <option value="3" th:selected="${review.score == 3}">★★★☆☆</option>
+                <option value="2" th:selected="${review.score == 2}">★★☆☆☆</option>
+                <option value="1" th:selected="${review.score == 1}">★☆☆☆☆</option>
             </select>
         </div>
         <div class="review-text">
             <label for="comments"></label>
-            <textarea id="comments" name="comments" rows="5" placeholder="리뷰 내용을 입력하세요" required></textarea>
+            <textarea id="comments" name="comments" rows="5" placeholder="리뷰 내용을 입력하세요" required th:text="${review.content}"></textarea>
         </div>
         <div class="button-group">
             <button type="submit">리뷰 수정</button>
             <form action="/review/delete" method="post" style="display:inline;">
                 <input type="hidden" name="reviewId" th:value="${review.reviewId}" />
+                <input type="hidden" name="hospitalId" th:value="${hospitalId}" />
                 <button type="submit" class="delete">리뷰 삭제</button>
             </form>
         </div>
     </form>
+
 </div>
 <script>
     function loadFile(event) {

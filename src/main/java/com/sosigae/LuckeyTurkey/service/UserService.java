@@ -16,11 +16,6 @@ public class UserService {
     private UserMapper userMapper;
 
     @Autowired
-    private HospitalMapper hospitalMapper;
-
-    private DoctorMapper doctorMapper;
-
-    @Autowired
     private UserRepository userRepository;
 
     public void registerMember(User user) {
@@ -37,7 +32,7 @@ public class UserService {
     }
 
     public int getUserIsAdmin(String id) {
-		User user = userMapper.findByUserId(id);
+		User user = userMapper.findUserById(id);
 		if (user != null) {
             return user.getIs_admin();
         } else {
@@ -62,8 +57,13 @@ public class UserService {
         return userRepository.findByNameAndPhone(name, phone);
     }
 
+    // user_id (pk)로 찾기
     public User findUserByUserId(int userId) {
         return userRepository.findByUserId(userId);
     }
 
+    // id로 찾기
+    public User findUserById(String id) {
+        return userMapper.findUserById(id);
+    }
 }

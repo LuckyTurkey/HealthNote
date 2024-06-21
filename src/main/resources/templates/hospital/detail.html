@@ -96,8 +96,9 @@
                             </div>
                             <span class="review-date" th:text="${review.reviewDate}"></span>
                             <div class="review-content" th:text="${review.content}"></div>
+                        <!-- 리뷰 수정 -->
                             <div class="review-edit">
-                                <a th:if="${review.userId == userId}" th:href="@{/review/edit(reviewId=${review.reviewId})}">
+                                <a th:if="${review.userId == userId}" th:href="@{/review/edit/{reviewId}(reviewId=${review.reviewId})}">
                                     <img src="/images/edit-icon.svg" alt="수정 아이콘" class="edit-icon" />
                                 </a>
                             </div>

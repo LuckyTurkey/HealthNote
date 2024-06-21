@@ -4,24 +4,11 @@
 
   <cache />
 
-  <!--  &lt;!&ndash; 사용자 회원가입 &ndash;&gt;-->
-  <!--  <insert id="registerMember" parameterType="com.sosigae.LuckeyTurkey.domain.User">-->
-  <!--    INSERT INTO USERS (USER_ID, PASSWORD, NAME, EMAIL, PHONE, IS_ADMIN, PERSONAL_CODE)-->
-  <!--    VALUES(#{user_id}, #{password}, #{name}, #{email}, #{phone}, #{is_admin}, #{personal_code})-->
-  <!--  </insert>-->
-
   <!-- 사용자 회원가입 -->
   <insert id="registerMember" parameterType="com.sosigae.LuckeyTurkey.domain.User">
     INSERT INTO USERS (ID, USER_ID, PASSWORD, NAME, EMAIL, PHONE, IS_ADMIN, PERSONAL_CODE)
     VALUES(#{id, jdbcType=VARCHAR}, USER_ID_SEQUENCE.NEXTVAL, #{password, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{email, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, #{is_admin, jdbcType=VARCHAR}, #{personal_code, jdbcType=VARCHAR})
   </insert>
-
-
-<!--  &lt;!&ndash; 사용자 로그인 &ndash;&gt;-->
-<!--  <select id="loginMember" parameterType="map" resultType="com.sosigae.LuckeyTurkey.domain.User">-->
-<!--    SELECT * FROM USERS-->
-<!--    WHERE USER_ID = #{user_id} AND PASSWORD = #{password}-->
-<!--  </select>-->
 
   <!-- 사용자 로그인 -->
   <select id="loginMember" parameterType="map" resultType="com.sosigae.LuckeyTurkey.domain.User">
@@ -48,13 +35,6 @@
     DELETE FROM USERS
     WHERE USER_ID = #{user_id}
   </delete>
-  
-<!--  &lt;!&ndash; 사용자 유효성 검사 &ndash;&gt;-->
-<!--  <select id="isValidUser" parameterType="map" resultType="int">-->
-<!--    SELECT COUNT(*)-->
-<!--    FROM USERS-->
-<!--    WHERE USER_ID = #{user_id} AND PASSWORD = #{password}-->
-<!--  </select>-->
 
   <!-- 사용자 유효성 검사 -->
   <select id="isValidUser" parameterType="map" resultType="int">
@@ -70,14 +50,8 @@
   </select>
   
   <!-- 사용자 id로 사용자 조회 -->
-  <select id="findByUserId" parameterType="String" resultType="com.sosigae.LuckeyTurkey.domain.User">
+  <select id="findUserById" parameterType="String" resultType="com.sosigae.LuckeyTurkey.domain.User">
     SELECT * FROM USERS
     WHERE ID = #{id, jdbcType=VARCHAR}
 </select>
-
-<!--  user_id로 사용자 조회 -->
-  <select id="findByUser_Id" parameterType="int" resultType="com.sosigae.LuckeyTurkey.domain.User">
-    SELECT * FROM USERS WHERE USER_ID = #{userId, jdbcType=INTEGER}
-  </select>
-
 </mapper>

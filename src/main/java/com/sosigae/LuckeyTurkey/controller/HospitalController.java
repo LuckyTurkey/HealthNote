@@ -34,10 +34,9 @@ public class HospitalController {
     @Autowired
     private ReservationService reservationService;
 
+    @Autowired
     private ReviewService reviewService;
 
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private UserService userService;
@@ -54,25 +53,33 @@ public class HospitalController {
         List<Review> reviews = reviewService.getReviewByHospitalId(hospitalId);
 
         for (Review r : reviews){
-            User user = userMapper.findByUser_Id(r.getUserId());
+            // pk로 유저
+            User user = userService.findUserByUserId(r.getUserId());
 
             if(user != null){
                 r.setUserName(user.getName());
             }
-            System.out.println(r.getUserId());
+            System.out.println("각 리뷰 아이디 : " + r.getUserId());
+            System.out.println("각 리뷰 쓴 사람 이름 : "  + r.getUserName());
         }
         model.addAttribute("hospital", hospital);
         model.addAttribute("doctors", doctors);
         model.addAttribute("reviews", reviews);
 
-        // 세션 아이디 유저 조회
-        User sessionUser = userMapper.findByUserId((String) session.getAttribute("id"));
+        // 세션 아이디
+        String sessionId = (String) session.getAttribute("id");
+        System.out.println("세션 아이디: " + sessionId);
+
+        // id로 유저
+        User sessionUser = userService.findUserById(sessionId);
+
+        System.out.println("세션 유저 정보 : " + sessionUser.getName() + " " + sessionUser.getId() + " " + sessionUser.getUserId());
+
         model.addAttribute("userId", sessionUser.getUserId());
-        System.out.println("세션값 ");
-        System.out.println(sessionUser.getUserId());
         return "hospital/detail";
     }
 
+    // 병원 검색
     @GetMapping("/reservation/search/hospital")
     public List<Hospital> searchHospitals(@RequestParam String name) {
         return hospitalService.searchHospitalsByName(name);
