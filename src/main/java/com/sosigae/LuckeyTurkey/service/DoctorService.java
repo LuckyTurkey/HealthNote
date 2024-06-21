@@ -36,12 +36,12 @@ public class DoctorService {
 
     // 의사 정보
     public Doctor getDocInfo(int doctorId) {
-        return doctorRepository.findById(doctorId).orElse(null);
+        return doctorMapper.getDocInfo(doctorId);
     }
 
     // 전체 의사 목록
     public List<Doctor> getAllDoctors() {
-        return doctorRepository.findAll();
+        return doctorMapper.getAllDoctors();
     }
 
     // 특정 의사 전체 진료 기록 조회
