@@ -151,8 +151,10 @@ a {
     padding: 15px;
     width: 100%;
 
-    gap:25px;
+    gap: 200px;
 }
+
+
 
 .result-info {
     display: flex;
@@ -209,6 +211,15 @@ a {
     font-style: normal;
     font-weight: 500;
     line-height: 30px;
+}
+
+.result-phone{
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    margin-left: 20rem;
 }
 
 .result-extra {

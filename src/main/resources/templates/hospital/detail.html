@@ -7,10 +7,6 @@
 </head>
 <body>
 <div class="wrapper">
-    <div class="photo">
-        <img th:src="@{/images/example.svg}" alt="병원 사진" />
-    </div>
-
     <div class="hospital-name">
         <span th:text="${hospital.name}"></span>
         <a th:href="@{/review/form(hospitalId=${hospital.hospitalId})}">

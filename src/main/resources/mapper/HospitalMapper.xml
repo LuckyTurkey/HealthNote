@@ -71,10 +71,7 @@
     SELECT * FROM Doctor WHERE hospital_id = #{hospital_id}
   </select>
 
-  <!-- 해당 병원에서 근무하는 특정 의사 정보 확인 -->
-  <select id="getDocInfo" resultType="com.sosigae.LuckeyTurkey.domain.Doctor">
-    SELECT * FROM Doctor WHERE doctor_id = #{doctor_id}
-  </select>
+
 
   <!-- 해당 병원에서 근무하는 특정 의사 정보 수정 -->
   <update id="updateDocInfo">
