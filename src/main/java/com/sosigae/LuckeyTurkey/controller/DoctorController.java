@@ -75,7 +75,7 @@ public class DoctorController {
         System.out.println(session.getAttribute("doctorId"));
 
         // 주민등록번호로 사용자 찾기
-        User user = userService.findUserByCode(medicalRecord.getPersonal_code());
+        User user = userService.findUserByPersonalCode(medicalRecord.getPersonal_code());
 
         // hospitalId set
         Doctor doctor = doctorService.getDoctorById((String) session.getAttribute("doctorId"));

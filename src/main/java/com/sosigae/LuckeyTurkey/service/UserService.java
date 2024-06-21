@@ -80,6 +80,9 @@ public class UserService {
     public User findUserByCode(String personal_code) {
         return userMapper.findUserByCode(personal_code);
     }
+    public User findUserByPersonalCode(String personalCode) {
+        return userRepository.findByPersonalCode(personalCode);
+    }
     // 전화번호와 이름으로 user 찾기
     public User findUserByNameAndPhone(String name, String phone) {
         return userRepository.findByNameAndPhone(name, phone);

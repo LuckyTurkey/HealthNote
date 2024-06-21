@@ -26,7 +26,8 @@ public class User implements Serializable {
 	private String email;
 	private String phone;
 	private int is_admin;
-	private String personal_code;
+	@Column(name = "personal_code")
+	private String personalCode;
 
 	//회원가입
 	@Transient
@@ -53,8 +54,8 @@ public class User implements Serializable {
 	public String getEmail() {
 		return email;
 	}
-	public String getPersonal_code() {
-		return personal_code;
+	public String getPersonalCode() {
+		return personalCode;
 	}
 	public void setPassword(String password) {
 		this.password = password;
@@ -65,8 +66,8 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public void setPersonal_code(String personal_code) {
-		this.personal_code = personal_code;
+	public void setPersonalCode(String personal_code) {
+		this.personalCode = personal_code;
 	}
 	public String getPhone() {
 		return phone;
