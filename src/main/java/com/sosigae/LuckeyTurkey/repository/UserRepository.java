@@ -8,6 +8,13 @@ import org.springframework.data.repository.query.Param;
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByNameAndPhone(String name, String phone);
 
+
+    User findByUserId(int userId);
+
+	User findByNameAndPassword(String id, String password);
+
+	User findByIdAndPassword(String id, String password);
+
     // pk로 찾기
     @Query("SELECT u FROM User u WHERE u.userId = :userId")
     User findUserByUserId(@Param("userId") int userId);
@@ -15,4 +22,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // id로 찾기
     @Query("SELECT u FROM User u WHERE u.id = :id")
     User findUserById(@Param("id") String id);
+
 }

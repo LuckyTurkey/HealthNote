@@ -6,18 +6,30 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table
+@Table(name = "HOSPITAL")
 public class Hospital implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "HOSPITAL_ID")
     private int hospitalId;
     private String id;
     private String password;
+    @Column(name = "NAME")
     private String name;
     private String address;
     private String openTime;
@@ -29,4 +41,10 @@ public class Hospital implements Serializable {
 
     // 진료 과 추가
     private String department;
+    
+    /*
+    @OneToMany(mappedBy = "hospital")
+    private List<MedicalRecord> medicalRecords;
+    */
+
 }
