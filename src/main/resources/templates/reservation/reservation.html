@@ -1,283 +1,5 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <title>병원 예약</title>-->
-<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/reservation/reservation.css}">-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="container">-->
-<!--    <header>-->
-<!--        <h1>병원 예약</h1>-->
-<!--    </header>-->
-<!--    <form action="/reservation/add" method="post">-->
-<!--    <section class="search-section">-->
-<!--        <p class="header-font">병원 혹은 의사 선생님을 검색해주세요</p>-->
-<!--        <div class="search-bar">-->
-<!--            <div class="select" id="searchType">-->
-<!--                <div class="selected">-->
-<!--                    <div class="selected-value">선택</div>-->
-<!--                    <div class="arrow"></div>-->
-<!--                </div>-->
-<!--                <ul>-->
-<!--                    <li class="option" data-value="hospital">병원</li>-->
-<!--                    <li class="option" data-value="doctor">의사</li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--            <input class="underline" type="text" id="searchQuery" placeholder="검색어를 입력하세요">-->
-<!--            <button onclick="search()">검색</button>-->
-<!--            <input type="date" id="searchDate" placeholder="날짜 선택">-->
-<!--        </div>-->
-<!--    </section>-->
-<!--    <section class="results-section">-->
-<!--        <p class="header-font">검색 결과</p>-->
-<!--        <div th:if="${hospitals != null}">-->
-<!--            <div th:each="hospital : ${hospitals}">-->
-<!--                <div class="result-item">-->
-<!--                    <div class="result-details">-->
-<!--                    <h2 th:text="${hospital.name}">병원 이름</h2>-->
-<!--                    <p th:text="${hospital.address}">병원 주소</p>-->
-<!--                    </div>-->
-<!--                    <div class="time-slots">-->
-<!--&lt;!&ndash;                         <button th:each="time : ${#dates.arrayFormat('09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '13:30', '14:00', '14:30', '15:00', '15:30')}" th:text="${time}">시간</button>&ndash;&gt;-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div th:if="${doctors != null}">-->
-<!--            <div th:each="doctor : ${doctors}">-->
-<!--                <div class="result-item">-->
-<!--                    <h2 th:text="${doctor.name}">의사 이름</h2>-->
-<!--                    <p th:text="${doctor.hospitalName}">소속 병원</p>-->
-<!--                    <p th:text="${doctor.hospitalAddress}">병원 주소</p>-->
-<!--                </div>-->
-<!--                <div class="time-slots"></div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <input type="hidden" id="selectedTime" name="selectedTime">-->
-<!--        <button class="reserve-button" type="submit">예약 하기</button>-->
-<!--    </section>-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<script>-->
-<!--    function search() {-->
-<!--        const searchType = document.querySelector('.select .selected-value').getAttribute('data-value');-->
-<!--        const searchQuery = document.getElementById('searchQuery').value;-->
-<!--        const searchDate = document.getElementById('searchDate').value;-->
-<!--        window.location.href = `/reservation/search?type=${searchType}&query=${searchQuery}`;-->
-<!--    }-->
-
-<!--    document.addEventListener("DOMContentLoaded", function() {-->
-<!--        const select = document.querySelector('.select');-->
-<!--        const selectedValue = select.querySelector('.selected-value');-->
-<!--        const options = select.querySelectorAll('.option');-->
-
-<!--        select.addEventListener('click', function() {-->
-<!--            select.classList.toggle('active');-->
-<!--        });-->
-
-<!--        options.forEach(option => {-->
-<!--            option.addEventListener('click', function() {-->
-<!--                selectedValue.textContent = option.textContent;-->
-<!--                selectedValue.setAttribute('data-value', option.getAttribute('data-value'));-->
-<!--                select.classList.remove('active');-->
-<!--            });-->
-<!--        });-->
-
-<!--        // Close the dropdown if the user clicks outside of it-->
-<!--        document.addEventListener('click', function(event) {-->
-<!--            if (!select.contains(event.target)) {-->
-<!--                select.classList.remove('active');-->
-<!--            }-->
-<!--        });-->
-<!--    });-->
-<!--    /////////여기서부터 ??-->
-<!--    //-->
-<!--    // // 시간 버튼 생성-->
-<!--    // const timeSlots = document.querySelectorAll('.time-slots');-->
-<!--    // const times = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"];-->
-<!--    //-->
-<!--    // timeSlots.forEach(slot => {-->
-<!--    //     times.forEach(time => {-->
-<!--    //         const button = document.createElement('button');-->
-<!--    //         button.textContent = time;-->
-<!--    //         slot.appendChild(button);-->
-<!--    //     });-->
-<!--    // });-->
-<!--    document.addEventListener("DOMContentLoaded", function() {-->
-<!--        const timeSlots = document.querySelector('.time-slots');-->
-<!--        const times = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00",-->
-<!--            "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00",-->
-<!--            "16:30", "17:00"];-->
-
-<!--        times.forEach(time => {-->
-<!--            const button = document.createElement('button');-->
-<!--            button.textContent = time;-->
-<!--            button.setAttribute('type', 'button');  // 폼 전송을 막기 위해 type을 button으로 설정-->
-<!--            button.addEventListener('click', function() {-->
-<!--                // 클릭된 버튼의 텍스트(시간)을 hidden input에 설정-->
-<!--                document.getElementById('selectedTime').value = time;-->
-<!--                // 선택된 시간을 표시하기 위해 span 요소에 설정-->
-<!--                const selectedTimeDisplay = document.getElementById('selectedTimeDisplay');-->
-<!--                selectedTimeDisplay.textContent = time + " 선택됨";-->
-<!--            });-->
-<!--            timeSlots.appendChild(button);-->
-<!--        });-->
-<!--    });-->
-
-<!--</script>-->
-<!--</body>-->
-<!--</html>-->
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>병원 예약</title>-->
-<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/reservation/reservation.css}">-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="container">-->
-<!--    <header>-->
-<!--        <h1>병원 예약</h1>-->
-<!--    </header>-->
-<!--    <form id="reservationForm" action="/reservation/add" method="post">-->
-<!--        <section class="search-section">-->
-<!--            <p class="header-font">병원 혹은 의사 선생님을 검색해주세요</p>-->
-<!--            <div class="search-bar">-->
-<!--                <div class="select" id="searchType">-->
-<!--                    <div class="selected">-->
-<!--                        <div class="selected-value">선택</div>-->
-<!--                        <div class="arrow"></div>-->
-<!--                    </div>-->
-<!--                    <ul>-->
-<!--                        <li class="option" data-value="hospital">병원</li>-->
-<!--                        <li class="option" data-value="doctor">의사</li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--                <input class="underline" type="text" id="searchQuery" placeholder="검색어를 입력하세요">-->
-<!--                <button type="button" onclick="search()">검색</button>-->
-<!--                <input type="date" id="searchDate" placeholder="날짜 선택">-->
-<!--            </div>-->
-<!--        </section>-->
-<!--        <section class="results-section">-->
-<!--            <p class="header-font">검색 결과</p>-->
-<!--            <div th:if="${hospitals != null}">-->
-<!--                <div th:each="hospital : ${hospitals}">-->
-<!--                    <div class="result-item">-->
-<!--                        <div class="result-details">-->
-<!--                            <h2 th:text="${hospital.name}">병원 이름</h2>-->
-<!--                            <p th:text="${hospital.address}">병원 주소</p>-->
-<!--                        </div>-->
-<!--                        <div class="time-slots">-->
-<!--                            &lt;!&ndash; 시간 버튼은 JavaScript로 동적으로 추가 &ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            <div th:if="${doctors != null}">-->
-<!--                <div th:each="doctor : ${doctors}">-->
-<!--                    <div class="result-item">-->
-<!--                        <h2 th:text="${doctor.name}">의사 이름</h2>-->
-<!--                        <p th:text="${doctor.hospitalName}">소속 병원</p>-->
-<!--                        <p th:text="${doctor.hospitalAddress}">병원 주소</p>-->
-<!--                    </div>-->
-<!--                    <div class="time-slots">-->
-<!--                        &lt;!&ndash; 시간 버튼은 JavaScript로 동적으로 추가 &ndash;&gt;-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <button class="reserve-button" type="button" onclick="submitReservation()">예약 하기</button>-->
-<!--            <input type="hidden" id="selectedTime" name="selectedTime">-->
-<!--            <input type="hidden" id="selectedHospitalId" name="selectedHospitalId">-->
-<!--            <input type="hidden" id="selectedDoctorId" name="selectedDoctorId">-->
-<!--            <input type="hidden" id="selectedUserId" name="selectedUserId">-->
-<!--        </section>-->
-<!--    </form>-->
-<!--    <p id="selectedTimeDisplay"></p>-->
-<!--</div>-->
-<!--<script>-->
-<!--    // 시간 버튼 생성-->
-<!--    document.addEventListener("DOMContentLoaded", function() {-->
-<!--        const timeSlots = document.querySelectorAll('.time-slots');-->
-<!--        const times = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"];-->
-
-<!--        timeSlots.forEach(slot => {-->
-<!--            times.forEach(time => {-->
-<!--                const button = document.createElement('button');-->
-<!--                button.textContent = time;-->
-<!--                button.addEventListener('click', function() {-->
-<!--                    // 선택된 시간 표시-->
-<!--                    document.getElementById('selectedTimeDisplay').textContent = `선택한 시간: ${time}`;-->
-<!--                    // 모든 시간 버튼의 클래스 초기화-->
-<!--                    timeSlots.forEach(ts => {-->
-<!--                        ts.querySelectorAll('button').forEach(btn => {-->
-<!--                            btn.classList.remove('selected');-->
-<!--                        });-->
-<!--                    });-->
-<!--                    // 선택된 시간 버튼에 클래스 추가-->
-<!--                    button.classList.add('selected');-->
-<!--                    // 선택된 시간을 hidden input에 설정-->
-<!--                    document.getElementById('selectedTime').value = time;-->
-<!--                });-->
-<!--                slot.appendChild(button);-->
-<!--            });-->
-<!--        });-->
-
-<!--        const select = document.querySelector('.select');-->
-<!--        const selectedValue = select.querySelector('.selected-value');-->
-<!--        const options = select.querySelectorAll('.option');-->
-
-<!--        select.addEventListener('click', function() {-->
-<!--            select.classList.toggle('active');-->
-<!--        });-->
-
-<!--        options.forEach(option => {-->
-<!--            option.addEventListener('click', function() {-->
-<!--                selectedValue.textContent = option.textContent;-->
-<!--                selectedValue.setAttribute('data-value', option.getAttribute('data-value'));-->
-<!--                select.classList.remove('active');-->
-<!--            });-->
-<!--        });-->
-
-<!--        // Close the dropdown if the user clicks outside of it-->
-<!--        document.addEventListener('click', function(event) {-->
-<!--            if (!select.contains(event.target)) {-->
-<!--                select.classList.remove('active');-->
-<!--            }-->
-<!--        });-->
-<!--    });-->
-
-<!--    function search() {-->
-<!--        const searchType = document.querySelector('.select .selected-value').getAttribute('data-value');-->
-<!--        const searchQuery = document.getElementById('searchQuery').value;-->
-<!--        const searchDate = document.getElementById('searchDate').value;-->
-<!--        window.location.href = `/reservation/search?type=${searchType}&query=${searchQuery}&date=${searchDate}`;-->
-<!--    }-->
-
-<!--    function submitReservation() {-->
-<!--        const selectedTime = document.getElementById('selectedTime').value;-->
-<!--        const selectedHospitalId = "";  // 선택된 병원 ID-->
-<!--        const selectedDoctorId = "";    // 선택된 의사 ID-->
-<!--        const selectedUserId = "";      // 선택된 사용자 ID-->
-
-<!--        // 병원 ID와 의사 ID는 서버에서 정확히 어떻게 받아올지에 따라 설정 필요-->
-
-<!--        // 예약하기 버튼을 클릭할 때 선택된 시간과 hidden input에 설정된 값들을 확인-->
-<!--        console.log(`선택된 시간: ${selectedTime}`);-->
-<!--        console.log(`병원 ID: ${selectedHospitalId}`);-->
-<!--        console.log(`의사 ID: ${selectedDoctorId}`);-->
-<!--        console.log(`사용자 ID: ${selectedUserId}`);-->
-
-<!--        // 여기서 폼을 제출하거나 필요한 처리를 추가할 수 있습니다.-->
-<!--        document.getElementById('reservationForm').submit();-->
-<!--    }-->
-<!--</script>-->
-<!--</body>-->
-<!--</html>-->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>병원 예약</title>
@@ -288,7 +10,6 @@
     <header>
         <h1>병원 예약</h1>
     </header>
-    <form id="reservationForm" action="/reservation/add" method="post">
         <section class="search-section">
             <p class="header-font">병원 혹은 의사 선생님을 검색해주세요</p>
             <div class="search-bar">
@@ -304,7 +25,7 @@
                 </div>
                 <input class="underline" type="text" id="searchQuery" placeholder="검색어를 입력하세요">
                 <button type="button" onclick="search()">검색</button>
-                <input type="date" id="searchDate" placeholder="날짜 선택">
+                <input type="date" id="reservationDate" name="reservationDate" placeholder="날짜 선택">
             </div>
         </section>
         <section class="results-section">
@@ -312,7 +33,8 @@
             <div th:if="${hospitals != null}">
                 <div th:each="hospital : ${hospitals}">
                     <div class="result-item">
-                        <div class="result-details">
+                        <div class="result-item" th:onclick="'goToReservation(' + ${hospital.hospitalId} + ', \'' + ${#dates.format(reservationDate, 'yyyy-MM-dd')} + '\')'">
+<!--                        <div class="result-item" th:onclick="'goToReservation(' + ${hospital.hospitalId} + ', \'' + ${#dates.format(reservationDate, 'yyyy-MM-dd')} + '\')'">-->
                             <h2 th:text="${hospital.name}">병원 이름</h2>
                             <p th:text="${hospital.address}">병원 주소</p>
                         </div>
@@ -332,45 +54,78 @@
                     </div>
                     <div class="time-slots">
                         <!-- 시간 버튼은 JavaScript로 동적으로 추가 -->
+                        <button type="button" onclick="selectTime('09:00')">09:00</button>
+                        <button type="button" onclick="selectTime('09:30')">09:30</button>
+                        <button type="button" onclick="selectTime('10:00')">10:00</button>
+                        <button type="button" onclick="selectTime('10:30')">10:30</button>
                     </div>
+                    <input type="hidden" id="doctorIdInput" name="doctorId" th:value="${doctor.doctorId}">
+                    <input type="hidden" id="hospitalIdInput" name="hospitalId" th:value="${doctor.hospitalId}">
+
+                    <p th:text="${doctor.hospitalId}"></p>
+                    <p th:text="${doctor.doctorId}"></p>
+                    <input type="hidden" id="reservationTime" name="reservationTime">
                 </div>
             </div>
-            <button class="reserve-button" type="button" onclick="submitReservation()">예약 하기</button>
-            <input type="hidden" id="selectedTime" name="selectedTime">
-            <input type="hidden" id="selectedHospitalId" name="selectedHospitalId">
-            <input type="hidden" id="selectedDoctorId" name="selectedDoctorId">
+            <button class="reserve-button" type="submit" >예약 하기</button>
         </section>
-    </form>
-    <p id="selectedTimeDisplay"></p>
 </div>
 <script>
+    // function goToReservation(hospitalId, reservationDate) {
+    //     window.location.href = '/reservation/hospitalId=' + hospitalId + '?reservationDate=' + reservationDate;
+    // }
+    function goToReservation(hospitalId) {
+        const reservationDate = document.getElementById('reservationDate').value; // reservationDate 값을 가져옴
+        const formattedDate = formatDate(reservationDate); // 가져온 날짜 값을 포맷 변경
+
+        if (!reservationDate) {
+            alert('예약할 날짜를 선택하세요.'); // 사용자에게 날짜 선택 요청 알림
+            return; // 날짜를 선택하지 않은 경우 함수 종료
+        }
+
+        // formattedDate 값이 유효한 경우에만 URL을 생성하여 이동
+        if (formattedDate) {
+            window.location.href = '/reservation/hospitalId=' + hospitalId + '?reservationDate=' + formattedDate;
+        } else {
+            console.error('올바른 날짜를 선택하세요.'); // 예외 처리: 날짜 선택이 올바르지 않은 경우
+        }
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString); // 입력된 dateString을 Date 객체로 변환
+
+        // 날짜가 유효한지 체크 (유효하지 않으면 빈 문자열 반환)
+        if (isNaN(date.getTime())) {
+            return '';
+        }
+
+        // yyyy-MM-dd 형식으로 날짜 포맷 변경
+        const year = date.getFullYear();
+        let month = (1 + date.getMonth()).toString().padStart(2, '0'); // 월은 0부터 시작하므로 +1, 두 자리로 포맷
+        let day = date.getDate().toString().padStart(2, '0'); // 날짜를 두 자리로 포맷
+
+        return `${year}-${month}-${day}`;
+    }
+
+    function selectTime(time) {
+        // 선택된 시간을 reservationTime input에 설정
+        document.getElementById('reservationTime').value = time;
+
+        // 의사 ID와 병원 ID를 설정 (이 예시에서는 Thymeleaf 변수를 사용했다고 가정)
+        const doctorId = document.getElementById('doctorIdInput').value;
+        const hospitalId = document.getElementById('hospitalIdInput').value;
+
+        // doctorIdInput과 hospitalIdInput에 값 설정
+        document.getElementById('doctorIdInput').value = doctorId;
+        document.getElementById('hospitalIdInput').value = hospitalId;
+
+        // 선택된 시간을 콘솔에 출력 (테스트용)
+        console.log("Selected time: " + time);
+        console.log("Doctor ID: " + doctorId);
+        console.log("Hospital ID: " + hospitalId);
+    }
     // 시간 버튼 생성
     document.addEventListener("DOMContentLoaded", function() {
-        const timeSlots = document.querySelectorAll('.time-slots');
-        const times = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"];
-
-        timeSlots.forEach(slot => {
-            times.forEach(time => {
-                const button = document.createElement('button');
-                button.textContent = time;
-                button.addEventListener('click', function() {
-                    // 선택된 시간 표시
-                    document.getElementById('selectedTimeDisplay').textContent = `선택한 시간: ${time}`;
-                    // 모든 시간 버튼의 클래스 초기화
-                    timeSlots.forEach(ts => {
-                        ts.querySelectorAll('button').forEach(btn => {
-                            btn.classList.remove('selected');
-                        });
-                    });
-                    // 선택된 시간 버튼에 클래스 추가
-                    button.classList.add('selected');
-                    // 선택된 시간을 hidden input에 설정
-                    document.getElementById('selectedTime').value = time;
-                });
-                slot.appendChild(button);
-            });
-        });
-
         const select = document.querySelector('.select');
         const selectedValue = select.querySelector('.selected-value');
         const options = select.querySelectorAll('.option');
@@ -398,19 +153,22 @@
     function search() {
         const searchType = document.querySelector('.select .selected-value').getAttribute('data-value');
         const searchQuery = document.getElementById('searchQuery').value;
-        const searchDate = document.getElementById('searchDate').value;
+        const searchDate = document.getElementById('reservationDate').value;
         window.location.href = `/reservation/search?type=${searchType}&query=${searchQuery}`;
     }
 
     function submitReservation() {
         const selectedTime = document.getElementById('selectedTime').value;
-        // 세션에서 사용자 ID 가져오기
-        const selectedUserId = "${session.getAttribute('userId')}"; // Thymeleaf 문법으로 세션에서 userId 가져오기
+        const selectedHospitalId = "";  // 선택된 병원 ID
+        const selectedDoctorId = "";    // 선택된 의사 ID
+        const selectedUserId = "";      // 선택된 사용자 ID
 
         // 병원 ID와 의사 ID는 서버에서 정확히 어떻게 받아올지에 따라 설정 필요
 
         // 예약하기 버튼을 클릭할 때 선택된 시간과 hidden input에 설정된 값들을 확인
         console.log(`선택된 시간: ${selectedTime}`);
+        console.log(`병원 ID: ${selectedHospitalId}`);
+        console.log(`의사 ID: ${selectedDoctorId}`);
         console.log(`사용자 ID: ${selectedUserId}`);
 
         // 여기서 폼을 제출하거나 필요한 처리를 추가할 수 있습니다.
@@ -419,4 +177,3 @@
 </script>
 </body>
 </html>
-
