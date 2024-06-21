@@ -6,12 +6,14 @@ import com.sosigae.LuckeyTurkey.domain.Reservation;
 import com.sosigae.LuckeyTurkey.service.DoctorService;
 import com.sosigae.LuckeyTurkey.service.HospitalService;
 import com.sosigae.LuckeyTurkey.service.ReservationService;
+import com.sosigae.LuckeyTurkey.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class ReservationController {
     private HospitalService hospitalService;
     @Autowired
     private DoctorService doctorService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public String showReservationPage(Model model) {
@@ -43,30 +47,53 @@ public class ReservationController {
         return "reservation/reservation";
     }
 
-//    @PostMapping("/add")
-//    public void addReservation(@ModelAttribute Reservation reservation) {
-//        reservationService.addReservation(reservation);
-//    }
-@PostMapping("/add")
-public String addReservation(@ModelAttribute("reservation") Reservation reservation, HttpSession session, Model model) {
-    int userId = (int) session.getAttribute("userId");
-
-//    if (userId == null) {
-//        // 사용자 인증 실패 시 처리
-//        model.addAttribute("error", "사용자 인증 실패");
-//        return "error-page"; // 사용자 정의 에러 페이지로 리다이렉트 혹은 반환
-//    }
-
-    reservation.setUserId(userId);
-
-    try {
-        // 예약 추가 로직
-        // 예약 서비스를 호출하여 예약을 추가하고 성공 페이지로 이동
-        return "redirect:/reservation/reservation";
-    } catch (Exception e) {
-        // 예약 실패 시 처리
-        model.addAttribute("error", "예약 등록 중 오류가 발생했습니다.");
-        return "error-page"; // 사용자 정의 에러 페이지로 리다이렉트 혹은 반환
+    @GetMapping("/hospitalId={hospitalId}")
+    public String showReservationTimes(@PathVariable("hospitalId") int hospitalId,
+                                       @RequestParam("reservationDate") String reservationDate,
+                                       Model model) {
+        Hospital hospital = hospitalService.getHospitalById(hospitalId);
+        model.addAttribute("hospital", hospital);
+        model.addAttribute("reservationDate", reservationDate);
+        return "reservation/reservationCreate"; // 예약 시간 페이지
     }
-}
+
+    @PostMapping("/add")
+    public String addReservation(@ModelAttribute("reservation") Reservation reservation,
+                                 @RequestParam("hospitalId") int hospitalId, HttpSession session, Model model) {
+        try {
+            String id =  (String)session.getAttribute("id");
+
+            if (id == null) {
+                model.addAttribute("error", "사용자 정보를 찾을 수 없습니다.");
+                return "redirect:/user/login"; // 사용자 정보가 없을 경우 처리
+            }
+            int userId = userService.findByUserId(id).getUser_id();
+
+
+            // 예약 정보 설정
+            LocalDateTime now = LocalDateTime.now();
+            reservation.setCreatedAt(now);
+            reservation.setUserId(userId);
+            reservation.setHospitalId(hospitalId);
+            reservation.setDoctorId(1); // 예약할 의사의 ID 설정
+            reservation.setReservationDate(reservation.getReservationDate());
+            reservation.setReservationTime(reservation.getReservationTime());
+
+            // 예약 서비스 호출
+            reservationService.addReservation(reservation);
+
+            // 예약 성공 시 리다이렉트
+            return "redirect:/reservation";
+        } catch (Exception e) {
+            // 예약 실패 시 처리
+            model.addAttribute("error", "예약 등록 중 오류가 발생했습니다.");
+            return "redirect:/user/login"; // 예약 실패 시 로그인 페이지로 리다이렉트
+        }
+    }
+
+
+    @GetMapping("/success")
+    public String successReservation(Model model) {
+        return "reservation/success";
+    }
 }

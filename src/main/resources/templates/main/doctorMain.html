@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:p="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>헬수첩 - 메인 페이지 (의사)</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main/mainStyle.css}">
 </head>
 <body>
+<p th:text="${session.id}"></p>
 <div class="container">
     <div class="title">
         <img src="/images/logo.svg" alt="로고">

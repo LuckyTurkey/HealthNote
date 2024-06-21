@@ -13,7 +13,7 @@ public class UserService {
     private UserMapper userMapper;
 
     public void registerMember(User user) {
-    	userMapper.registerMember(user);
+        userMapper.registerMember(user);
     }
 
     public User loginMember(String id, String password, int is_admin) {
@@ -26,20 +26,20 @@ public class UserService {
     }
 
     public int getUserIsAdmin(String id) {
-		User user = userMapper.findByUserId(id);
-		if (user != null) {
+        User user = userMapper.findByUserId(id);
+        if (user != null) {
             return user.getIs_admin();
         } else {
             throw new IllegalArgumentException("사용자를 찾을 수 없습니다.");
         }
-	}
-    
+    }
+
     public void deleteMember(User user) {
-    	userMapper.deleteMember(user);
+        userMapper.deleteMember(user);
     }
 
     public void updateMember(User user) {
-    	userMapper.updateMember(user);
+        userMapper.updateMember(user);
     }
 
     // 주민등록번호로 user 찾기
@@ -47,4 +47,7 @@ public class UserService {
         return userMapper.findUserByCode(personal_code);
     }
 
+    public User findByUserId(String id){
+        return userMapper.findByUserId(id);
+    }
 }

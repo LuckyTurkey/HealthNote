@@ -31,7 +31,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
-    	userService.registerMember(user);
+        userService.registerMember(user);
         redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다.");
         return "user/login"; // 성공 시 로그인 페이지로 이동
     }
@@ -46,34 +46,34 @@ public class UserController {
         try {
             User account = userService.loginMember(user.getId(), user.getPassword(), user.getIs_admin());
             int is_admin = userService.getUserIsAdmin(user.getId());
-            
+
             session.setAttribute("id", account.getId());
-            
+
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
-            
+
             if (is_admin == 1) {
                 return "main/hospitalMain"; // 병원 메인
             }
-            else if (is_admin == 2) {            	
+            else if (is_admin == 2) {
                 return "main/doctorMain"; // 의사 메인
             }
             else if (is_admin == 3) {
-            	return "main/patientMain"; // 환자 메인
+                return "main/patientMain"; // 환자 메인
             }
             else {
-            	return "user/login";
+                return "user/login";
             }
         } catch (IllegalArgumentException e) {
             model.addAttribute("loginResult", "유효하지 않은 사용자입니다.");
             return "user/login"; // 실패 시 다시 로그인 페이지로 이동
         }
     }
-    
+
     @GetMapping("/logout")
     public String logoutUser(HttpServletRequest request, HttpServletResponse response) {
         // 현재 세션
         HttpSession session = request.getSession(false);
-        
+
         // 세션이 존재하면 세션을 무효화 함
         if (session != null) {
             session.invalidate();
@@ -81,6 +81,6 @@ public class UserController {
 
         return "redirect:/user/login";
     }
-    
-    
+
+
 }
