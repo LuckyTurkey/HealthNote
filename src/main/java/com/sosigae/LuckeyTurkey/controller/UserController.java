@@ -47,10 +47,37 @@ public class UserController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
-    	userService.registerMember(user);
-        redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다.");
-        return "user/login"; // 성공 시 로그인 페이지로 이동
+        try {
+            if (user.getIs_admin() == 2) {
+                Doctor doctor = new Doctor();
+                doctor.setId(user.getId());
+                doctor.setPassword(user.getPassword());
+                doctor.setName(user.getName());
+                doctor.setEmail(user.getEmail());
+                doctor.setPhone(user.getPhone());
+                userService.registerDoctor(doctor);
+                
+            } else if (user.getIs_admin() == 1) {
+                Hospital hospital = new Hospital();
+                hospital.setId(user.getId());
+                hospital.setPassword(user.getPassword());
+                hospital.setName(user.getName());
+                hospital.setEmail(user.getEmail());
+                hospital.setPhone(user.getPhone());
+                userService.registerHospital(hospital);
+                
+            } else if (user.getIs_admin() == 3) {
+                userService.registerUser(user);
+            }
+            
+            redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다.");
+            return "user/selectLogin"; 
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "회원가입 중 오류가 발생하였습니다.");
+            return "redirect:/user/register";
+        }
     }
+    
 
     @GetMapping("/login")
     public String showLoginPage() {
@@ -127,6 +154,8 @@ public class UserController {
             }
 
             session.setAttribute("hospitalId", account.getId());
+            session.setAttribute("hospital", account.getHospitalId());
+
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             return "main/hospitalMain"; // 관리자 메인 페이지로 이동
 
@@ -147,6 +176,7 @@ public class UserController {
             }
 
             session.setAttribute("doctorId", account.getId());
+            session.setAttribute("doctor", account.getDoctorId());
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             return "main/doctorMain"; // 의사 메인 페이지로 이동
 

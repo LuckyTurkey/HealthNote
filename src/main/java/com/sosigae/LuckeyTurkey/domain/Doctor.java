@@ -22,12 +22,15 @@ import javax.persistence.Table;
 @Table(name = "DOCTOR")
 public class Doctor implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "doctor_seq")
+    @SequenceGenerator(name = "doctor_seq", sequenceName = "doctor_seq", allocationSize = 1)
     @Column(name = "DOCTOR_ID")
     private int doctorId;
     private String id;
     private String password;
+    
     private int hospitalId;
+    
     private String name;
     private String department;
     private boolean isAdmin;

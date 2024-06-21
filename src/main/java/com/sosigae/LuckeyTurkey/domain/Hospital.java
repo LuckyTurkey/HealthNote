@@ -24,7 +24,8 @@ import javax.persistence.Table;
 public class Hospital implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hospital_seq")
+    @SequenceGenerator(name = "hospital_seq", sequenceName = "hospital_seq", allocationSize = 1)
     @Column(name = "HOSPITAL_ID")
     private int hospitalId;
     private String id;
