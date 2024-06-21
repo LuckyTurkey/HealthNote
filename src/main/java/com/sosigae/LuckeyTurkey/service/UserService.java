@@ -38,14 +38,14 @@ public class UserService {
         } else {
             throw new IllegalArgumentException("사용자를 찾을 수 없습니다.");
         }
-	}
-    
+    }
+
     public void deleteMember(User user) {
-    	userMapper.deleteMember(user);
+        userMapper.deleteMember(user);
     }
 
     public void updateMember(User user) {
-    	userMapper.updateMember(user);
+        userMapper.updateMember(user);
     }
 
     // 주민등록번호로 user 찾기

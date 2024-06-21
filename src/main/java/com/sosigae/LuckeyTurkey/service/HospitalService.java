@@ -60,7 +60,9 @@ public class HospitalService {
     public List<Doctor> findDoctorsByDoctorName(String doctorName) {
         return doctorMapper.findDoctorsByDoctorName(doctorName);
     }
-
+    public Hospital getHospitalId(int hospitalId){
+        return hospitalMapper.getHospitalInfo(hospitalId);
+    }
     public Hospital getHospitalById(String id) {
         return hospitalRepository.findById(id);
     }
