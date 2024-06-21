@@ -2,13 +2,13 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>헬수첩 - 진료 예약 추가</title>
+    <title>헬수첩 - 진료 예약 수정</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/hospital/addReservation.css}">
 </head>
 <body>
 <div class="container">
     <div class="title">
-        진료 예약 추가
+        진료 예약 수정
     </div>
 
     <div class="form-parent">
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <form th:action="@{/hospital/{hospitalId}/submitReservation(hospitalId=${hospitalId})}" th:object="${reservation}" method="post">
+        <form th:action="@{/hospital/{hospitalId}/updateReservation/{reservationId}(hospitalId=${hospitalId}, reservationId=${reservation.reservationId})}" th:object="${reservation}" method="post">
 
             <div class="form-group">
                 <label for="date">진료 날짜 선택</label>
@@ -39,35 +39,31 @@
             <div class="form-group">
                 <label for="time">진료 시간 선택</label>
                 <div class="appointment-time">
-                    <button type="button" onclick="selectAppointmentTime(this)" value="09:00">09:00</button>
-                    <button type="button" onclick="selectAppointmentTime(this)" value="09:30">09:30</button>
-                    <button type="button" onclick="selectAppointmentTime(this)" value="10:00">10:00</button>
-                    <button type="button" onclick="selectAppointmentTime(this)" value="10:30">10:30</button>
-                    <button type="button" onclick="selectAppointmentTime(this)" value="11:00">11:00</button>
-                    <button type="button" onclick="selectAppointmentTime(this)" value="11:30">11:30</button>
-                    <button type="button" onclick="selectAppointmentTime(this)" value="12:00">12:00</button>
-                    <button type="button" onclick="selectAppointmentTime(this)" value="13:30">13:30</button>
-                    <button type="button" onclick="selectAppointmentTime(this)" value="14:00">14:00</button>
-                    <button type="button" onclick="selectAppointmentTime(this)" value="14:30">14:30</button>
-                    <button type="button" onclick="selectAppointmentTime(this)" value="15:00">15:00</button>
-                    <button type="button" onclick="selectAppointmentTime(this)" value="15:30">15:30</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="09:00" th:classappend="${reservation.reservationTime == '09:00'} ? 'selected' : ''">09:00</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="09:30" th:classappend="${reservation.reservationTime == '09:30'} ? 'selected' : ''">09:30</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="10:00" th:classappend="${reservation.reservationTime == '10:00'} ? 'selected' : ''">10:00</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="10:30" th:classappend="${reservation.reservationTime == '10:30'} ? 'selected' : ''">10:30</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="11:00" th:classappend="${reservation.reservationTime == '11:00'} ? 'selected' : ''">11:00</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="11:30" th:classappend="${reservation.reservationTime == '11:30'} ? 'selected' : ''">11:30</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="12:00" th:classappend="${reservation.reservationTime == '12:00'} ? 'selected' : ''">12:00</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="13:30" th:classappend="${reservation.reservationTime == '13:30'} ? 'selected' : ''">13:30</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="14:00" th:classappend="${reservation.reservationTime == '14:00'} ? 'selected' : ''">14:00</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="14:30" th:classappend="${reservation.reservationTime == '14:30'} ? 'selected' : ''">14:30</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="15:00" th:classappend="${reservation.reservationTime == '15:00'} ? 'selected' : ''">15:00</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="15:30" th:classappend="${reservation.reservationTime == '15:30'} ? 'selected' : ''">15:30</button>
                 </div>
                 <input type="hidden" id="timeSlot" name="reservationTime" th:field="*{reservationTime}">
             </div>
 
-
             <div class="form-group">
                 <label for="patient">환자분 성함</label>
-                <input type="text" id="patient" name="patientName" th:field="*{name}">
+                <input type="text" id="patient" name="patientName" th:field="${user.name}">
             </div>
 
             <div class="form-group">
                 <label for="phone">전화번호</label>
-                <input type="text" id="phone" name="patientPhone" th:field="*{phone}">
+                <input type="text" id="phone" name="patientPhone" th:field="${user.phone}">
             </div>
-
-
-
 
             <!-- 의사 ID 필드를 숨김 입력으로 추가 -->
             <input type="hidden" id="doctorId" name="doctorId" th:field="*{doctorId}">
@@ -78,8 +74,6 @@
         </form>
 
     </div>
-
-
 
 </div>
 
@@ -109,13 +103,6 @@
         button.classList.add('selected');
         document.getElementById('timeSlot').value = button.value;
     }
-
-    // 폼 제출 시 의사 ID 설정
-    document.querySelector('form').addEventListener('submit', function(event) {
-        // 폼 제출 전에 의사 ID가 올바르게 설정되었는지 확인
-        var selectedDoctorId = document.getElementById('doctorId').value;
-        document.getElementById('doctorId').value = selectedDoctorId;
-    });
 
     function performSearch(event) {
         event.preventDefault(); // 폼 제출 기본 동작 막기
