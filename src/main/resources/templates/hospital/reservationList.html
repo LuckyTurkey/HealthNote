@@ -40,9 +40,10 @@
                         <a th:href="@{/hospital/{hospitalId}/editReservation/{reservationId}(hospitalId=${reservation.hospitalId}, reservationId=${reservation.reservationId})}">
                             <img th:src="@{/images/nimbus_edit.svg}" alt="수정 버튼" />
                         </a>
-                        <!--                    <a th:href="@{/deleteAppointment/{id}(id=${reservation.id})}" onclick="return confirm('정말 삭제하시겠습니까?');">-->
-                        <!--                        <img src="/images/delete.svg" alt="삭제">-->
-                        <!--                    </a>-->
+                        <a th:href="@{/hospital/{hospitalId}/deleteReservation/{reservationId}(hospitalId=${reservation.hospitalId}, reservationId=${reservation.reservationId})}">
+                            <img th:src="@{/images/symbols_delete.svg}" alt="수정 버튼" />
+                        </a>
+
 
                     </div>
                 </td>
