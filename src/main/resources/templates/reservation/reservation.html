@@ -12,6 +12,8 @@
     </header>
         <section class="search-section">
             <p class="header-font">병원 혹은 의사 선생님을 검색해주세요</p>
+            <a class="my-reservation"th:href="@{|/reservation/my|}">내 예약 보기</a>
+
             <div class="search-bar">
                 <div class="select" id="searchType">
                     <div class="selected">
@@ -60,23 +62,20 @@
         </section>
 </div>
 <script>
-    // function goToReservation(hospitalId, reservationDate) {
-    //     window.location.href = '/reservation/hospitalId=' + hospitalId + '?reservationDate=' + reservationDate;
-    // }
     function goToReservation(hospitalId) {
         const reservationDate = document.getElementById('reservationDate').value; // reservationDate 값을 가져옴
         const formattedDate = formatDate(reservationDate); // 가져온 날짜 값을 포맷 변경
 
         if (!reservationDate) {
-            alert('예약할 날짜를 선택하세요.'); // 사용자에게 날짜 선택 요청 알림
-            return; // 날짜를 선택하지 않은 경우 함수 종료
+            alert('예약할 날짜를 선택하세요.');
+            return; // 날짜 선택 안하면 종료
         }
 
         // formattedDate 값이 유효한 경우에만 URL을 생성하여 이동
         if (formattedDate) {
             window.location.href = '/reservation/hospitalId=' + hospitalId + '?reservationDate=' + formattedDate;
         } else {
-            console.error('올바른 날짜를 선택하세요.'); // 예외 처리: 날짜 선택이 올바르지 않은 경우
+            console.error('올바른 날짜를 선택하세요.');
         }
     }
 
@@ -90,25 +89,21 @@
 
         // yyyy-MM-dd 형식으로 날짜 포맷 변경
         const year = date.getFullYear();
-        let month = (1 + date.getMonth()).toString().padStart(2, '0'); // 월은 0부터 시작하므로 +1, 두 자리로 포맷
-        let day = date.getDate().toString().padStart(2, '0'); // 날짜를 두 자리로 포맷
+        let month = (1 + date.getMonth()).toString().padStart(2, '0');
+        let day = date.getDate().toString().padStart(2, '0');
 
         return `${year}-${month}-${day}`;
     }
 
     function selectTime(time) {
-        // 선택된 시간을 reservationTime input에 설정
         document.getElementById('reservationTime').value = time;
 
-        // 의사 ID와 병원 ID를 설정 (이 예시에서는 Thymeleaf 변수를 사용했다고 가정)
         const doctorId = document.getElementById('doctorIdInput').value;
         const hospitalId = document.getElementById('hospitalIdInput').value;
 
-        // doctorIdInput과 hospitalIdInput에 값 설정
         document.getElementById('doctorIdInput').value = doctorId;
         document.getElementById('hospitalIdInput').value = hospitalId;
 
-        // 선택된 시간을 콘솔에 출력 (테스트용)
         console.log("Selected time: " + time);
         console.log("Doctor ID: " + doctorId);
         console.log("Hospital ID: " + hospitalId);
@@ -131,7 +126,6 @@
             });
         });
 
-        // Close the dropdown if the user clicks outside of it
         document.addEventListener('click', function(event) {
             if (!select.contains(event.target)) {
                 select.classList.remove('active');
@@ -145,24 +139,6 @@
         const searchDate = document.getElementById('reservationDate').value;
         window.location.href = `/reservation/search?type=${searchType}&query=${searchQuery}`;
     }
-
-    // function submitReservation() {
-    //     const selectedTime = document.getElementById('selectedTime').value;
-    //     const selectedHospitalId = "";  // 선택된 병원 ID
-    //     const selectedDoctorId = "";    // 선택된 의사 ID
-    //     const selectedUserId = "";      // 선택된 사용자 ID
-    //
-    //     // 병원 ID와 의사 ID는 서버에서 정확히 어떻게 받아올지에 따라 설정 필요
-    //
-    //     // 예약하기 버튼을 클릭할 때 선택된 시간과 hidden input에 설정된 값들을 확인
-    //     console.log(`선택된 시간: ${selectedTime}`);
-    //     console.log(`병원 ID: ${selectedHospitalId}`);
-    //     console.log(`의사 ID: ${selectedDoctorId}`);
-    //     console.log(`사용자 ID: ${selectedUserId}`);
-    //
-    //     // 여기서 폼을 제출하거나 필요한 처리를 추가할 수 있습니다.
-    //     document.getElementById('reservationForm').submit();
-    // }
 </script>
 </body>
 </html>
