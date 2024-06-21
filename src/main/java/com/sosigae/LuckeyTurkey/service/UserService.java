@@ -84,8 +84,8 @@ public class UserService {
     }
 
     //사용자 인증
-    public User loginMember(String id, String password, boolean isAdmin) {
-        User user = userRepository.findByUsernameAndPassword(id, password);
+    public User loginMember(String id, String password) {
+        User user = userRepository.findByIdAndPassword(id, password);
         if (user == null) {
             throw new RuntimeException("Invalid credentials");
         }

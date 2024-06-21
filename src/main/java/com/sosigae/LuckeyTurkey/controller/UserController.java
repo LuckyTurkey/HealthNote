@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sosigae.LuckeyTurkey.domain.User;
@@ -56,40 +57,99 @@ public class UserController {
         return "user/login";
     }
 
-    @PostMapping("/login")
-    public String loginUser(@ModelAttribute User user, Model model, HttpSession session) {
+    @GetMapping("/selectLogin")
+    public String showSelectLoginPage() {
+        return "user/selectLogin"; 
+    }
+    
+    @GetMapping("/adminLogin")
+    public String adminLoginPage(Model model) {
+    	model.addAttribute("hospital", new Hospital());
+        return "user/adminLogin"; 
+    }
+    @GetMapping("/patientLogin")
+    public String patientLoginPage(Model model) {
+    	model.addAttribute("user", new User());
+        return "user/patientLogin"; 
+    }
+    @GetMapping("/doctorLogin")
+    public String doctorLoginPage(Model model) {
+    	model.addAttribute("doctor", new Doctor());
+        return "user/doctorLogin"; 
+    }
+    
+    @PostMapping("/selectLogin")
+    public String selectLogin(@RequestParam(name = "is_admin") int isAdmin) {
+        if (isAdmin == 1) {
+            return "user/adminLogin"; 
+        } else if (isAdmin == 2) {
+            return "user/doctorLogin"; 
+        } else if (isAdmin == 3) {
+            return "user/patientLogin"; 
+        } else {
+            return "user/login"; 
+        }
+    }
+    
+    @PostMapping("/patientLogin")
+    public String patientLogin(@ModelAttribute User user, Model model, HttpSession session) {
         try {
             User account = userService.loginMember(user.getId(), user.getPassword(), user.getIs_admin());
 
-            int is_admin = userService.getUserIsAdmin(user.getId());
-            
+            if (account == null) {
+                model.addAttribute("loginResult", "로그인 실패: 사용자를 찾을 수 없습니다.");
+                return "user/patientLogin";
+            }
+
             session.setAttribute("id", account.getId());
             session.setAttribute("user_id", account.getUserId());
-            
+
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
-            
-            if (is_admin == 1) {
-                Hospital hospital = hospitalService.getHospitalById(account.getId());
-                System.out.println("hospital 확인 : " + hospital.getHospitalId());
-                session.setAttribute("hospitalId", hospital.getHospitalId());
+            return "main/patientMain"; // 환자 메인 페이지로 이동
 
-                return "main/hospitalMain"; // 병원 메인
-            }
-            else if (is_admin == 2) {
-                Doctor doctor = doctorService.getDoctorById(account.getId());
-                session.setAttribute("doctorId", doctor.getDoctorId());
-
-                return "main/doctorMain"; // 의사 메인
-            }
-            else if (is_admin == 3) {
-            	return "main/patientMain"; // 환자 메인
-            }
-            else {
-            	return "user/login";
-            }
         } catch (IllegalArgumentException e) {
             model.addAttribute("loginResult", "유효하지 않은 사용자입니다.");
-            return "user/login"; // 실패 시 다시 로그인 페이지로 이동
+            return "user/patientLogin";
+        }
+    }
+    
+    @PostMapping("/adminLogin")
+    public String hospitalLogin(@ModelAttribute Hospital hospital, Model model, HttpSession session) {
+        try {
+            Hospital account = hospitalService.loginHospital(hospital.getId(), hospital.getPassword());
+            
+            if (account == null) {
+                model.addAttribute("loginResult", "로그인 실패: 사용자를 찾을 수 없습니다.");
+                return "user/adminLogin";
+            }
+
+            session.setAttribute("hospitalId", account.getId());
+            model.addAttribute("loginResult", "로그인 성공: " + account.getName());
+            return "main/hospitalMain"; // 관리자 메인 페이지로 이동
+
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("loginResult", "유효하지 않은 사용자입니다.");
+            return "user/adminLogin";
+        }
+    }
+    
+    @PostMapping("/doctorLogin")
+    public String doctorLogin(@ModelAttribute Doctor doctor, Model model, HttpSession session) {
+        try {
+            Doctor account = doctorService.loginDoctor(doctor.getId(), doctor.getPassword());
+            
+            if (account == null) {
+                model.addAttribute("loginResult", "로그인 실패: 사용자를 찾을 수 없습니다.");
+                return "user/doctorLogin";
+            }
+
+            session.setAttribute("doctorId", account.getId());
+            model.addAttribute("loginResult", "로그인 성공: " + account.getName());
+            return "main/doctorMain"; // 의사 메인 페이지로 이동
+
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("loginResult", "유효하지 않은 사용자입니다.");
+            return "user/doctorLogin";
         }
     }
     

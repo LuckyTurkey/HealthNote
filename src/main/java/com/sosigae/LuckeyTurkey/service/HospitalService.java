@@ -4,6 +4,7 @@ import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper;
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.HospitalMapper;
 import com.sosigae.LuckeyTurkey.domain.Doctor;
 import com.sosigae.LuckeyTurkey.domain.Hospital;
+import com.sosigae.LuckeyTurkey.domain.User;
 import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
 import com.sosigae.LuckeyTurkey.repository.HospitalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,4 +75,12 @@ public class HospitalService {
     public List<Doctor> searchDoctorByDepartmentAndHospitalId(String department, int hospitalId) {
         return doctorRepository.findByDepartmentAndHospitalId(department, hospitalId);
     }
+
+	public Hospital loginHospital(String id, String password) {
+		Hospital hospital = hospitalRepository.findByIdAndPassword(id, password);
+        if (hospital == null) {
+            throw new RuntimeException("Invalid credentials");
+        }
+        return hospital;
+	}
 }
