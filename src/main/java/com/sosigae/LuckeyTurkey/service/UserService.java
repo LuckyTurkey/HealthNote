@@ -60,12 +60,12 @@ public class UserService {
 
     // user_id (pk)로 찾기
     public User findUserByUserId(int userId) {
-        return userRepository.findByUserId(userId);
+        return userRepository.findUserByUserId(userId);
     }
 
     // id로 찾기
     public User findUserById(String id){
-        return userMapper.findUserById(id);
+        return userRepository.findUserById(id);
     }
 
     public User findByUserId(String id){

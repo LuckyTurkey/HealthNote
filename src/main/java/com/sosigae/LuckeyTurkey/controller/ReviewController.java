@@ -78,7 +78,7 @@ public class ReviewController {
             System.out.println("-- 해당 사용자 없음 --");
             return "redirect:/user/login";
         }
-        int userId = user.getUserId();
+        Integer userId = user.getUserId();
         System.out.println("세션 pk id :" + userId );
 
         Review review = new Review();

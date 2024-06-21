@@ -24,4 +24,5 @@ public interface UserMapper {
 
     // user의 id로 찾기
     User findByUserId(String id);
+
 }
