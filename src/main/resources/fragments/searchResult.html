@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<table>
+  <thead>
+  <tr>
+    <th>이름</th>
+    <th>진료과</th>
+    <th>선택</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="doctor : ${doctors}" th:data-doctor-id="${doctor.doctorId}" class="search-result-item">
+    <td th:text="${doctor.name}">의사 이름</td>
+    <td th:text="${doctor.department}">진료과</td>
+    <td><button class="select-button" type="button" th:onclick="'selectDoctor(' + ${doctor.doctorId} + ')'" >선택</button></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
