@@ -31,6 +31,8 @@ public class MedicalRecordController {
         
         
         // 조회된 진료 기록을 모델에 추가하여 View로 전달
+        System.out.println(userId);
+        System.out.println(medicalRecords);
         model.addAttribute("medicalRecords", medicalRecords);
         
         return "records/records";
