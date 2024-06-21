@@ -1,7 +1,9 @@
 package com.sosigae.LuckeyTurkey.controller;
 
+import com.sosigae.LuckeyTurkey.domain.User;
 import com.sosigae.LuckeyTurkey.domain.VaccinationRecord;
 import com.sosigae.LuckeyTurkey.dto.VaccinationRecordDto;
+import com.sosigae.LuckeyTurkey.service.UserService;
 import com.sosigae.LuckeyTurkey.service.VaccinationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,20 @@ import java.util.Map;
 public class VaccinationController {
     @Autowired
     private VaccinationService vaccinationService;
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/form")
+    public String showForm() {
+        return "vaccine/vaccineUserForm";
+    }
+
+    @GetMapping("/findUserId")
+    public String findUserId(@RequestParam("id") String id) {
+        User user = userService.findUserById(id);
+        int userId = user.getUserId();
+        return "redirect:/vaccination/" + userId;
+    }
 
     @GetMapping("/{userId}")
     public String getVaccination(@PathVariable int userId, Model model){

@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/doctor/medRecordList.css}">
     <title>환자 기록</title>
+    <script>
+      function vaccinationClick() {
+          window.location.href = '/vaccination/form';
+          }
+    </script>
   </head>
   <body>
-    <div class="container">
+  <div class="container">
       <h1>진료 기록</h1>
       <div class="buttons">
-        <button>접종내역 보기</button>
+        <button onclick="vaccinationClick()">접종내역 보기</button>
         <button>진료기록 보기</button>
       </div>
       <table>
