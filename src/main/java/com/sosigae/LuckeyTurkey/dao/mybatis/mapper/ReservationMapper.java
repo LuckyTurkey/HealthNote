@@ -1,9 +1,9 @@
 package com.sosigae.LuckeyTurkey.dao.mybatis.mapper;
 
 import com.sosigae.LuckeyTurkey.domain.Reservation;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 @Mapper
 public interface ReservationMapper {
@@ -12,5 +12,6 @@ public interface ReservationMapper {
     @Options(useGeneratedKeys = true, keyProperty = "reservationId")
     void addReservation(Reservation reservation);
 
-
+    @Select("SELECT reservation_time FROM reservation WHERE hospital_id = #{hospitalId} AND reservation_date = #{date}")
+    List<String> findReservedTimesByHospitalAndDate(@Param("hospitalId") int hospitalId, @Param("date") String date);
 }

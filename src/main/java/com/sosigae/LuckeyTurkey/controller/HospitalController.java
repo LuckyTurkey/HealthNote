@@ -22,6 +22,8 @@ import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -32,10 +34,9 @@ public class HospitalController {
     @Autowired
     private ReservationService reservationService;
 
+    @Autowired
     private ReviewService reviewService;
 
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private UserService userService;
@@ -43,27 +44,46 @@ public class HospitalController {
     @Autowired
     private DoctorService doctorService;
 
-
     // 병원 상세 조회
     @GetMapping("/hospital/{hospitalId}")
-    public String getHospitalDetail(@PathVariable int hospitalId, Model model) {
+    public String getHospitalDetail(@PathVariable int hospitalId, Model model, HttpSession session) {
         Hospital hospital = hospitalService.getHospitalInfo(hospitalId);
         List<Doctor> doctors = hospitalService.getDocInfoList(hospitalId);
         List<Review> reviews = reviewService.getReviewByHospitalId(hospitalId);
 
-        for (Review r : reviews){
-            User user = userMapper.findByUser_Id(r.getUserId());
+        for (Review r : reviews) {
+            // pk로 유저 찾기
+            User user = userService.findUserByUserId(r.getUserId());
 
-            if(user != null){
+            if (user != null) {
                 r.setUserName(user.getName());
             }
+            System.out.println("각 리뷰 아이디 : " + r.getUserId());
+            System.out.println("각 리뷰 쓴 사람 이름 : "  + r.getUserName());
         }
+
         model.addAttribute("hospital", hospital);
         model.addAttribute("doctors", doctors);
         model.addAttribute("reviews", reviews);
+
+        // 세션 아이디
+        String sessionId = (String) session.getAttribute("id");
+        System.out.println("세션 아이디: " + sessionId);
+
+        // id로 유저 찾기
+        User sessionUser = userService.findUserById(sessionId);
+
+        if (sessionUser != null) {
+            System.out.println("세션 유저 정보 : " + sessionUser.getName() + " "
+                    + sessionUser.getId() + " " + sessionUser.getUserId());
+            model.addAttribute("userId", sessionUser.getUserId());
+        }
+
         return "hospital/detail";
     }
 
+
+    // 병원 검색
     @GetMapping("/reservation/search/hospital")
     public List<Hospital> searchHospitals(@RequestParam String name) {
         return hospitalService.searchHospitalsByName(name);
@@ -99,6 +119,7 @@ public class HospitalController {
     @GetMapping("/hospital/{hospitalId}/newReservation")
     public String showReservationForm(@PathVariable int hospitalId, Model model) {
         model.addAttribute("reservation", new Reservation());
+        model.addAttribute("hospitalId", hospitalId);
         return "/hospital/addReservation";
     }
 
@@ -145,6 +166,27 @@ public class HospitalController {
         return "redirect:/hospital/" + hospitalId + "/reservationList";
     }
 
+    @GetMapping("/hospital/{hospitalId}/searchDoctor")
+    public String searchDoctorGet(
+            @RequestParam("searchText") String searchText,
+            @PathVariable int hospitalId,
+            Model model) {
+
+        List<Doctor> doctors;
+
+        if (!searchText.isEmpty() && hospitalId != 0) {
+            doctors = hospitalService.searchDoctorByNameAndHospitalId(searchText, hospitalId);
+            if (doctors.isEmpty()) {
+                doctors = hospitalService.searchDoctorByDepartmentAndHospitalId(searchText, hospitalId);
+            }
+        } else {
+            doctors = new ArrayList<>();
+        }
+
+        model.addAttribute("doctors", doctors);
+
+        return "/fragments/searchResult"; // 검색 결과 부분만 반환하는 템플릿 경로
+    }
 
     @PostMapping("/hospital/{hospitalId}/searchDoctor")
     public String searchDoctor(
@@ -163,8 +205,54 @@ public class HospitalController {
             doctors = new ArrayList<>();
         }
         model.addAttribute("doctors", doctors);
-        model.addAttribute("reservation", new Reservation());
-        return "/hospital/addReservation";
+        return "/fragments/searchResult :: searchResult"; // 검색 결과 부분만 반환
     }
+
+
+
+    // 예약 수정 폼 출력
+    @GetMapping("/hospital/{hospitalId}/editReservation/{reservationId}")
+    public String showEditReservationForm(@PathVariable int hospitalId, @PathVariable int reservationId, Model model) {
+        Reservation reservation = reservationService.getReservationById(reservationId);
+        User user = userService.findUserByUserId(reservation.getUserId());
+
+        if (reservation == null) {
+            return "redirect:/hospital/" + hospitalId + "/reservationList"; // 예약이 없으면 리스트로 리다이렉트
+        }
+        model.addAttribute("reservation", reservation);
+        model.addAttribute("user", user);
+        model.addAttribute("hospitalId", hospitalId); // hospitalId를 모델에 추가
+        return "/hospital/editReservation";
+    }
+
+    // 예약 수정 폼 제출
+    @PostMapping("/hospital/{hospitalId}/updateReservation/{reservationId}")
+    public String updateReservation(@PathVariable int hospitalId,
+                                    @PathVariable int reservationId,
+                                    @Valid @ModelAttribute("reservation") Reservation reservation,
+                                    BindingResult bindingResult,
+                                    Model model) {
+        if (bindingResult.hasErrors()) {
+            return "/hospital/editReservation"; // 유효성 검사 에러 시 다시 폼을 보여줌
+        }
+
+        Reservation oldReservation = reservationService.getReservationById(reservationId);
+        if (oldReservation == null) {
+            return "redirect:/hospital/" + hospitalId + "/reservationList";
+        }
+
+        // 기존 예약 데이터를 새로운 값으로 갱신
+        oldReservation.setDoctorId(reservation.getDoctorId());
+        oldReservation.setReservationDate(reservation.getReservationDate());
+        oldReservation.setReservationTime(reservation.getReservationTime());
+        oldReservation.setName(reservation.getName());
+        oldReservation.setPhone(reservation.getPhone());
+
+        reservationService.updateReservation(oldReservation);
+
+        return "redirect:/hospital/" + hospitalId + "/reservationList";
+    }
+
+
 
 }

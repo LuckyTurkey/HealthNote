@@ -96,6 +96,7 @@ public class UserController {
         try {
             User account = userService.loginMember(user.getId(), user.getPassword(), user.getIs_admin());
 
+
             if (account == null) {
                 model.addAttribute("loginResult", "로그인 실패: 사용자를 찾을 수 없습니다.");
                 return "user/patientLogin";
@@ -103,6 +104,8 @@ public class UserController {
 
             session.setAttribute("id", account.getId());
             session.setAttribute("user_id", account.getUserId());
+
+            System.out.println("로그인 유저 : : " + user.getId() + " " + user.getUserId());
 
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             return "main/patientMain"; // 환자 메인 페이지로 이동
