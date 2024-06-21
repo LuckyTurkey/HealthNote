@@ -40,4 +40,11 @@ public class Reservation implements Serializable {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    // 병원 예약 생성
+    @Transient
+    private String name;
+
+    @Transient
+    private String phone;
 }

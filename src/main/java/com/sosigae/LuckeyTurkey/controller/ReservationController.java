@@ -51,7 +51,7 @@ public class ReservationController {
     public String showReservationTimes(@PathVariable("hospitalId") int hospitalId,
                                        @RequestParam("reservationDate") String reservationDate,
                                        Model model) {
-        Hospital hospital = hospitalService.getHospitalById(hospitalId);
+        Hospital hospital = hospitalService.getHospitalId(hospitalId);
         model.addAttribute("hospital", hospital);
         model.addAttribute("reservationDate", reservationDate);
         return "reservation/reservationCreate"; // 예약 시간 페이지
@@ -67,7 +67,7 @@ public class ReservationController {
                 model.addAttribute("error", "사용자 정보를 찾을 수 없습니다.");
                 return "redirect:/user/login"; // 사용자 정보가 없을 경우 처리
             }
-            int userId = userService.findByUserId(id).getUser_id();
+            int userId = userService.findByUserId(id).getUserId();
 
 
             // 예약 정보 설정
