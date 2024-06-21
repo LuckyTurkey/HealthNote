@@ -62,6 +62,7 @@ public class HospitalController {
             System.out.println("각 리뷰 아이디 : " + r.getUserId());
             System.out.println("각 리뷰 쓴 사람 이름 : "  + r.getUserName());
         }
+
         model.addAttribute("hospital", hospital);
         model.addAttribute("doctors", doctors);
         model.addAttribute("reviews", reviews);

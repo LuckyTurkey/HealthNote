@@ -59,4 +59,10 @@
   <select id="findByUser_Id" parameterType="int" resultType="com.sosigae.LuckeyTurkey.domain.User">
     SELECT * FROM USERS WHERE USER_ID = #{userId, jdbcType=INTEGER}
   </select>
+
+  <!-- 사용자 id로 사용자 조회 -->
+  <select id="findUserById" parameterType="String" resultType="com.sosigae.LuckeyTurkey.domain.User">
+    SELECT * FROM USERS
+    WHERE ID = #{id, jdbcType=VARCHAR}
+  </select>
 </mapper>
