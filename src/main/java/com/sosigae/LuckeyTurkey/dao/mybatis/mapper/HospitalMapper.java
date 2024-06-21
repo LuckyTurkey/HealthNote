@@ -1,9 +1,6 @@
 package com.sosigae.LuckeyTurkey.dao.mybatis.mapper;
 
-import com.sosigae.LuckeyTurkey.domain.Doctor;
-import com.sosigae.LuckeyTurkey.domain.Hospital;
-import com.sosigae.LuckeyTurkey.domain.MedicalRecord;
-import com.sosigae.LuckeyTurkey.domain.Reservation;
+import com.sosigae.LuckeyTurkey.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,8 +8,6 @@ import java.util.List;
 
 @Mapper
 public interface HospitalMapper {
-
-    void addHospitalInfo(Hospital hospital);
 
     // 병원 상세 조회
     Hospital getHospitalInfo(@Param("hospital_id") int hospitalId);
