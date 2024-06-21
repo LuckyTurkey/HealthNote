@@ -64,9 +64,9 @@ public class HospitalService {
     public Hospital getHospitalId(int hospitalId){
         return hospitalMapper.getHospitalInfo(hospitalId);
     }
-    public Hospital getHospitalById(String id) {
-        return hospitalRepository.findById(id);
-    }
+//    public Hospital getHospitalById(String id) {
+//        return hospitalRepository.findById(id);
+//    }
 
     public List<Doctor> searchDoctorByNameAndHospitalId(String name, int hospitalId) {
         return doctorRepository.findByNameAndHospitalId(name, hospitalId);

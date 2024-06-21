@@ -127,6 +127,8 @@ public class UserController {
             }
 
             session.setAttribute("hospitalId", account.getId());
+            session.setAttribute("hospital", account.getHospitalId());
+
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             return "main/hospitalMain"; // 관리자 메인 페이지로 이동
 
@@ -147,6 +149,7 @@ public class UserController {
             }
 
             session.setAttribute("doctorId", account.getId());
+            session.setAttribute("doctor", account.getDoctorId());
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             return "main/doctorMain"; // 의사 메인 페이지로 이동
 
