@@ -4,6 +4,7 @@ import com.sosigae.LuckeyTurkey.domain.Doctor;
 import com.sosigae.LuckeyTurkey.domain.Hospital;
 import com.sosigae.LuckeyTurkey.domain.Reservation;
 import com.sosigae.LuckeyTurkey.domain.User;
+import com.sosigae.LuckeyTurkey.repository.ReservationRepository;
 import com.sosigae.LuckeyTurkey.service.DoctorService;
 import com.sosigae.LuckeyTurkey.service.HospitalService;
 import com.sosigae.LuckeyTurkey.service.ReservationService;
@@ -31,6 +32,8 @@ public class ReservationController {
     private DoctorService doctorService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @GetMapping
     public String showReservationPage(Model model) {
@@ -67,13 +70,10 @@ public class ReservationController {
             String id =  (String)session.getAttribute("id");
             if (id == null) {
                 model.addAttribute("error", "사용자 정보를 찾을 수 없습니다.");
-                return "redirect:/user/login"; // 사용자 정보가 없을 경우 처리
+                return "redirect:/user/login"; // user 없을때
             }
 
-
-            User user = userService.findByUserId(id);
-            System.out.println("유저" + user.getName());
-            System.out.println(user.getUserId());
+            User user = userService.findUserById(id);
             int userId = user.getUserId();
 
             // 예약 정보 설정
@@ -89,7 +89,7 @@ public class ReservationController {
             reservationService.addReservation(reservation);
 
             // 예약 성공 시 리다이렉트
-            return "redirect:/reservation";
+            return "redirect:/reservation/success/" + reservation.getReservationId();
         } catch (Exception e) {
             // 예약 실패 시 처리
             model.addAttribute("error", "예약 등록 중 오류가 발생했습니다.");
@@ -103,8 +103,14 @@ public class ReservationController {
         return reservationService.getReservedTimes(hospitalId, reservationDate);
     }
 
-    @GetMapping("/success")
-    public String successReservation(Model model) {
+    @GetMapping("/success/{reservationId}")
+    public String successReservation(@PathVariable("reservationId") int reservationId, Model model) {
+        Reservation reservation = reservationService.getReservationById(reservationId);
+        Hospital hospital = hospitalService.getHospitalId(reservation.getHospitalId());
+
+        model.addAttribute("reservation", reservation);
+        model.addAttribute("hospitalName", hospital.getName());
+        model.addAttribute("hospitalAddress", hospital.getAddress());
         return "reservation/success";
     }
 }

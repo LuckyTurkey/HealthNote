@@ -29,41 +29,30 @@
             </div>
         </section>
         <section class="results-section">
-            <p class="header-font">검색 결과</p>
+<!--            <p class="header-font">검색 결과</p>-->
             <div th:if="${hospitals != null}">
                 <div th:each="hospital : ${hospitals}">
-                    <div class="result-item">
                         <div class="result-item" th:onclick="'goToReservation(' + ${hospital.hospitalId} + ', \'' + ${#dates.format(reservationDate, 'yyyy-MM-dd')} + '\')'">
 <!--                        <div class="result-item" th:onclick="'goToReservation(' + ${hospital.hospitalId} + ', \'' + ${#dates.format(reservationDate, 'yyyy-MM-dd')} + '\')'">-->
-                            <h2 th:text="${hospital.name}">병원 이름</h2>
-                            <p th:text="${hospital.address}">병원 주소</p>
+                            <div class="hospital-info">
+                            <div class="hospital-name1" th:text="${hospital.name}">병원 이름</div>
+                            <div class="hospital-address2 "th:text="${hospital.address}">병원 주소</div>
+                            </div>
                         </div>
-                        <div class="time-slots">
-                            <!-- 시간 버튼은 JavaScript로 동적으로 추가 -->
-                        </div>
-                    </div>
                 </div>
             </div>
 
             <div th:if="${doctors != null}">
                 <div th:each="doctor : ${doctors}">
-                    <div class="result-item">
-                        <h2 th:text="${doctor.name}">의사 이름</h2>
-                        <p th:text="${doctor.hospitalName}">소속 병원</p>
-                        <p th:text="${doctor.hospitalAddress}">병원 주소</p>
-                    </div>
-                    <div class="time-slots">
-                        <!-- 시간 버튼은 JavaScript로 동적으로 추가 -->
-                        <button type="button" onclick="selectTime('09:00')">09:00</button>
-                        <button type="button" onclick="selectTime('09:30')">09:30</button>
-                        <button type="button" onclick="selectTime('10:00')">10:00</button>
-                        <button type="button" onclick="selectTime('10:30')">10:30</button>
+                    <div class="result-item" th:onclick="'goToReservation(' + ${doctor.hospitalId} + ', \'' + ${#dates.format(reservationDate, 'yyyy-MM-dd')} + '\')'">
+                        <div class="hospital-info">
+                        <div class="hospital-name1" th:text="${doctor.name}">의사 이름</div>
+                        <div class="doctor-hospital-name" th:text="${doctor.hospitalName}">소속 병원</div>
+                        <div class="hospital-address2" th:text="${doctor.hospitalAddress}">병원 주소</div>
+                        </div>
                     </div>
                     <input type="hidden" id="doctorIdInput" name="doctorId" th:value="${doctor.doctorId}">
                     <input type="hidden" id="hospitalIdInput" name="hospitalId" th:value="${doctor.hospitalId}">
-
-                    <p th:text="${doctor.hospitalId}"></p>
-                    <p th:text="${doctor.doctorId}"></p>
                     <input type="hidden" id="reservationTime" name="reservationTime">
                 </div>
             </div>
@@ -157,23 +146,23 @@
         window.location.href = `/reservation/search?type=${searchType}&query=${searchQuery}`;
     }
 
-    function submitReservation() {
-        const selectedTime = document.getElementById('selectedTime').value;
-        const selectedHospitalId = "";  // 선택된 병원 ID
-        const selectedDoctorId = "";    // 선택된 의사 ID
-        const selectedUserId = "";      // 선택된 사용자 ID
-
-        // 병원 ID와 의사 ID는 서버에서 정확히 어떻게 받아올지에 따라 설정 필요
-
-        // 예약하기 버튼을 클릭할 때 선택된 시간과 hidden input에 설정된 값들을 확인
-        console.log(`선택된 시간: ${selectedTime}`);
-        console.log(`병원 ID: ${selectedHospitalId}`);
-        console.log(`의사 ID: ${selectedDoctorId}`);
-        console.log(`사용자 ID: ${selectedUserId}`);
-
-        // 여기서 폼을 제출하거나 필요한 처리를 추가할 수 있습니다.
-        document.getElementById('reservationForm').submit();
-    }
+    // function submitReservation() {
+    //     const selectedTime = document.getElementById('selectedTime').value;
+    //     const selectedHospitalId = "";  // 선택된 병원 ID
+    //     const selectedDoctorId = "";    // 선택된 의사 ID
+    //     const selectedUserId = "";      // 선택된 사용자 ID
+    //
+    //     // 병원 ID와 의사 ID는 서버에서 정확히 어떻게 받아올지에 따라 설정 필요
+    //
+    //     // 예약하기 버튼을 클릭할 때 선택된 시간과 hidden input에 설정된 값들을 확인
+    //     console.log(`선택된 시간: ${selectedTime}`);
+    //     console.log(`병원 ID: ${selectedHospitalId}`);
+    //     console.log(`의사 ID: ${selectedDoctorId}`);
+    //     console.log(`사용자 ID: ${selectedUserId}`);
+    //
+    //     // 여기서 폼을 제출하거나 필요한 처리를 추가할 수 있습니다.
+    //     document.getElementById('reservationForm').submit();
+    // }
 </script>
 </body>
 </html>
