@@ -40,9 +40,7 @@ public class Hospital implements Serializable {
     // 진료 과 추가
     private String department;
     
-    /*
-    //진료 기록 조회
     @OneToMany(mappedBy = "hospital")
     private List<MedicalRecord> medicalRecords;
-    */
+
 }

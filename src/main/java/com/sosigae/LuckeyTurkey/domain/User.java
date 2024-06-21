@@ -7,8 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @SuppressWarnings("serial")
+@Table(name = "USERS")
 public class User implements Serializable {
 	private String id;
 	

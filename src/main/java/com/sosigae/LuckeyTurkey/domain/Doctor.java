@@ -16,14 +16,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-	
+@Entity	
 @Table(name = "DOCTOR")
 public class Doctor implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "DOCTOR_ID")
     private int doctorId;
     private String id;
@@ -43,6 +42,6 @@ public class Doctor implements Serializable {
     public String hospitalAddress;
     
     @ManyToOne
-    @JoinColumn(name = "hospitalId", insertable = false, updatable = false) 
+    @JoinColumn(name = "HOSPITAL_ID", insertable = false, updatable = false) 
     private Hospital hospital;
 }

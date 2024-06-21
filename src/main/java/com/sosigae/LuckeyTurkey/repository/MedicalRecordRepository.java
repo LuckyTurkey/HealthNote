@@ -20,4 +20,4 @@ public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, In
 	           "WHERE mr.userId = :userId")
 	    List<MedicalRecordDTO> findMedicalRecordsByUserId(@Param("userId") int userId);
 	
-}
+} 

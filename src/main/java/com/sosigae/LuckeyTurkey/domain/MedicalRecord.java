@@ -29,7 +29,7 @@ import java.util.List;
 @Table(name = "MEDICALRECORD")
 public class MedicalRecord implements Serializable {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "MEDICAL_RECORD_ID")
 	int medRecId;
 	@Column(name = "USER_ID")
@@ -49,8 +49,6 @@ public class MedicalRecord implements Serializable {
     String personal_code;
     String phone;
     
- 
-
     @ManyToOne
     @JoinColumn(name = "HOSPITAL_ID")
     private Hospital hospital;
