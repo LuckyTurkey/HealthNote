@@ -32,8 +32,9 @@ public class UserService {
     }
 
     public int getUserIsAdmin(String id) {
-		User user = userMapper.findUserById(id);
+		User user = userMapper.findByUserId(id);
 		if (user != null) {
+
             return user.getIs_admin();
         } else {
             throw new IllegalArgumentException("사용자를 찾을 수 없습니다.");
@@ -63,7 +64,11 @@ public class UserService {
     }
 
     // id로 찾기
-    public User findUserById(String id) {
+    public User findUserById(String id){
         return userMapper.findUserById(id);
+    }
+
+    public User findByUserId(String id){
+        return userMapper.findByUserId(id);
     }
 }

@@ -73,7 +73,8 @@ public class HospitalController {
         // id로 유저
         User sessionUser = userService.findUserById(sessionId);
 
-        System.out.println("세션 유저 정보 : " + sessionUser.getName() + " " + sessionUser.getId() + " " + sessionUser.getUserId());
+        System.out.println("세션 유저 정보 : " + sessionUser.getName() + " "
+                + sessionUser.getId() + " " + sessionUser.getUserId());
 
         model.addAttribute("userId", sessionUser.getUserId());
         return "hospital/detail";
