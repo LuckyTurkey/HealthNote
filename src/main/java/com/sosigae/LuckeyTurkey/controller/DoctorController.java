@@ -80,7 +80,7 @@ public class DoctorController {
 
         // 사용자가 존재하는 경우
         if (user != null) {
-            medicalRecord.setUserId(user.getUser_id());
+            medicalRecord.setUserId(user.getUserId());
             System.out.println("set userId : " + medicalRecord.getUserId()) ;
 
             System.out.println("---- 뭐가 문제인지 확인 ----") ;

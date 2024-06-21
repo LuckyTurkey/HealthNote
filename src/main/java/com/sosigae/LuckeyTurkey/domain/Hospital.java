@@ -4,12 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table
 public class Hospital implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int hospitalId;
     private String id;
     private String password;
