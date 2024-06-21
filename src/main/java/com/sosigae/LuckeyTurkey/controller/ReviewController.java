@@ -4,13 +4,14 @@ import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.UserMapper;
 import com.sosigae.LuckeyTurkey.domain.Hospital;
 import com.sosigae.LuckeyTurkey.domain.Review;
 import com.sosigae.LuckeyTurkey.domain.User;
-import com.sosigae.LuckeyTurkey.repository.ReviewRepository;
 import com.sosigae.LuckeyTurkey.service.HospitalService;
 import com.sosigae.LuckeyTurkey.service.ReviewService;
+import com.sosigae.LuckeyTurkey.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,33 +29,27 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @Autowired
-    private ReviewRepository reviewRepository;
-
-    @Autowired
     private HospitalService hospitalService;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     // 리뷰 폼 보여주기
     @GetMapping("/review/form")
     public String reviewForm(@RequestParam("hospitalId") int hospitalId, Model model) {
-        Hospital hospital = hospitalService.getHospitalInfo(hospitalId); // 병원 정보를 가져옴
+        Hospital hospital = hospitalService.getHospitalInfo(hospitalId);
         model.addAttribute("hospitalId", hospitalId);
         model.addAttribute("hospitalName", hospital.getName());
-        return "hospital/reviewForm";
+        return "review/reviewForm";
     }
 
-    // 리뷰 제출
+    // 리뷰 저장
     @PostMapping("/review/submit")
     public String submitReview(@RequestParam int rating,
                                @RequestParam String comments,
                                @RequestParam int hospitalId,
                                @RequestParam("imageUpload") MultipartFile imageUpload,
                                HttpSession session) {
-
-        System.out.println("ImageUpload: " + (imageUpload != null ? imageUpload.getOriginalFilename() : "null"));
-        System.out.println("Session ID: " + session.getAttribute("id"));
 
         // 이미지 업로드
         String photoFileName = null;
@@ -71,17 +66,20 @@ public class ReviewController {
             }
         }
 
-        // id -> user_id 조회하기
+        // 입력 id -> (pk)user_id 조회하기
         String id = (String) session.getAttribute("id");
+        System.out.println("세션 아이디 : " + id);
         if (id == null) {
             return "redirect:/user/login";
         }
 
-        User user = userMapper.findByUserId(id);
+        User user = userService.findUserById(id);
         if (user == null) {
+            System.out.println("-- 해당 사용자 없음 --");
             return "redirect:/user/login";
         }
-        int userId = user.getUserId();
+        Integer userId = user.getUserId();
+        System.out.println("세션 pk id :" + userId );
 
         Review review = new Review();
         review.setUserId(userId);
@@ -92,6 +90,61 @@ public class ReviewController {
 
         reviewService.saveReview(review);
 
+        return "redirect:/hospital/" + hospitalId;
+    }
+
+    // 리뷰 수정 폼 보여주기
+    @GetMapping("/review/edit/{reviewId}")
+    public String showEditReviewForm(@PathVariable int reviewId, Model model) {
+        Review review = reviewService.getReviewById(reviewId);
+        if (review == null) {
+            return "redirect:/error";
+        }
+        model.addAttribute("review", review);
+        model.addAttribute("hospitalId", review.getHospitalId());
+        return "review/editReviewForm";
+    }
+
+    // 리뷰 수정
+    @PostMapping("/review/update")
+    public String updateReview(@RequestParam int reviewId,
+                               @RequestParam int rating,
+                               @RequestParam String comments,
+                               @RequestParam int hospitalId,
+                               @RequestParam("imageUpload") MultipartFile imageUpload) {
+
+        Review review = reviewService.getReviewById(reviewId);
+        if (review == null) {
+            return "redirect:/error";
+        }
+
+        // 이미지 업로드 로직
+        String photoFileName = review.getPhoto();
+        if (imageUpload != null && !imageUpload.isEmpty()) {
+            try {
+                String directory = "src/main/resources/static/images/";
+                byte[] bytes = imageUpload.getBytes();
+                Path path = Paths.get(directory + imageUpload.getOriginalFilename());
+                Files.write(path, bytes);
+                photoFileName = imageUpload.getOriginalFilename();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        review.setScore((float) rating);
+        review.setContent(comments);
+        review.setPhoto(photoFileName);
+
+        reviewService.saveReview(review);
+
+        return "redirect:/hospital/" + hospitalId;
+    }
+
+    // 리뷰 삭제
+    @PostMapping("/review/delete")
+    public String deleteReview(@RequestParam int reviewId, @RequestParam int hospitalId) {
+        reviewService.deleteReview(reviewId);
         return "redirect:/hospital/" + hospitalId;
     }
 }

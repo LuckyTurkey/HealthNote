@@ -76,7 +76,6 @@ public class ReservationController {
             System.out.println(user.getUserId());
             int userId = user.getUserId();
 
-
             // 예약 정보 설정
             LocalDateTime now = LocalDateTime.now();
             reservation.setCreatedAt(now);

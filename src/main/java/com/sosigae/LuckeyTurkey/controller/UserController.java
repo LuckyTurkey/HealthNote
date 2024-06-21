@@ -57,9 +57,10 @@ public class UserController {
             User account = userService.loginMember(user.getId(), user.getPassword(), user.getIs_admin());
 
             int is_admin = userService.getUserIsAdmin(user.getId());
-            
+
+            System.out.println("로그인 유저 : : " + user.getId() + " " + user.getUserId());
             session.setAttribute("id", account.getId());
-            
+
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             
             if (is_admin == 1) {

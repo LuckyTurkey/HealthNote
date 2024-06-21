@@ -3,6 +3,7 @@ package com.sosigae.LuckeyTurkey.controller;
 import com.sosigae.LuckeyTurkey.domain.Doctor;
 import com.sosigae.LuckeyTurkey.domain.MedicalRecord;
 import com.sosigae.LuckeyTurkey.domain.User;
+import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
 import com.sosigae.LuckeyTurkey.service.DoctorService;
 import com.sosigae.LuckeyTurkey.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class DoctorController {
     private DoctorService doctorService;
     @Autowired
     private UserService userService;
+
 
     // 의사 상세 조회
     @GetMapping("/doctor/{doctorId}")

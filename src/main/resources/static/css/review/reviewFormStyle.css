@@ -76,3 +76,23 @@
 .wrapper button:hover {
     background-color: #0056b3;
 }
+
+.button-group {
+    display: flex;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #0073CF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button.delete {
+    background-color: #FF0000;
+}
