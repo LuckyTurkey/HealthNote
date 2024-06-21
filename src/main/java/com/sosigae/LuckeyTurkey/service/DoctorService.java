@@ -3,6 +3,7 @@ package com.sosigae.LuckeyTurkey.service;
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper;
 import com.sosigae.LuckeyTurkey.domain.Doctor;
 import com.sosigae.LuckeyTurkey.domain.MedicalRecord;
+import com.sosigae.LuckeyTurkey.domain.User;
 //import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
 import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,13 @@ public class DoctorService {
     public Doctor findDoctorByDoctorId(int doctorId) {
         return doctorRepository.findByDoctorId(doctorId);
     }
+
+	public Doctor loginDoctor(String id, String password) {
+		Doctor doctor = doctorRepository.findByIdAndPassword(id, password);
+        if (doctor == null) {
+            throw new RuntimeException("Invalid credentials");
+        }
+        return doctor;
+	}
 
 }

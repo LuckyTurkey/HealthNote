@@ -9,13 +9,13 @@
 }
 
 
-/* Á¦¸ñ */
+/* ï¿½ï¿½ï¿½ï¿½ */
 .login-container h1 {
     text-align: center;
     color: #FFFFFF;
 }
 
-/* ÀÔ·Â ÇÊµå */
+/* ï¿½Ô·ï¿½ ï¿½Êµï¿½ */
 .form-group {
     margin-bottom: 13px;
 }
@@ -34,7 +34,7 @@
     border-radius: 5px;
 }
 
-/* ·Î±×ÀÎ ¹öÆ° */
+/* ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° */
 button[type="submit"] {
     width: 100%;
     padding: 10px;

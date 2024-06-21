@@ -36,12 +36,15 @@
                 <td th:text="${#dates.format(reservation.reservationDate, 'yyyy-MM-dd')}"></td>
                 <td th:text="${reservation.reservationTime}">AM 11:00</td>
                 <td class="actions">
-<!--                    <a th:href="@{/editAppointment/{id}(id=${reservation.id})}">-->
-<!--                        <img src="/images/edit.svg" alt="수정">-->
-<!--                    </a>-->
-<!--                    <a th:href="@{/deleteAppointment/{id}(id=${reservation.id})}" onclick="return confirm('정말 삭제하시겠습니까?');">-->
-<!--                        <img src="/images/delete.svg" alt="삭제">-->
-<!--                    </a>-->
+                    <div class="action-button">
+                        <a th:href="@{/hospital/{hospitalId}/editReservation/{reservationId}(hospitalId=${reservation.hospitalId}, reservationId=${reservation.reservationId})}">
+                            <img th:src="@{/images/nimbus_edit.svg}" alt="수정 버튼" />
+                        </a>
+                        <!--                    <a th:href="@{/deleteAppointment/{id}(id=${reservation.id})}" onclick="return confirm('정말 삭제하시겠습니까?');">-->
+                        <!--                        <img src="/images/delete.svg" alt="삭제">-->
+                        <!--                    </a>-->
+
+                    </div>
                 </td>
 
 

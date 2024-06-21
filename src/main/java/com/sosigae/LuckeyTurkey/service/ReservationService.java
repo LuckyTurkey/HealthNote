@@ -23,12 +23,18 @@ public class ReservationService {
         return reservationRepository.findByHospitalId(hospitalId);
     }
 
-    // 병원, 날짜, 시간 기준으로 예약된 시간 리스트 조회
+
+    // 병원, 날짜, 시간을 기준으로 예약된 시간 목록을 조회
     public List<String> getReservedTimes(int hospitalId, String date) {
         return reservationMapper.findReservedTimesByHospitalAndDate(hospitalId, date);
     }
 
     public Reservation getReservationById(int reservationId) {
-        return reservationRepository.findReservationById(reservationId);
+        return reservationRepository.findById(reservationId).orElse(null);
+    }
+
+    public void updateReservation(Reservation reservation) {
+        reservationRepository.save(reservation);
+
     }
 }
