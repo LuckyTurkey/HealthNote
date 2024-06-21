@@ -4,7 +4,6 @@ import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.UserMapper;
 import com.sosigae.LuckeyTurkey.domain.Hospital;
 import com.sosigae.LuckeyTurkey.domain.Review;
 import com.sosigae.LuckeyTurkey.domain.User;
-import com.sosigae.LuckeyTurkey.repository.ReviewRepository;
 import com.sosigae.LuckeyTurkey.service.HospitalService;
 import com.sosigae.LuckeyTurkey.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,6 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @Autowired
-    private ReviewRepository reviewRepository;
-
-    @Autowired
     private HospitalService hospitalService;
 
     @Autowired
@@ -42,7 +38,7 @@ public class ReviewController {
         Hospital hospital = hospitalService.getHospitalInfo(hospitalId); // 병원 정보를 가져옴
         model.addAttribute("hospitalId", hospitalId);
         model.addAttribute("hospitalName", hospital.getName());
-        return "hospital/reviewForm";
+        return "review/reviewForm";
     }
 
     // 리뷰 제출
@@ -94,4 +90,18 @@ public class ReviewController {
 
         return "redirect:/hospital/" + hospitalId;
     }
+
+    // 리뷰 수정
+    @GetMapping("/review/edit")
+    public String editReviewForm(@RequestParam int reviewId, Model model) {
+        Review review = reviewService.getReviewById(reviewId);
+        if (review == null) {
+            return "redirect:/error";
+        }
+        model.addAttribute("review", review);
+        return "review/editReviewForm";
+    }
+
+
+    // 리뷰 삭제
 }

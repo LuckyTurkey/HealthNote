@@ -25,4 +25,7 @@ public class ReviewService {
     }
 
 
+    public Review getReviewById(int reviewId) {
+        return reviewRepository.getReferenceById(reviewId);
+    }
 }

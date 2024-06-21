@@ -22,6 +22,8 @@ import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -46,7 +48,7 @@ public class HospitalController {
 
     // 병원 상세 조회
     @GetMapping("/hospital/{hospitalId}")
-    public String getHospitalDetail(@PathVariable int hospitalId, Model model) {
+    public String getHospitalDetail(@PathVariable int hospitalId, Model model, HttpSession session) {
         Hospital hospital = hospitalService.getHospitalInfo(hospitalId);
         List<Doctor> doctors = hospitalService.getDocInfoList(hospitalId);
         List<Review> reviews = reviewService.getReviewByHospitalId(hospitalId);
@@ -57,10 +59,17 @@ public class HospitalController {
             if(user != null){
                 r.setUserName(user.getName());
             }
+            System.out.println(r.getUserId());
         }
         model.addAttribute("hospital", hospital);
         model.addAttribute("doctors", doctors);
         model.addAttribute("reviews", reviews);
+
+        // 세션 아이디 유저 조회
+        User sessionUser = userMapper.findByUserId((String) session.getAttribute("id"));
+        model.addAttribute("userId", sessionUser.getUserId());
+        System.out.println("세션값 ");
+        System.out.println(sessionUser.getUserId());
         return "hospital/detail";
     }
 
