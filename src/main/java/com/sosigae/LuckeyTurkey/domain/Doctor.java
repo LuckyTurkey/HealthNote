@@ -41,7 +41,9 @@ public class Doctor implements Serializable {
     @Transient
     public String hospitalAddress;
     
+    /*
     @ManyToOne
     @JoinColumn(name = "HOSPITAL_ID", insertable = false, updatable = false) 
     private Hospital hospital;
+    */
 }

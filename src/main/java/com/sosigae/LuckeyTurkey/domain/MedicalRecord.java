@@ -29,13 +29,14 @@ import java.util.List;
 @Table(name = "MEDICALRECORD")
 public class MedicalRecord implements Serializable {
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MEDICAL_RECORD_ID")
 	int medRecId;
 	@Column(name = "USER_ID")
     int userId;
 	@Column(name = "DOCTOR_ID", insertable = false, updatable = false)
     int doctorId;
+	@Column(name = "HOSPITAL_ID")
     int hospitalId;
     @NotEmpty(message = "환자 성함을 입력하세요.")
     String patient;
@@ -49,10 +50,12 @@ public class MedicalRecord implements Serializable {
     String personal_code;
     String phone;
     
+    
     @ManyToOne
-    @JoinColumn(name = "HOSPITAL_ID")
+    @JoinColumn(name = "HOSPITAL_ID", insertable = false, updatable = false)
     private Hospital hospital;
     
     @OneToMany(mappedBy = "medicalRecord")
     private List<Medication> medications;
+    
 }

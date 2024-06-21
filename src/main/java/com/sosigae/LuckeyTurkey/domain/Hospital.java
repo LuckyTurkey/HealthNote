@@ -25,6 +25,7 @@ public class Hospital implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "HOSPITAL_ID")
     private int hospitalId;
     private String id;
     private String password;
@@ -41,7 +42,9 @@ public class Hospital implements Serializable {
     // 진료 과 추가
     private String department;
     
+    /*
     @OneToMany(mappedBy = "hospital")
     private List<MedicalRecord> medicalRecords;
+    */
 
 }

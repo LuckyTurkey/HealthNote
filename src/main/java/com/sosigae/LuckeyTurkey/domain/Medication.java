@@ -20,8 +20,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "MEDICATION")
 public class Medication implements Serializable {
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "MEDICATION_ID", insertable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Column(name = "MEDICATION_ID", insertable = false, updatable = false)
 	private long medication_id;
 	@Column(name = "USER_ID")
 	private int userId;

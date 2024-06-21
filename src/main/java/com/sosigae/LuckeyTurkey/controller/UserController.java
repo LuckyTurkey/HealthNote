@@ -1,5 +1,7 @@
 package com.sosigae.LuckeyTurkey.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -9,6 +11,8 @@ import com.sosigae.LuckeyTurkey.domain.Hospital;
 import com.sosigae.LuckeyTurkey.service.DoctorService;
 import com.sosigae.LuckeyTurkey.service.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sosigae.LuckeyTurkey.domain.User;
+import com.sosigae.LuckeyTurkey.dto.MedicalRecordDTO;
 import com.sosigae.LuckeyTurkey.service.UserService;
 
 @Controller
@@ -101,5 +106,17 @@ public class UserController {
         return "redirect:/user/login";
     }
     
+
+    @GetMapping("/details")
+    public ResponseEntity<?> getUserDetails(HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("user_id");
+        
+        if (userId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
+        }
+
+        List<MedicalRecordDTO> medicalRecords = userService.getMedicalRecords(userId);
+        return ResponseEntity.ok(medicalRecords);
+    }
     
 }

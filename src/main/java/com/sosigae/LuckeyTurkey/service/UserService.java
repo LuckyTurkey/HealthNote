@@ -2,12 +2,18 @@ package com.sosigae.LuckeyTurkey.service;
 
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper;
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.HospitalMapper;
+import com.sosigae.LuckeyTurkey.repository.MedicalRecordRepository;
 import com.sosigae.LuckeyTurkey.repository.UserRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.UserMapper;
 import com.sosigae.LuckeyTurkey.domain.User;
+import com.sosigae.LuckeyTurkey.dto.MedicalRecordDTO;
 
 @Service
 public class UserService {
@@ -69,4 +75,22 @@ public class UserService {
     public User findByUserId(String id){
         return userMapper.findByUserId(id);
     }
+    
+    @Autowired
+    private MedicalRecordRepository medicalRecordRepository;
+
+    public List<MedicalRecordDTO> getMedicalRecords(int userId) {
+        return medicalRecordRepository.findMedicalRecordsByUserId(userId);
+    }
+
+    //사용자 인증
+    public User loginMember(String id, String password, boolean isAdmin) {
+        User user = userRepository.findByUsernameAndPassword(id, password);
+        if (user == null) {
+            throw new RuntimeException("Invalid credentials");
+        }
+        return user;
+    }
+
+
 }
