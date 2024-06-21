@@ -39,45 +39,61 @@ public class UserController {
     @Autowired
     private HospitalService hospitalService;
 
-    @GetMapping("/register")
-    public String showRegisterForm(Model model) {
+    @GetMapping("/adminRegister")
+    public String showAdminRegisterForm(Model model) {
+        model.addAttribute("hospital", new Hospital());
+        return "user/adminRegister";
+    }
+    @GetMapping("/doctorRegister")
+    public String showDoctorRegisterForm(Model model) {
+        model.addAttribute("doctor", new Doctor());
+        return "user/doctorRegister";
+    }
+    @GetMapping("/patientRegister")
+    public String showPatientRegisterForm(Model model) {
         model.addAttribute("user", new User());
-        return "user/register";
+        return "user/patientRegister";
     }
 
-    @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
-        try {
-            if (user.getIs_admin() == 2) {
-                Doctor doctor = new Doctor();
-                doctor.setId(user.getId());
-                doctor.setPassword(user.getPassword());
-                doctor.setName(user.getName());
-                doctor.setEmail(user.getEmail());
-                doctor.setPhone(user.getPhone());
-                userService.registerDoctor(doctor);
-                
-            } else if (user.getIs_admin() == 1) {
-                Hospital hospital = new Hospital();
-                hospital.setId(user.getId());
-                hospital.setPassword(user.getPassword());
-                hospital.setName(user.getName());
-                hospital.setEmail(user.getEmail());
-                hospital.setPhone(user.getPhone());
-                userService.registerHospital(hospital);
-                
-            } else if (user.getIs_admin() == 3) {
-                userService.registerUser(user);
-            }
-            
-            redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다.");
-            return "user/selectLogin"; 
+    
+    @PostMapping("/adminRegister")
+    public String registerAdmin(@ModelAttribute Hospital hospital, RedirectAttributes redirectAttributes) {
+        try {           
+            userService.registerHospital(hospital);
+
+            redirectAttributes.addFlashAttribute("message", "관리자 회원가입이 완료되었습니다.");
+            return "redirect:/user/selectLogin"; 
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "회원가입 중 오류가 발생하였습니다.");
-            return "redirect:/user/register";
+            return "redirect:/user/adminRegister";
         }
     }
-    
+
+    @PostMapping("/doctorRegister")
+    public String registerDoctor(@ModelAttribute Doctor doctor, RedirectAttributes redirectAttributes) {
+        try {
+            userService.registerDoctor(doctor);
+
+            redirectAttributes.addFlashAttribute("message", "의사 회원가입이 완료되었습니다.");
+            return "redirect:/user/selectLogin"; 
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "회원가입 중 오류가 발생하였습니다.");
+            return "redirect:/user/doctorRegister";
+        }
+    }
+
+    @PostMapping("/patientRegister")
+    public String registerUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+        try {
+            userService.registerUser(user);
+
+            redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다.");
+            return "redirect:/user/selectLogin"; 
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "회원가입 중 오류가 발생하였습니다.");
+            return "redirect:/user/patientRegister";
+        }
+    }
 
     @GetMapping("/login")
     public String showLoginPage() {
