@@ -9,4 +9,9 @@ public class HomeController {
     public String patientMain() {
         return "main/patientMain";
     }
+
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/user/selectLogin";
+    }
 }
