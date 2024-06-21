@@ -11,31 +11,24 @@
     <table>
         <thead>
             <tr>
-            	<th>번호</th>
+            	<!-- <th>번호</th> -->
                 <th>병원(약국)명</th>
                 <th>진료개시일</th>
                 <th>증상기록</th>
-                <th>1회복용량</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="record : ${medicalRecords}">
-            	<td th:text="${iterStat.index + 1}">번호</td>
+            	<!-- <td th:text="${iterStat.index + 1}">번호</td> -->
                 <td th:text="${record.hospitalName}">병원(약국)명</td>
                 <td th:text="${#dates.format(record.medDate, 'yyyy-MM-dd')}">진료개시일</td>
                 <td th:text="${record.medContext}">증상 기록</td>
-                <td>
-                    <ul>
-                        <li th:each="medication : ${record.medications}" th:text="${medication.medication_taken}">1회 복용량</li>
-                        <li th:if="${#lists.isEmpty(record.medications)}">약물 없음</li>
-                    </ul>
-                </td>
             </tr>
-            <!-- 
+             
             <tr th:if="${#lists.isEmpty(medicalRecords)}">
                 <td colspan="4">조회된 진료 기록이 없습니다.</td>
             </tr>
-             -->
+             
             
         </tbody>
     </table>

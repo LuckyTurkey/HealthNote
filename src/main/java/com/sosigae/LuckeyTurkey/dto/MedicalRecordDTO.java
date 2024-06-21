@@ -8,10 +8,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class MedicalRecordDTO {
-	 private String hospitalName;
-	 private Date medDate;
-	 private String medContext;
-	 private int medication_taken;
+	private String hospitalName;
+    private Date medDate;
+    private String medContext;
 	    
 
 	}
