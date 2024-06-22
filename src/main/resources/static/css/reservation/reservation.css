@@ -338,3 +338,11 @@ ul {
     margin-top: 100px;
     margin-bottom: 30px;
 }
+
+.my-reservation{
+    font-family: 'Inter', sans-serif;
+    margin-left: 660px;
+    font-size: 20px;
+    text-decoration: none;
+    margin-top: 10px;
+}

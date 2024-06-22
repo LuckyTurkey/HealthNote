@@ -67,7 +67,6 @@ public class ReservationController {
     //나의 예약
     @GetMapping("/my/{reservationId}")
     public String showMyReservation(@PathVariable("reservationId") int reservationId,
-
                                        Model model) {
         Reservation reservation = reservationService.getReservationById(reservationId);
         Hospital hospital = hospitalService.getHospitalId(reservation.getHospitalId());
