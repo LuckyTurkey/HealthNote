@@ -39,6 +39,9 @@ public class Hospital implements Serializable {
     private String satCloseTime;
     private String email;
     private String phone;
+    @Column(name = "IS_ADMIN")
+    private int isAdmin;
+
 
     // 진료 과 추가
     private String department;
