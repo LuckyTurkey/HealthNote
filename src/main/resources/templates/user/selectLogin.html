@@ -17,8 +17,8 @@
     <form th:action="@{/user/selectLogin}" th:object="${user}"  method="post">
     <div class="grid">
 	    <div class = "grid-item">
-	        <a th:href="@{/user/adminLogin}" class="login-option">관리자로 로그인
-	        <img src="/images/hosInfo.svg" alt="관리자로 로그인">
+	        <a th:href="@{/user/adminLogin}" class="login-option">병원으로 로그인
+	        <img src="/images/hosInfo.svg" alt="병원으로 로그인">
 	        </a>
 	    </div> 
 	    <div class = "grid-item">
@@ -32,7 +32,7 @@
 	    </div>
 	    
 	    <div class = "grid-item">
-		        <a th:href="@{/user/adminRegister}" class="login-option">관리자 회원가입</a>
+		        <a th:href="@{/user/adminRegister}" class="login-option">병원 회원가입</a>
 		    </div> 
 		    <div class = "grid-item">
 		        <a th:href="@{/user/doctorRegister}" class="login-option">의사 회원가입</a>

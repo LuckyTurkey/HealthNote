@@ -92,22 +92,20 @@ public class UserController {
     @PostMapping("/doctorRegister")
     public String registerDoctor(@ModelAttribute Doctor doctor, @RequestParam("hospitalLoginId") String hospitalLoginId,
                                  RedirectAttributes redirectAttributes) {
+        Hospital hospital = hospitalService.findHospitalByLoginId(hospitalLoginId);
+        System.out.println("병원 이름 : " + hospital.getName() + " 병원 pk : " + hospital.getHospitalId());
         try {
-            Hospital hospital = hospitalService.findHospitalByLoginId(hospitalLoginId);
-            if (hospital != null) {
-                doctor.setHospitalId(hospital.getHospitalId());
-            } else {
-                // 병원을 찾지 못한 경우 처리
-                redirectAttributes.addFlashAttribute("error", "병원을 찾을 수 없습니다.");
-                return "redirect:/user/doctorRegister";
-            }
+            doctor.setHospitalId(hospital.getHospitalId());
             doctor.setIs_admin(2);
+            // 디버깅 출력
+            System.out.println("저장 전 Doctor 객체: " + doctor);
+
             doctorService.registerDoctor(doctor);
             redirectAttributes.addFlashAttribute("message", "의사 회원가입이 완료되었습니다.");
             return "redirect:/user/selectLogin";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "회원가입 중 오류가 발생하였습니다.");
-            System.out.println("오류");
+            System.out.println("오류1");
             return "redirect:/user/doctorRegister";
         }
     }
