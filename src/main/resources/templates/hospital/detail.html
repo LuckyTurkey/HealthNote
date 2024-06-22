@@ -8,6 +8,9 @@
 <body>
 <div class="wrapper">
     <div class="hospital-name">
+        <a th:href="@{/search}">
+            <img th:src="@{/images/Vector2.svg}" alt="뒤로가기 아이콘" class="back-icon" />
+        </a>
         <span th:text="${hospital.name}"></span>
         <a th:href="@{/review/form(hospitalId=${hospital.hospitalId})}">
             <img th:src="@{/images/review.svg}" alt="리뷰 아이콘" class="review-icon" />

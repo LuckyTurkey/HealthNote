@@ -66,3 +66,19 @@ td {
     background-color: #00aaff;
     color: #fff;
 }
+
+a {
+    text-decoration-line: none;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 60px;
+    font-size: 40px;
+    font-weight: bold;
+    background-color: #1a8af1;
+    border-radius: 10px;
+    padding: 20px;
+    color: #ffffff;
+    height: 50px;
+}

@@ -241,3 +241,9 @@ body, h1, h2, h3, p, ul, a {
     height: 50px;
     cursor: pointer;
 }
+
+.back-icon {
+    width: 30px;
+    height: 30px;
+    margin: 5px 10px 5px 5px;
+}

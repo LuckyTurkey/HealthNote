@@ -2,6 +2,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    /*background-color: #fafafa;*/
 }
 
 a {
@@ -226,4 +227,15 @@ a {
 .doctor-img {
     display: flex;
     flex-shrink: 0;
+}
+
+.wrapper .title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    background-color: #1a8af1;
+    border-radius: 10px;
+    padding: 20px;
+    color: #ffffff;
 }
