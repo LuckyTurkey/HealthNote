@@ -55,7 +55,9 @@ public class MedicalRecord implements Serializable {
     @JoinColumn(name = "HOSPITAL_ID", insertable = false, updatable = false)
     private Hospital hospital;
     
+    /*
     @OneToMany(mappedBy = "medicalRecord")
     private List<Medication> medications;
+    */
     
 }
