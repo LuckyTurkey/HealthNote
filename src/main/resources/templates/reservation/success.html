@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>병원 예약</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reservation/success.css}">
+    <script>
+        function goToHome() {
+            window.location.href = '/main/patientMain';
+        }
+    </script>
+</head>
+<body style="background-color: #EBEBEB">
+    <div class="container">
+        <div th:if="${reservation != null}">
+            <div class="result-item">
+                <div class="left">
+                    <img class="checkImg" th:src="@{/images/img.png}" alt="check">
+                    <div class="header"><span th:text="${hospitalName}"></span>병원 예약 완료!</div>
+                    <div class="content-style">
+                        <div>예약 날짜</div>
+                        <div th:text="${reservation.reservationDate}"></div>
+                    </div>
+                    <div class="content-style">
+                        <div>예약 시간</div>
+                        <div th:text="${reservation.reservationTime}"></div>
+                    </div>
+                    <div class="content-style">
+                        <div>병원 위치</div>
+                        <div th:text="${hospitalAddress}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="button-container">
+        <button class="home-button" onclick="goToHome()">홈으로 이동</button>
+    </div>
+</body>
+</html>

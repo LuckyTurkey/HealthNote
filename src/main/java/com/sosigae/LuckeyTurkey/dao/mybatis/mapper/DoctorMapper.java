@@ -1,6 +1,9 @@
 package com.sosigae.LuckeyTurkey.dao.mybatis.mapper;
 
-import com.sosigae.LuckeyTurkey.domain.*;
+import com.sosigae.LuckeyTurkey.domain.Doctor;
+import com.sosigae.LuckeyTurkey.domain.MedicalRecord;
+import com.sosigae.LuckeyTurkey.domain.VaccinationRecord;
+import com.sosigae.LuckeyTurkey.domain.Medication;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,7 +19,7 @@ public interface DoctorMapper {
 
     List<Doctor> searchDoctorsByName(@Param("name") String name);
 
-    List<Doctor> searchDoctorsByDepartment( @Param("department") String department);
+    List<Doctor> searchDoctorsByDepartment(@Param("department") String department);
 
     // 특정 환자 백신 접종 현황 확인
     List<VaccinationRecord> getVacRecordByUser(@Param("user_id") String user_id);
@@ -38,4 +41,6 @@ public interface DoctorMapper {
 
     // 특정 의사 정보 확인
     Doctor getDocInfo(@Param("doctor_id") int doctor_id);
+
+    List<Doctor> findDoctorsByDoctorName(@Param("doctorName") String doctorName);
 }

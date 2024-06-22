@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>헬수첩 - 진료 예약 수정</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/hospital/addReservation.css}">
+</head>
+<body>
+<div class="container">
+    <div class="title">
+        진료 예약 수정
+    </div>
+
+    <div class="form-parent">
+        <form id="searchForm" th:action="@{/hospital/{hospitalId}/searchDoctor(hospitalId=${hospitalId})}" method="post" onsubmit="return performSearch(event)">
+            <div class="form-group">
+                <label for="searchText">담당 의사 선생님 또는 진료과를 검색해주세요</label>
+                <input type="text" id="searchText" name="searchText" placeholder="의사 이름 또는 진료과">
+                <div class="search-button">
+                    <button type="submit">검색</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="form-group">
+            <label for="searchResult">검색 결과</label>
+            <div class="search-result" id="searchResult">
+                <!-- 검색 결과는 여기에서 업데이트 -->
+            </div>
+        </div>
+
+        <form th:action="@{/hospital/{hospitalId}/updateReservation/{reservationId}(hospitalId=${hospitalId}, reservationId=${reservation.reservationId})}" th:object="${reservation}" method="post">
+
+            <div class="form-group">
+                <label for="date">진료 날짜 선택</label>
+                <input type="date" id="date" name="reservationDate" th:field="*{reservationDate}">
+            </div>
+
+            <div class="form-group">
+                <label for="time">진료 시간 선택</label>
+                <div class="appointment-time">
+                    <button type="button" onclick="selectAppointmentTime(this)" value="09:00" th:classappend="${reservation.reservationTime == '09:00'} ? 'selected' : ''">09:00</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="09:30" th:classappend="${reservation.reservationTime == '09:30'} ? 'selected' : ''">09:30</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="10:00" th:classappend="${reservation.reservationTime == '10:00'} ? 'selected' : ''">10:00</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="10:30" th:classappend="${reservation.reservationTime == '10:30'} ? 'selected' : ''">10:30</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="11:00" th:classappend="${reservation.reservationTime == '11:00'} ? 'selected' : ''">11:00</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="11:30" th:classappend="${reservation.reservationTime == '11:30'} ? 'selected' : ''">11:30</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="12:00" th:classappend="${reservation.reservationTime == '12:00'} ? 'selected' : ''">12:00</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="13:30" th:classappend="${reservation.reservationTime == '13:30'} ? 'selected' : ''">13:30</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="14:00" th:classappend="${reservation.reservationTime == '14:00'} ? 'selected' : ''">14:00</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="14:30" th:classappend="${reservation.reservationTime == '14:30'} ? 'selected' : ''">14:30</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="15:00" th:classappend="${reservation.reservationTime == '15:00'} ? 'selected' : ''">15:00</button>
+                    <button type="button" onclick="selectAppointmentTime(this)" value="15:30" th:classappend="${reservation.reservationTime == '15:30'} ? 'selected' : ''">15:30</button>
+                </div>
+                <input type="hidden" id="timeSlot" name="reservationTime" th:field="*{reservationTime}">
+            </div>
+
+            <div class="form-group">
+                <label for="patient">환자분 성함</label>
+                <input type="text" id="patient" name="patientName" th:field="${user.name}">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">전화번호</label>
+                <input type="text" id="phone" name="patientPhone" th:field="${user.phone}">
+            </div>
+
+            <!-- 의사 ID 필드를 숨김 입력으로 추가 -->
+            <input type="hidden" id="doctorId" name="doctorId" th:field="*{doctorId}">
+
+            <div class="submit-button">
+                <button type="submit">완료</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<script th:inline="javascript">
+    var hospitalId = /*[[${hospitalId}]]*/ 0;
+    function selectDoctor(doctorId) {
+        var selectedRows = document.querySelectorAll('.search-result-item.selected');
+        selectedRows.forEach(row => {
+            row.classList.remove('selected');
+        });
+
+        var selectedRow = document.querySelector(`tr[data-doctor-id="${doctorId}"]`);
+        selectedRow.classList.add('selected');
+
+        // 의사 ID를 직접 hidden 입력 필드에 업데이트
+        document.getElementById('doctorId').value = doctorId;
+
+        console.log('선택된 의사 ID:', doctorId);
+    }
+
+    function selectAppointmentTime(button) {
+        var selectedButtons = document.querySelectorAll('.appointment-time button.selected');
+        selectedButtons.forEach(btn => {
+            btn.classList.remove('selected');
+        });
+
+        button.classList.add('selected');
+        document.getElementById('timeSlot').value = button.value;
+    }
+
+    function performSearch(event) {
+        event.preventDefault(); // 폼 제출 기본 동작 막기
+
+        var searchText = document.getElementById('searchText').value;
+
+        fetch(`/hospital/${hospitalId}/searchDoctor?searchText=${searchText}`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('searchResult').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('검색 중 오류 발생:', error);
+            });
+
+        return false; // 폼 제출을 막기 위해 false 반환
+    }
+</script>
+
+</body>
+</html>

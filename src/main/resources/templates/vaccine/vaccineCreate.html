@@ -9,6 +9,7 @@
 <div class="topRectangle"></div>
 <form action="/vaccination/create" method="post">
     <input type="hidden" name="userId" th:value="${userId}" />
+    <div class="create-group">
     <div class="form-group">
         <label for="inoculation_name" class="fontCreate">백신 이름</label>
         <input type="text" id="inoculation_name" name="inoculation_name" class="createInput" required>
@@ -17,7 +18,10 @@
         <label for="total_doses" class="fontCreate">총 접종 횟수</label>
         <input type="number" id="total_doses" name="total_doses" class="createInput" required>
     </div>
-    <button class="blueButton" type="submit"><span class="buttonFont">작성하기</span></button>
+    <div class="form-group">
+        <button class="blueButton" type="submit"><span class="buttonFont">작성하기</span></button>
+    </div>
+    </div>
 </form>
 </body>
 </html>

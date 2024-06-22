@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 선택</title>
+    <link rel="stylesheet" th:href="@{/css/user/selectLoginStyle.css}" />
+</head>
+
+<div class="login-box">
+    <div class="title">
+        <img src="/images/logo.svg" alt="로고">
+        <span>헬수첩</span>
+        <img src="/images/logo.svg" alt="로고">
+    </div>
+
+   
+    <form th:action="@{/user/selectLogin}" th:object="${user}"  method="post">
+    <div class="grid">
+	    <div class = "grid-item">
+	        <a th:href="@{/user/adminLogin}" class="login-option">관리자로 로그인
+	        <img src="/images/hosInfo.svg" alt="관리자로 로그인">
+	        </a>
+	    </div> 
+	    <div class = "grid-item">
+	        <a th:href="@{/user/doctorLogin}" class="login-option">의사로 로그인
+	        <img src="/images/doctor.svg" alt="의사로 로그인">
+	        </a>
+	    </div>
+	    <div class = "grid-item">
+	        <a th:href="@{/user/patientLogin}" class="login-option">환자로 로그인
+	        <img src="/images/member.svg" alt="환자로 로그인"></a>
+	    </div>
+	    
+	    <div class = "grid-item">
+		        <a th:href="@{/user/adminRegister}" class="login-option">관리자 회원가입</a>
+		    </div> 
+		    <div class = "grid-item">
+		        <a th:href="@{/user/doctorRegister}" class="login-option">의사 회원가입</a>
+		    </div>
+		    <div class = "grid-item">
+		        <a th:href="@{/user/patientRegister}" class="login-option">환자 회원가입</a>
+		</div>	   
+
+		     
+
+    </div>
+    </form>
+</div>
+
+
+</body>
+</html>

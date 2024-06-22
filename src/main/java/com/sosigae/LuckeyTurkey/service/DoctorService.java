@@ -2,7 +2,11 @@ package com.sosigae.LuckeyTurkey.service;
 
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper;
 import com.sosigae.LuckeyTurkey.domain.Doctor;
+import com.sosigae.LuckeyTurkey.domain.Hospital;
 import com.sosigae.LuckeyTurkey.domain.MedicalRecord;
+import com.sosigae.LuckeyTurkey.domain.User;
+//import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
+import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,15 @@ import java.util.List;
 public class DoctorService {
     @Autowired
     private DoctorMapper doctorMapper;
+
+    @Autowired
+    private DoctorRepository doctorRepository;
+    
+ // Hospital 객체를 DB에 저장
+    public void registerDoctor(Doctor doctor) {
+        doctorRepository.save(doctor);
+    }
+    
 
     // 의사 검색
     public List<Doctor> searchDoctors(String name, String department) {
@@ -43,5 +56,25 @@ public class DoctorService {
 
     // 의사 환자 진료기록 추가
     public void addMedRecord(MedicalRecord medicalRecord) {doctorMapper.addMedRecord(medicalRecord);}
+
+    // 로그인 id로 doctor 찾기
+    public Doctor getDoctorById(String id) {
+        return doctorRepository.findById(id);
+    }
+
+    // doctorId로 doctor 찾기
+    public Doctor findDoctorByDoctorId(int doctorId) {
+        return doctorRepository.findByDoctorId(doctorId);
+    }
+
+	public Doctor loginDoctor(String id, String password) {
+		Doctor doctor = doctorRepository.findByIdAndPassword(id, password);
+        if (doctor == null) {
+            throw new RuntimeException("Invalid credentials");
+        }
+        return doctor;
+	}
+
+
 
 }

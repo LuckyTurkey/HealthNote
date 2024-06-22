@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>헬수첩 - 메인 페이지 (환자)</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main/mainStyle.css}">
+</head>
+<body>
+<div class="container">
+    <div class="title">
+        <img src="/images/logo.svg" alt="로고">
+        <span>헬수첩</span>
+        <img src="/images/logo.svg" alt="로고">
+    </div>
+
+    <div class="grid">
+        <div class="grid-item">
+            <a href="/records">
+                <img src="/images/record.svg" alt="진료 기록">
+                <p>진료 기록</p>
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/">
+                <img src="/images/medication.svg" alt="약물 복용 기록">
+                <p>약물 복용 기록</p>
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/search">
+                <img src="/images/dochos.svg" alt="병원 의사 조회">
+                <p>병원/의사 조회</p>
+            </a>
+        </div>
+        <div class="grid-item">
+            <a th:href="@{/reservation}">
+                <img src="/images/reser.svg" alt="병원 예약">
+                <p>병원 예약</p>
+            </a>
+        </div>
+        <div class="grid-item">
+            <a th:href="@{/vaccination/user/vaccineRecord}">
+                <img src="/images/record.svg" alt="백신 접종 기록">
+                <p>백신 접종 기록</p>
+            </a>
+        </div>
+    </div>
+    <div class="logout">
+        <a th:href="@{/user/selectLogin}" class="logout-button">로그아웃</a>
+    </div>
+</div>
+</body>
+</html>

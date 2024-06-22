@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:p="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>헬수첩 - 메인 페이지 (의사)</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main/mainStyle.css}">
+</head>
+<body>
+<div class="container">
+    <div class="title">
+        <img src="/images/logo.svg" alt="로고">
+        <span>헬수첩</span>
+        <img src="/images/logo.svg" alt="로고">
+    </div>
+
+    <div class="grid">
+        <div class="grid-item">
+            <a th:href="@{|/doctor/${session.doctor}/medRecordList|}">
+                <img src="/images/record.svg" alt="진료 관리">
+                <p>진료 관리</p>
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/">
+                <img src="/images/reser.svg" alt="스케줄 관리">
+                <p>스케줄 관리</p>
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/search">
+                <img src="/images/dochos.svg" alt="병원 의사 조회">
+                <p>의사 조회</p>
+            </a>
+        </div>
+    </div>
+    <div class="logout">
+        <a th:href="@{/user/selectLogin}" class="logout-button">로그아웃</a>
+    </div>
+</div>
+</body>
+</html>

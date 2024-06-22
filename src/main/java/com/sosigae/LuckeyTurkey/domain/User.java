@@ -3,27 +3,48 @@ package com.sosigae.LuckeyTurkey.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import javax.persistence.*;
+
 @SuppressWarnings("serial")
+@Entity
+@Table(name = "USERS")
 public class User implements Serializable {
 	private String id;
-	private String user_id; //String으로 바꿈
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "user_id")
+	private int userId; //int로 바꿈
 	private String password;
 	private String name;
 	private String email;
 	private String phone;
-	private String is_admin;
-	private String personal_code;
+	private int is_admin;
+	@Column(name = "personal_code")
+	private String personalCode;
+
+	//회원가입
+	@Transient
+    private int hospitalId; 
 	
-	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int user_id) {
+		this.userId = user_id;
+	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getUser_id() {
-	        return user_id;
-	    }
 	public String getPassword() {
 		return password;
 	}
@@ -33,15 +54,9 @@ public class User implements Serializable {
 	public String getEmail() {
 		return email;
 	}
-	public String getIs_admin() {
-		return is_admin;
+	public String getPersonalCode() {
+		return personalCode;
 	}
-	public String getPersonal_code() {
-		return personal_code;
-	}
-	 public void setUser_id(String user_id) {
-	        this.user_id = user_id;
-	    }
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -51,11 +66,8 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public void setIs_admin(String is_admin) {
-		this.is_admin = is_admin;
-	}
-	public void setPersonal_code(String personal_code) {
-		this.personal_code = personal_code;
+	public void setPersonalCode(String personal_code) {
+		this.personalCode = personal_code;
 	}
 	public String getPhone() {
 		return phone;
@@ -63,8 +75,15 @@ public class User implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
-	
-	
+	public int getIs_admin() {
+		return is_admin;
+	}
+	public void setIs_admin(int is_admin) {
+		this.is_admin = is_admin;
+	}
+
+
+
+
 
 }

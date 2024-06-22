@@ -19,17 +19,14 @@ a {
     display: block;
     width: 418px;
     height: 49px;
-
     font-size: 24px;
     font-weight: 600;
     line-height: 47px;
     text-align: center;
-
     color: rgba(255, 255, 255, 0.90);
     background: #C0C0C0;
     margin: 0 5px;
     cursor: pointer;
-
     border-radius: 5px;
 }
 
@@ -42,14 +39,11 @@ a {
     display: block;
     width: 120px;
     height: 40px;
-
     text-align: center;
     align-content: center;
-
     font-size: 21px;
     font-style: normal;
     font-weight: 600;
-
     cursor: pointer;
     border: 1px solid #0073CF;
     border-radius: 30px;
@@ -82,7 +76,7 @@ a {
     outline: none;
 }
 
-.input-name{
+.input-name {
 }
 
 .search-icon {
@@ -95,13 +89,12 @@ a {
     cursor: pointer;
 }
 
-.location-icon{
+.location-icon {
     width: 20px;
     height: 30px;
     flex-shrink: 0;
     margin-right: 5px;
 }
-
 
 .category-wrapper {
     display: flex;
@@ -111,7 +104,7 @@ a {
     margin: 0 auto;
 }
 
-.result-wrapper{
+.result-wrapper {
     display: flex;
     justify-content: center;
 }
@@ -139,8 +132,7 @@ a {
 
 .result-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     padding: 15px;
     width: 100%;
 }
@@ -150,13 +142,13 @@ a {
     align-items: center;
     padding: 15px;
     width: 100%;
-
-    gap:25px;
+    gap: 200px;
 }
 
 .result-info {
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 .result-info2 {
@@ -166,11 +158,13 @@ a {
     gap: 10px;
 }
 
-.location-wrapper{
+.location-wrapper {
     display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.location-wrapper2{
+.location-wrapper2 {
     display: flex;
     width: 100%;
     margin-left: 200px;
@@ -182,8 +176,6 @@ a {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-
-    margin: 0 0 10px 23px;
 }
 
 .result-name2 {
@@ -192,7 +184,6 @@ a {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-
 }
 
 .result-hospital {
@@ -201,14 +192,25 @@ a {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-
 }
+
 .result-address {
     color: #000;
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
     line-height: 30px;
+
+}
+
+.result-phone {
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    margin-top: 10px;
+    margin-left: auto;
 }
 
 .result-extra {
@@ -221,7 +223,7 @@ a {
     height: 94px;
 }
 
-.doctor-img{
+.doctor-img {
     display: flex;
     flex-shrink: 0;
 }

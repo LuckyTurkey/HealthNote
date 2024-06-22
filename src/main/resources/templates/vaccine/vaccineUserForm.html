@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>백신 접종 기록 조회</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vaccine/vaccine.css}">
+</head>
+<body>
+
+<div class="topRectangle"></div>
+<form action="/vaccination/findUserId" method="get">
+    <div class="create-group">
+        <div class="form-group">
+            <label for="id" class="fontCreate">사용자 ID 입력</label>
+            <input type="text" id="id" name="id" class="createInput" required>
+        </div>
+        <div class="form-group">
+            <button class="blueButton" type="submit"><span class="buttonFont">백신 접종 기록 조회</span></button>
+        </div>
+    </div>
+
+</form>
+</body>
+</html>
+

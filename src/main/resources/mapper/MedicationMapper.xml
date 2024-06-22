@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sosigae.LuckeyTurkey.dao.mybatis.mapper.MedicationMapper">
+
+  <cache />
+  
+  <!-- 약물 복용 기록 조회 -->
+  <select id="getMedRecord" resultType="Medication">
+    SELECT * FROM MEDICATION 
+    WHERE MEDICATION_ID = #{medication_id, jdbcType=VARCHAR}
+  </select>
+
+	<!-- 복용 약물 등록 -->
+  <insert id="registerMedRecord">
+    INSERT INTO MEDICATION (MEDICATION_ID, USER_ID, NAME, PHOTO, DASAGE_TIME, SINGLE_DOSE, BEFORE_MEAL, DASAGE_START_DATE, DOSAGE_END_DATE, PRECAUTIONS, MEDICATION_TAKEN)
+    VALUES(#{medication_id, jdbcType=VARCHAR}, #{user_id, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{photo, jdbcType=VARCHAR}, #{dosage_time, jdbcType=VARCHAR}, #{single_dose, jdbcType=VARCHAR}, #{before_meal, jdbcType=VARCHAR}, #{dosage_start_date, jdbcType=VARCHAR},
+      #{dosage_end_date, jdbcType=VARCHAR}, #{precautions, jdbcType=VARCHAR}, #{medication_taken, jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- 약물 세부 정보 확인 -->
+  <select id="getMedDetailInfo" resultType="Medication">
+  	SELECT * FROM MEDICATION 
+    WHERE MEDICATION_ID = #{medication_id, jdbcType=VARCHAR}
+  </select>
+  
+  
+</mapper>
