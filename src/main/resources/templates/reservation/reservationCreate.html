@@ -18,7 +18,7 @@
                 <div class="hospital-address" th:text="${hospital.address}">병원 주소</div>
                 </div>
                 <div class="time-slots" id="timeSlots">
-                    <!-- 시간 버튼은 자바스크립트로 동적으로 추가 -->
+                    <!-- 시간 버튼 자바스크립트로 -->
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                     <p th:text="${doctor.hospitalAddress}">병원 주소</p>
                 </div>
                 <div class="time-slots">
-                    <!-- 시간 버튼은 JavaScript로 동적으로 추가 -->
+                    <!-- 시간 버튼 자바스크립트로 -->
                 </div>
             </div>
         </div>
@@ -57,6 +57,7 @@
         let selectedButton = null; // 선택된 버튼 저장
         const hospitalId = document.getElementById('hospitalId').value;
         const reservationDate = document.getElementById('reservationDate').value;
+        console.log(reservationDate);
         fetch(`/reservation/available-times?hospitalId=${hospitalId}&reservationDate=${reservationDate}`)
             .then(response => response.json())
             .then(reservedTimes => {

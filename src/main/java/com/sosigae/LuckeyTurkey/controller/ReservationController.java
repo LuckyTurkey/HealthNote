@@ -110,9 +110,6 @@ public class ReservationController {
     @GetMapping("/available-times")
     @ResponseBody
     public List<String> getAvailableTimes(@RequestParam("hospitalId") int hospitalId, @RequestParam("reservationDate") String reservationDate) {
-//        System.out.println("ㅂㅂ" + reservationService.getReservedTimes(hospitalId, reservationDate).get(0));
-        System.out.println("ㅂㅂ" + hospitalId);
-        System.out.println("ㅁㅁ" + reservationDate);
         return reservationService.getReservedTimes(hospitalId, reservationDate);
     }
 
@@ -147,11 +144,9 @@ public class ReservationController {
     public String updateReservation(@RequestParam("reservationId") int reservationId,
                                     @RequestParam("reservationTime") String reservationTime) {
         Reservation reservation = reservationService.getReservationById(reservationId);
-        System.out.println("qqqq" + reservationId);
-        System.out.println(reservationTime);
         reservation.setReservationTime(reservationTime);
         reservationService.updateReservation(reservation);
-        return "redirect:/reservation/my/" + reservationId;
+        return "redirect:/reservation/success/" + reservation.getReservationId();
     }
 
     @DeleteMapping("/delete/{reservationId}")
