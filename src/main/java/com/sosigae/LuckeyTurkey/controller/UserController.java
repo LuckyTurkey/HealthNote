@@ -204,9 +204,9 @@ public class UserController {
 
             session.setAttribute("hospitalId", account.getId());
             session.setAttribute("hospital", account.getHospitalId());
-            session.setAttribute("is_admin", account.getIsAdmin());
+            session.setAttribute("is_admin", account.getIs_admin());
 
-            System.out.println("로그인 유저 : : " + hospital.getId() + " " + hospital.getHospitalId() + " is_admin : " + account.getIsAdmin());
+            System.out.println("로그인 유저 : : " + hospital.getId() + " " + hospital.getHospitalId() + " is_admin : " + account.getIs_admin());
 
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             return "redirect:/user/hospitalMain"; // 관리자 메인 페이지로 리다이렉트
