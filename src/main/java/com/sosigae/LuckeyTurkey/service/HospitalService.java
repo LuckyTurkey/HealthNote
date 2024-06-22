@@ -88,4 +88,12 @@ public class HospitalService {
         }
         return hospital;
 	}
+
+	//
+	public Hospital findHospitalByStrId(String id) {
+		return hospitalRepository.findById(id);
+				
+	}
+	
+	    
 }

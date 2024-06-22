@@ -12,4 +12,9 @@ public interface HospitalRepository extends JpaRepository<Hospital, Integer>  {
     //Hospital findById(String id);
     
     //Hospital findByUserId(int userId);
+	
+	
+	//매핑
+	Hospital findById(String id);
+	//Hospital findByStrId(String id);
 }

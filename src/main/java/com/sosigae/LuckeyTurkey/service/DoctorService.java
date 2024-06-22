@@ -7,11 +7,17 @@ import com.sosigae.LuckeyTurkey.domain.MedicalRecord;
 import com.sosigae.LuckeyTurkey.domain.User;
 //import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
 import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
+import com.sosigae.LuckeyTurkey.repository.HospitalRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 @Service
 public class DoctorService {
@@ -21,8 +27,18 @@ public class DoctorService {
     @Autowired
     private DoctorRepository doctorRepository;
     
+    @Autowired
+    private HospitalRepository hospitalRepository;
+    
+    //매핑 원래 registerDoctor
  // Hospital 객체를 DB에 저장
     public void registerDoctor(Doctor doctor) {
+    	 Hospital hospital = hospitalRepository.findById(doctor.getHospital().getId());
+         if (hospital == null) {
+             throw new IllegalArgumentException("Hospital not found for given ID");
+         }
+
+        doctor.setHospital(hospital);
         doctorRepository.save(doctor);
     }
     
@@ -74,7 +90,9 @@ public class DoctorService {
         }
         return doctor;
 	}
+	
 
+	
 
 
 }

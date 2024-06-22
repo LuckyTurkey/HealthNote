@@ -73,12 +73,26 @@ public class UserController {
     @PostMapping("/doctorRegister")
     public String registerDoctor(@ModelAttribute Doctor doctor, RedirectAttributes redirectAttributes) {
         try {
+        	Hospital hospital = hospitalService.findHospitalByStrId(doctor.getHospitalLoginId());
+            
+        	doctor = new Doctor();
+        	doctor.setDoctorId(doctor.getDoctorId());
+        	doctor.setId(doctor.getId());
+        	doctor.setPassword(doctor.getPassword());
+            doctor.setName(doctor.getName());
+            doctor.setDepartment(doctor.getDepartment());
+            doctor.setFormerHospital(doctor.getFormerHospital());
+            doctor.setEmail(doctor.getEmail());
+            doctor.setPhone(doctor.getPhone());
+            doctor.setHospitalId(hospital.getHospitalId());           
         	doctor.setIs_admin(2);
+        	//doctorService.save(doctor);
             doctorService.registerDoctor(doctor);
             redirectAttributes.addFlashAttribute("message", "의사 회원가입이 완료되었습니다.");
             return "redirect:/user/selectLogin"; 
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "회원가입 중 오류가 발생하였습니다.");
+            System.out.println("오류");
             return "redirect:/user/doctorRegister";
         }
     }
@@ -228,5 +242,8 @@ public class UserController {
         List<MedicalRecord> medicalRecords = userService.getMedicalRecords(userId);
         return ResponseEntity.ok(medicalRecords);
     }
+    
+    
+   
     
 }

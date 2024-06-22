@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <link rel="stylesheet" th:href="@{/css/user/registerStyle.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/registerStyle.css}" /> 
 </head>
 <body>
     <div class="register-container">
@@ -33,10 +33,17 @@
                 <label for="email">이메일</label>
                 <input type="email" id="email" th:field="*{email}" placeholder="이메일 주소를 입력하세요" required>
             </div>
+            
             <div class="form-group">
                 <label for="phone">전화번호</label>
                 <input type="tel" id="phone" th:field="*{phone}" placeholder="전화번호를 입력하세요 (예: 010-1234-5678)" required>
             </div>
+            
+           <div class="form-group">
+                <label for="hospitalLoginId">현재 근무하는 병원의 ID:</label>
+                <input type="text" id="hospitalLoginId" th:field="*{hospitalLoginId}" placeholder="병원 ID를 입력하세요" required>
+            </div>
+
             <input type="hidden" th:field="*{is_admin}" th:value="${2}" />
             <button type="submit">가입하기</button>
         </form>
