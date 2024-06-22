@@ -17,6 +17,7 @@
 |   [@mnbvcxzyj](https://github.com/mnbvcxzyj)   |    [@ParkSenn](https://github.com/ParkSenn)  | [@hyebim](https://github.com/hyebim)  | [@da-jeong](https://github.com/da-jeong) | 
 
 ---
+화면 구성 📺
 
 
 ## 프로젝트 소개
