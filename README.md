@@ -1,7 +1,7 @@
 # 헬수첩
 
 <div align="center" style="width:50px; height:50px" >
- <img width="329px" src="https://github.com/mnbvcxzyj/DBDB-deep/assets/101444425/1a485402-d3b9-40b1-a10b-72fac7017bf5" alt="joongologo" border="0">
+
 </div>
 
 <br/>
