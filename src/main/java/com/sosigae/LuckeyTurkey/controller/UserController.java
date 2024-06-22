@@ -56,6 +56,25 @@ public class UserController {
         return "user/patientRegister";
     }
 
+    @GetMapping("/patientMain")
+    public String showPatientMain(HttpSession session) {
+        System.out.println(session.getAttribute("is_admin"));
+
+        return "main/patientMain";
+    }
+
+    @GetMapping("/doctorMain")
+    public String showDoctortMain(HttpSession session) {
+        System.out.println(session.getAttribute("is_admin"));
+        return "main/doctorMain";
+    }
+
+    @GetMapping("/hospitalMain")
+    public String showHospitaltMain(HttpSession session) {
+        System.out.println(session.getAttribute("is_admin"));
+        return "main/hospitalMain";
+    }
+
     
     @PostMapping("/adminRegister")
     public String registerAdmin(@ModelAttribute Hospital hospital, RedirectAttributes redirectAttributes) {
@@ -159,11 +178,13 @@ public class UserController {
 
             session.setAttribute("id", account.getId());
             session.setAttribute("user_id", account.getUserId());
+            session.setAttribute("is_admin", account.getIs_admin());
 
-            System.out.println("로그인 유저 : : " + user.getId() + " " + account.getUserId());
+            System.out.println("로그인 유저 : : " + user.getId() + " " + account.getUserId() + " is_admin : " + account.getIs_admin());
 
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
-            return "main/patientMain"; // 환자 메인 페이지로 이동
+            return "redirect:/user/patientMain"; // 환자 메인 페이지로 리다이렉트
+//            return "main/patientMain"; // 환자 메인 페이지로 이동
 
         } catch (IllegalArgumentException e) {
             model.addAttribute("loginResult", "유효하지 않은 사용자입니다.");
@@ -183,9 +204,13 @@ public class UserController {
 
             session.setAttribute("hospitalId", account.getId());
             session.setAttribute("hospital", account.getHospitalId());
+            session.setAttribute("is_admin", account.getIsAdmin());
+
+            System.out.println("로그인 유저 : : " + hospital.getId() + " " + hospital.getHospitalId() + " is_admin : " + account.getIsAdmin());
 
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
-            return "main/hospitalMain"; // 관리자 메인 페이지로 이동
+            return "redirect:/user/hospitalMain"; // 관리자 메인 페이지로 리다이렉트
+//            return "main/hospitalMain"; // 관리자 메인 페이지로 이동
 
         } catch (IllegalArgumentException e) {
             model.addAttribute("loginResult", "유효하지 않은 사용자입니다.");
@@ -205,8 +230,12 @@ public class UserController {
 
             session.setAttribute("doctorId", account.getId());
             session.setAttribute("doctor", account.getDoctorId());
+            session.setAttribute("is_admin", account.getIs_admin());
+
+            System.out.println("로그인 유저 : : " + account.getId() + " " + account.getHospitalId() + " is_admin : " + account.getIs_admin());
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
-            return "main/doctorMain"; // 의사 메인 페이지로 이동
+            return "redirect:/user/doctorMain"; // 의사 메인 페이지로 리다이렉트
+//            return "main/doctorMain"; // 의사 메인 페이지로 이동
 
         } catch (IllegalArgumentException e) {
             model.addAttribute("loginResult", "유효하지 않은 사용자입니다.");

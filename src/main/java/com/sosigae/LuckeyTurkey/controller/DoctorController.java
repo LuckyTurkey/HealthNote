@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class DoctorController {
     @GetMapping("/doctor/{doctorId}/medRecordList")
     public String getMedRecordList(@PathVariable int doctorId, Model model) {
         List<MedicalRecord> medRecList = doctorService.getMedRecordList(doctorId);
+        // reservationDate로 정렬
+        medRecList.sort(Comparator.comparing(MedicalRecord::getMedDate));
         model.addAttribute("medRecList", medRecList);
         return "/doctor/medRecordList";
     }
