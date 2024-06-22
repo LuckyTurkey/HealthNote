@@ -7,6 +7,15 @@
 </head>
 <body>
 <div class="wrapper">
+    <a th:if="${session.is_admin == 3}" th:href="@{/user/patientMain}">
+        <div class="title">HealthNote</div>
+    </a>
+    <a th:if="${session.is_admin == 1}" th:href="@{/user/hospitalMain}">
+        <div class="title">HealthNote</div>
+    </a>
+    <a th:if="${session.is_admin == 2}" th:href="@{/user/doctorMain}">
+        <div class="title">HealthNote</div>
+    </a>
     <div class="search-type-wrapper">
         <a href="#" th:classappend="${searchType == 'hospitals'} ? 'active' : ''" onclick="selectSearchType('hospitals'); return false;"  class="search-type-text">병원</a>
         <a href="#" th:classappend="${searchType == 'doctors'} ? 'active' : ''" onclick="selectSearchType('doctors'); return false;"  class="search-type-text">의사</a>
