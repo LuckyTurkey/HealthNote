@@ -67,13 +67,13 @@ public class DoctorService {
         return doctorRepository.findByDoctorId(doctorId);
     }
 
-	public Doctor loginDoctor(String id, String password) {
-		Doctor doctor = doctorRepository.findByIdAndPassword(id, password);
+   public Doctor loginDoctor(String id, String password) {
+      Doctor doctor = doctorRepository.findByIdAndPassword(id, password);
         if (doctor == null) {
             throw new RuntimeException("Invalid credentials");
         }
         return doctor;
-	}
+   }
 
 
 

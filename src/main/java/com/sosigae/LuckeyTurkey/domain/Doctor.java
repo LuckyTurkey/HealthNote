@@ -29,6 +29,7 @@ public class Doctor implements Serializable {
     private String id;
     private String password;
     
+    @Column(name = "HOSPITAL_ID", insertable = false, updatable = false)
     private int hospitalId;
     
     private String name;
@@ -44,9 +45,14 @@ public class Doctor implements Serializable {
     @Transient
     public String hospitalAddress;
     
-    /*
+    
+    //매핑
+    @Transient
+    private String hospitalLoginId;
+
     @ManyToOne
-    @JoinColumn(name = "HOSPITAL_ID", insertable = false, updatable = false) 
+    @JoinColumn(name = "hospital_id", insertable = false, updatable = false)
     private Hospital hospital;
-    */
+
+    
 }

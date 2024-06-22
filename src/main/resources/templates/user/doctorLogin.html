@@ -7,7 +7,8 @@
 </head>
 <body>
 <div class="login-container">
-    <h1>헬수첩 의사 로그인</h1>
+    <h1>헬수첩</h1>
+     <h1>의사 로그인</h1>
     <form th:action="@{/user/doctorLogin}" th:object="${doctor}" method="post">
         <input type="hidden" name="is_admin" value="2" />
         <div class="form-group">
