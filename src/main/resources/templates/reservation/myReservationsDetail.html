@@ -8,7 +8,14 @@
 <body>
 <div class="container">
     <header>
-        <h1>병원 예약</h1>
+        <div class="topHeader">
+            <h1>병원 예약</h1>
+        </div>
+        <div class="home-link">
+            <a th:href="@{/main/patientMain}">
+                <img th:src="@{/images/img_1.png}" alt="check">
+            </a>
+        </div>
     </header>
     <section class="results-section">
         <div th:if="${hospital != null}">

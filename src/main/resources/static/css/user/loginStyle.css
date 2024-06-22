@@ -1,23 +1,48 @@
-.login-container {
-    width: 300px;
-    margin: 0 auto;
-    padding: 60px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #AFDBF5;
-    padding-top: 50px;
+    height: 100vh; 
+    margin: 0;
 }
 
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
 
-/* ���� */
-.login-container h1 {
+.title span{
+    color: #FFF;
     text-align: center;
-    color: #FFFFFF;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+/* ���� */
+h1 {
+    text-align: center;
+    color: #808080;
+}
+
+.login-container {
+    width: 300px;
+    margin-top: 20px;
+    margin: 0 auto;
+    padding: 60px;
+    background-color: #FFF;
+    padding-top: 50px;
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 /* �Է� �ʵ� */
 .form-group {
-    margin-bottom: 13px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
@@ -28,10 +53,13 @@
 
 .form-group input[type="text"],
 .form-group input[type="password"] {
-    width: 100%;
+    width: calc(100% - 16px);
     padding: 8px;
     border: 1.5px solid #ccc;
     border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1); 
+    background-color: #fff; 
+    margin-top: 5px;
 }
 
 /* �α��� ��ư */

@@ -3,12 +3,6 @@ package com.sosigae.LuckeyTurkey.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
@@ -18,7 +12,8 @@ public class User implements Serializable {
 	private String id;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_seq")
+	@SequenceGenerator(name = "patient_seq", sequenceName = "patient_seq", allocationSize = 1)
 	@Column(name = "user_id")
 	private int userId; //int로 바꿈
 	private String password;

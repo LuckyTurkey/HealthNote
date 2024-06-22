@@ -23,8 +23,17 @@
 
     </script>
 </head>
+<header>
+</header>
 <body>
-<div class="topRectangle"></div>
+<div class="topRectangle">
+    <div class="topHeader"></div>
+    <div class="home-link">
+        <a th:href="@{/main/patientMain}">
+            <img th:src="@{/images/img_1.png}" alt="check">
+        </a>
+    </div>
+</div>
 <div class="container">
 <div class="blueRectangle">접종내역 보기</div>
 <div class="greyRectangle">진료기록 보기</div>

@@ -5,7 +5,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f9f9f9;
+    background-color: #AFDBF5;
     height: 100vh; 
 }
 
@@ -15,7 +15,7 @@ body {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #AFDBF5;
+    background-color: #FFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -26,7 +26,7 @@ body {
 
 .register-container h1 {
     text-align: center;
-    color: #FFFFFF;
+    color: #808080;
     margin-bottom: 20px;
 }
 

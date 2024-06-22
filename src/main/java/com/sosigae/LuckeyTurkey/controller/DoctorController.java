@@ -3,11 +3,11 @@ package com.sosigae.LuckeyTurkey.controller;
 import com.sosigae.LuckeyTurkey.domain.Doctor;
 import com.sosigae.LuckeyTurkey.domain.MedicalRecord;
 import com.sosigae.LuckeyTurkey.domain.User;
-import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
 import com.sosigae.LuckeyTurkey.service.DoctorService;
 import com.sosigae.LuckeyTurkey.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -112,6 +112,8 @@ public class DoctorController {
         // 로그인 구현 전까지 임시적 redirect 주소
         return "redirect:/doctor/" + medicalRecord.getDoctorId() + "/medRecordList";
     }
-
+    
+ 
+   
 
 }
