@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.UserMapper;
 import com.sosigae.LuckeyTurkey.domain.Doctor;
 import com.sosigae.LuckeyTurkey.domain.Hospital;
+import com.sosigae.LuckeyTurkey.domain.MedicalRecord;
 import com.sosigae.LuckeyTurkey.domain.User;
 import com.sosigae.LuckeyTurkey.dto.MedicalRecordDTO;
 
@@ -80,9 +81,6 @@ public class UserService {
     public User findUserByCode(String personal_code) {
         return userMapper.findUserByCode(personal_code);
     }
-    public User findUserByPersonalCode(String personalCode) {
-        return userRepository.findByPersonalCode(personalCode);
-    }
     // 전화번호와 이름으로 user 찾기
     public User findUserByNameAndPhone(String name, String phone) {
         return userRepository.findByNameAndPhone(name, phone);
@@ -105,7 +103,7 @@ public class UserService {
     @Autowired
     private MedicalRecordRepository medicalRecordRepository;
 
-    public List<MedicalRecordDTO> getMedicalRecords(int userId) {
+    public List<MedicalRecord> getMedicalRecords(int userId) {
         return medicalRecordRepository.findMedicalRecordsByUserId(userId);
     }
 

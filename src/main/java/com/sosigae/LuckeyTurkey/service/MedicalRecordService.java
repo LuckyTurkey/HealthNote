@@ -18,7 +18,13 @@ public class MedicalRecordService {
 	@Autowired
     private MedicalRecordRepository medicalRecordRepository;
 
+	
+	 public List<MedicalRecord> getMedicalRecordsByUserId(int userId) {
+	        return medicalRecordRepository.findMedicalRecordsByUserId(userId);
+	    }
+	 /*
 	public List<MedicalRecordDTO> getMedicalRecordsByUserId(int userId) {
         return medicalRecordRepository.findMedicalRecordsByUserId(userId);
     }
+    */
 }

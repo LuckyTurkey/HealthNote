@@ -13,10 +13,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, Integer> {
 	
-	@Query("SELECT new com.sosigae.LuckeyTurkey.dto.MedicalRecordDTO(h.name, mr.medDate, mr.medContext) " +
-            "FROM MedicalRecord mr " +
-            "JOIN mr.hospital h " +
-            "WHERE mr.userId = :userId")
-	List<MedicalRecordDTO> findMedicalRecordsByUserId(@Param("userId") int userId);
-	
+	@Query("SELECT mr " +
+	           "FROM MedicalRecord mr JOIN Hospital h ON mr.hospitalId = h.hospitalId " +
+	           "WHERE mr.userId = :userId")
+	    List<MedicalRecord> findMedicalRecordsByUserId(@Param("userId") int userId);
 } 

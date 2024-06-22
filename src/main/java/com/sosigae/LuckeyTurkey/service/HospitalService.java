@@ -25,6 +25,11 @@ public class HospitalService {
     @Autowired
     private DoctorRepository doctorRepository;
 
+    // Hospital 객체를 DB에 저장
+    public void registerHospital(Hospital hospital) {
+        hospitalRepository.save(hospital);
+    }
+    
     // 병원 검색
     public List<Hospital> searchHospitals(String name, String department) {
         if (!name.isEmpty() && !department.isEmpty()) {

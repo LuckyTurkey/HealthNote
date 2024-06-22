@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import com.sosigae.LuckeyTurkey.domain.Doctor;
 import com.sosigae.LuckeyTurkey.domain.Hospital;
+import com.sosigae.LuckeyTurkey.domain.MedicalRecord;
 import com.sosigae.LuckeyTurkey.service.DoctorService;
 import com.sosigae.LuckeyTurkey.service.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,8 @@ public class UserController {
     @PostMapping("/adminRegister")
     public String registerAdmin(@ModelAttribute Hospital hospital, RedirectAttributes redirectAttributes) {
         try {           
-            userService.registerHospital(hospital);
-
+            //userService.registerHospital(hospital);
+            hospitalService.registerHospital(hospital);
             redirectAttributes.addFlashAttribute("message", "관리자 회원가입이 완료되었습니다.");
             return "redirect:/user/selectLogin"; 
         } catch (Exception e) {
@@ -72,7 +73,7 @@ public class UserController {
     @PostMapping("/doctorRegister")
     public String registerDoctor(@ModelAttribute Doctor doctor, RedirectAttributes redirectAttributes) {
         try {
-            userService.registerDoctor(doctor);
+            doctorService.registerDoctor(doctor);
 
             redirectAttributes.addFlashAttribute("message", "의사 회원가입이 완료되었습니다.");
             return "redirect:/user/selectLogin"; 
@@ -148,7 +149,7 @@ public class UserController {
             session.setAttribute("id", account.getId());
             session.setAttribute("user_id", account.getUserId());
 
-            System.out.println("로그인 유저 : : " + user.getId() + " " + user.getUserId());
+            System.out.println("로그인 유저 : : " + user.getId() + " " + account.getUserId());
 
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             return "main/patientMain"; // 환자 메인 페이지로 이동
@@ -224,7 +225,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
         }
 
-        List<MedicalRecordDTO> medicalRecords = userService.getMedicalRecords(userId);
+        List<MedicalRecord> medicalRecords = userService.getMedicalRecords(userId);
         return ResponseEntity.ok(medicalRecords);
     }
     

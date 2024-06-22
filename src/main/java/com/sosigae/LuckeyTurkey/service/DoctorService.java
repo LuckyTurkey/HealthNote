@@ -2,6 +2,7 @@ package com.sosigae.LuckeyTurkey.service;
 
 import com.sosigae.LuckeyTurkey.dao.mybatis.mapper.DoctorMapper;
 import com.sosigae.LuckeyTurkey.domain.Doctor;
+import com.sosigae.LuckeyTurkey.domain.Hospital;
 import com.sosigae.LuckeyTurkey.domain.MedicalRecord;
 import com.sosigae.LuckeyTurkey.domain.User;
 //import com.sosigae.LuckeyTurkey.repository.DoctorRepository;
@@ -19,6 +20,12 @@ public class DoctorService {
 
     @Autowired
     private DoctorRepository doctorRepository;
+    
+ // Hospital 객체를 DB에 저장
+    public void registerDoctor(Doctor doctor) {
+        doctorRepository.save(doctor);
+    }
+    
 
     // 의사 검색
     public List<Doctor> searchDoctors(String name, String department) {
@@ -67,5 +74,7 @@ public class DoctorService {
         }
         return doctor;
 	}
+
+
 
 }
