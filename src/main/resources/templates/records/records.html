@@ -18,7 +18,7 @@
         </thead>
         <tbody>
             <tr th:each="record : ${medicalRecords}">
-                <td th:text="${record.name}">병원(약국)명</td>
+                <td th:text="${record.hospital.name}">병원(약국)명</td>
                 <td th:text="${#dates.format(record.medDate, 'yyyy-MM-dd')}">진료개시일</td>
                 <td th:text="${record.medContext}">증상 기록</td>
             </tr>

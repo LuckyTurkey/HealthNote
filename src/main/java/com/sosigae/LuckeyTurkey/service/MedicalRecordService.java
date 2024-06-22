@@ -27,4 +27,9 @@ public class MedicalRecordService {
         return medicalRecordRepository.findMedicalRecordsByUserId(userId);
     }
     */
+
+
+	 public List<MedicalRecord> getMedicalRecordsWithHospitalInfoByUserId(int userId) {
+	        return medicalRecordRepository.findMedicalRecordsWithHospitalInfoByUserId(userId);
+	    }
 }

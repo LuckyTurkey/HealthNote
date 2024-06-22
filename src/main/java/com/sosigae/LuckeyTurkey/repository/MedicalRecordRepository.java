@@ -17,4 +17,8 @@ public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, In
 	           "FROM MedicalRecord mr JOIN Hospital h ON mr.hospitalId = h.hospitalId " +
 	           "WHERE mr.userId = :userId")
 	    List<MedicalRecord> findMedicalRecordsByUserId(@Param("userId") int userId);
+	
+	@Query("SELECT mr FROM MedicalRecord mr JOIN FETCH mr.hospital WHERE mr.userId = :userId")
+    List<MedicalRecord> findMedicalRecordsWithHospitalInfoByUserId(int userId);
+	
 } 
