@@ -60,7 +60,7 @@ public class UserController {
     @PostMapping("/adminRegister")
     public String registerAdmin(@ModelAttribute Hospital hospital, RedirectAttributes redirectAttributes) {
         try {           
-            //userService.registerHospital(hospital);
+        	hospital.setIs_admin(1);
             hospitalService.registerHospital(hospital);
             redirectAttributes.addFlashAttribute("message", "관리자 회원가입이 완료되었습니다.");
             return "redirect:/user/selectLogin"; 

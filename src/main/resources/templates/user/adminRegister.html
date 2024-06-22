@@ -54,7 +54,7 @@
                 <label for="department">진료과</label>
                 <input type="text" id="department" th:field="*{department}" placeholder="진료 과를 입력하세요" required>
             </div>
-            
+            <input type="hidden" th:field="*{is_admin}" th:value="${1}" />
             <button type="submit">가입하기</button>
         </form>
     </div>
