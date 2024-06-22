@@ -29,7 +29,11 @@ public class HospitalService {
     public void registerHospital(Hospital hospital) {
         hospitalRepository.save(hospital);
     }
-    
+
+    public Hospital findHospitalByLoginId(String loginId){
+        return hospitalRepository.findHospitalByLoginId(loginId);
+    }
+
     // 병원 검색
     public List<Hospital> searchHospitals(String name, String department) {
         if (!name.isEmpty() && !department.isEmpty()) {

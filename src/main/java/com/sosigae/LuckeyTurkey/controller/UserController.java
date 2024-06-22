@@ -71,31 +71,28 @@ public class UserController {
     }
 
     @PostMapping("/doctorRegister")
-    public String registerDoctor(@ModelAttribute Doctor doctor, RedirectAttributes redirectAttributes) {
+    public String registerDoctor(@ModelAttribute Doctor doctor, @RequestParam("hospitalLoginId") String hospitalLoginId,
+                                 RedirectAttributes redirectAttributes) {
         try {
-        	Hospital hospital = hospitalService.findHospitalByStrId(doctor.getHospitalLoginId());
-            
-        	doctor = new Doctor();
-        	doctor.setDoctorId(doctor.getDoctorId());
-        	doctor.setId(doctor.getId());
-        	doctor.setPassword(doctor.getPassword());
-            doctor.setName(doctor.getName());
-            doctor.setDepartment(doctor.getDepartment());
-            doctor.setFormerHospital(doctor.getFormerHospital());
-            doctor.setEmail(doctor.getEmail());
-            doctor.setPhone(doctor.getPhone());
-            doctor.setHospitalId(hospital.getHospitalId());           
-        	doctor.setIs_admin(2);
-        	//doctorService.save(doctor);
+            Hospital hospital = hospitalService.findHospitalByLoginId(hospitalLoginId);
+            if (hospital != null) {
+                doctor.setHospitalId(hospital.getHospitalId());
+            } else {
+                // 병원을 찾지 못한 경우 처리
+                redirectAttributes.addFlashAttribute("error", "병원을 찾을 수 없습니다.");
+                return "redirect:/user/doctorRegister";
+            }
+            doctor.setIs_admin(2);
             doctorService.registerDoctor(doctor);
             redirectAttributes.addFlashAttribute("message", "의사 회원가입이 완료되었습니다.");
-            return "redirect:/user/selectLogin"; 
+            return "redirect:/user/selectLogin";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "회원가입 중 오류가 발생하였습니다.");
             System.out.println("오류");
             return "redirect:/user/doctorRegister";
         }
     }
+
 
     @PostMapping("/patientRegister")
     public String registerUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
