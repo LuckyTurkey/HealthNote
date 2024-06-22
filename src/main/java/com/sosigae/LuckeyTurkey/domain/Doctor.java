@@ -33,7 +33,7 @@ public class Doctor implements Serializable {
     
     private String name;
     private String department;
-    private boolean isAdmin;
+    private int is_admin;
     private String formerHospital;
     private String email;
     private String phone;
