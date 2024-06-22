@@ -16,6 +16,10 @@
                 <div class="left">
                     <div class="hospital-name" th:text="${hospital.name}">병원 이름</div>
                     <div class="hospital-address" th:text="${hospital.address}">병원 주소</div>
+<!--                    <div class="hospital-address">-->
+<!--                        기존 예약 시간 : <x th:text="${reservationTime}"></x>-->
+<!--                    </div>-->
+<!--                    <div class="hospital-address" th:text="기존 예약 시간은 ${reservationTime}">기존 예약 시간</div>-->
                 </div>
                 <div class="time-slots" id="timeSlots">
                     <!-- 시간 버튼은 자바스크립트로 동적으로 추가 -->

@@ -72,6 +72,7 @@ public class ReservationController {
         Hospital hospital = hospitalService.getHospitalId(reservation.getHospitalId());
         model.addAttribute("hospital", hospital);
         model.addAttribute("reservationDate", reservation.getReservationDate());
+        model.addAttribute("reservationTime", reservation.getReservationTime());
         return "reservation/myReservationsDetail";
     }
 
@@ -109,8 +110,9 @@ public class ReservationController {
     @GetMapping("/available-times")
     @ResponseBody
     public List<String> getAvailableTimes(@RequestParam("hospitalId") int hospitalId, @RequestParam("reservationDate") String reservationDate) {
-        System.out.println("호호호"+hospitalId);
-        System.out.println(reservationDate);
+//        System.out.println("ㅂㅂ" + reservationService.getReservedTimes(hospitalId, reservationDate).get(0));
+        System.out.println("ㅂㅂ" + hospitalId);
+        System.out.println("ㅁㅁ" + reservationDate);
         return reservationService.getReservedTimes(hospitalId, reservationDate);
     }
 
