@@ -25,9 +25,6 @@ public class MedicalRecordController {
 	@Autowired
     private MedicalRecordService medicalRecordService;
 
-	
-	 
-    
 	@Autowired
     private UserService userService;
 	

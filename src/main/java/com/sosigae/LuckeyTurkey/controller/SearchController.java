@@ -54,18 +54,4 @@ public class SearchController {
     }
 
 
-//    @GetMapping("/reservation")
-//    public List<?> search(
-//            @RequestParam String type,
-//            @RequestParam String keyword) {
-//        if ("hospital".equalsIgnoreCase(type)) {
-//            return hospitalService.searchHospitalsByName(keyword);
-//        } else if ("doctor".equalsIgnoreCase(type)) {
-//            return doctorService.searchDoctorsByName(keyword);
-//        } else {
-//            return new ArrayList<>();
-//        }
-//    }
-
-
 }

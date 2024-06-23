@@ -39,6 +39,11 @@
             <input type="image" class="search-icon" src="/images/searchicon.svg" alt="Search" onclick="document.querySelector('.search-form').submit(); return false;" />
         </form>
     </div>
+    <div class="reset-button-container">
+        <a th:href="@{/search}">
+            <div class="reset-button"> Reset </div>
+        </a>
+    </div>
 
     <div class="result-wrapper">
         <ul class="results-list">

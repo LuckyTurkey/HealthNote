@@ -28,14 +28,13 @@ public class Doctor implements Serializable {
     private int doctorId;
     private String id;
     private String password;
-    
-//    @Column(name = "HOSPITAL_ID", insertable = false, updatable = false)
     @Column(name = "HOSPITAL_ID")
     private int hospitalId;
     
     private String name;
     private String department;
-    private int is_admin;
+    @Column(name = "IS_ADMIN")
+    private int isAdmin;
     private String formerHospital;
     private String email;
     private String phone;
