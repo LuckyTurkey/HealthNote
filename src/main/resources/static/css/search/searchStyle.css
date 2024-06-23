@@ -239,3 +239,22 @@ a {
     padding: 20px;
     color: #ffffff;
 }
+
+.wrapper .reset-button {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #1a8af1;
+    border-radius: 10px;
+    padding: 20px;
+    color: #ffffff;
+    width: 40px;
+    height: 10px;
+}
+
+.reset-button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}

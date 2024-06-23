@@ -24,7 +24,6 @@ public class VaccinationRecord {
     private int userId;
     private String inoculation_name;
     private String latest_date;
-    //private LocalDate latest_date;
     private String start_date;
     private int total_doses;
     private int doses_received;

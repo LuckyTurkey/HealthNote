@@ -35,10 +35,6 @@ public class ReservationService {
         return reservationRepository.findById(reservationId).orElse(null);
     }
 
-    //유저 아이디로 예약 찾기
-//    public List<Reservation> getReservationsByUserId(int userId) {
-//        return reservationRepository.findByUserId(userId);
-//    }
     public List<Reservation> getReservationsByUserId(int userId) {
         List<Reservation> reservations = reservationRepository.findByUserId(userId);
         for (Reservation reservation : reservations) {

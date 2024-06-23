@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sosigae.LuckeyTurkey.domain.User;
-import com.sosigae.LuckeyTurkey.dto.MedicalRecordDTO;
 import com.sosigae.LuckeyTurkey.service.UserService;
 
 @Controller
@@ -96,7 +95,7 @@ public class UserController {
         System.out.println("병원 이름 : " + hospital.getName() + " 병원 pk : " + hospital.getHospitalId());
         try {
             doctor.setHospitalId(hospital.getHospitalId());
-            doctor.setIs_admin(2);
+            doctor.setIsAdmin(2);
             // 디버깅 출력
             System.out.println("저장 전 Doctor 객체: " + doctor);
 
@@ -228,9 +227,9 @@ public class UserController {
 
             session.setAttribute("doctorId", account.getId());
             session.setAttribute("doctor", account.getDoctorId());
-            session.setAttribute("is_admin", account.getIs_admin());
+            session.setAttribute("is_admin", account.getIsAdmin());
 
-            System.out.println("로그인 유저 : : " + account.getId() + " " + account.getHospitalId() + " is_admin : " + account.getIs_admin());
+            System.out.println("로그인 유저 : : " + account.getId() + " " + account.getHospitalId() + " is_admin : " + account.getIsAdmin());
             model.addAttribute("loginResult", "로그인 성공: " + account.getName());
             return "redirect:/user/doctorMain"; // 의사 메인 페이지로 리다이렉트
 //            return "main/doctorMain"; // 의사 메인 페이지로 이동

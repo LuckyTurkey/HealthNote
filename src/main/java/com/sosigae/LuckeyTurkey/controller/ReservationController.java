@@ -31,11 +31,7 @@ public class ReservationController {
     @Autowired
     private HospitalService hospitalService;
     @Autowired
-    private DoctorService doctorService;
-    @Autowired
     private UserService userService;
-    @Autowired
-    private ReservationRepository reservationRepository;
 
     @GetMapping
     public String showReservationPage(Model model) {
@@ -94,7 +90,7 @@ public class ReservationController {
             reservation.setCreatedAt(now);
             reservation.setUserId(userId);
             reservation.setHospitalId(hospitalId);
-            reservation.setDoctorId(1); // 예약할 의사의 ID 설정
+            reservation.setDoctorId(1052); // 예약할 의사의 ID 설정
             reservation.setReservationDate(reservation.getReservationDate());
             reservation.setReservationTime(reservation.getReservationTime());
 
